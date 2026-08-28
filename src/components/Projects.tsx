@@ -42,9 +42,9 @@ export const Projects: React.FC = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 sm:px-5 py-2 rounded-xl transition-all duration-300 border ${
+              className={`px-4 sm:px-5 py-2 rounded-xl transition-all duration-200 border ${
                 activeTab === tab
-                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.2)] font-semibold'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.2)] font-semibold tab-active-glow scale-[1.02]'
                   : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
               }`}
             >
@@ -53,8 +53,8 @@ export const Projects: React.FC = () => {
           ))}
         </div>
 
-        {/* Project Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {/* Project Cards with Tab Fade-in Animation */}
+        <div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 tab-fade-in">
           {filteredProjects.map((project) => (
             <div
               key={project.id}

@@ -44,9 +44,9 @@ export const Skills: React.FC = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 sm:px-5 py-2 rounded-xl transition-all duration-300 border flex items-center gap-1.5 ${
+              className={`px-4 sm:px-5 py-2 rounded-xl transition-all duration-200 border flex items-center gap-1.5 ${
                 selectedCategory === cat
-                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.2)] font-semibold'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_20px_rgba(34,211,238,0.2)] font-semibold tab-active-glow scale-[1.02]'
                   : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
               }`}
             >
@@ -56,8 +56,8 @@ export const Skills: React.FC = () => {
           ))}
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        {/* Skills Grid with Tab Fade-in Animation */}
+        <div key={selectedCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 tab-fade-in">
           {filteredSkills.map((skill) => {
             const brandStyle = getTechBrandColor(skill.name);
 

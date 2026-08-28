@@ -187,27 +187,27 @@ export const Hero: React.FC = () => {
         <div className="lg:col-span-5 w-full max-w-full overflow-hidden">
           <div className="rounded-2xl border border-cyan-500/20 bg-[#0d1117] shadow-2xl overflow-hidden backdrop-blur-xl relative w-full">
             {/* Editor Window Header & Tabs */}
-            <div className="bg-[#161b22] px-2.5 sm:px-3.5 py-2 sm:py-2.5 border-b border-slate-800 flex items-center justify-between gap-1 overflow-x-auto">
+            <div className="bg-[#161b22] px-3 sm:px-4 py-2 border-b border-slate-800 flex items-center justify-between gap-2">
               {/* Window Controls */}
-              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#ff5f56] inline-block shadow-sm" />
                 <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#ffbd2e] inline-block shadow-sm" />
                 <span className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#27c93f] inline-block shadow-sm" />
               </div>
 
-              {/* Tabs */}
-              <div className="flex items-center gap-1 bg-[#0d1117] p-0.5 rounded-lg border border-slate-800/80 overflow-x-auto max-w-[calc(100%-80px)] sm:max-w-none">
+              {/* Clean Borderless Tabs */}
+              <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar">
                 {(['developer', 'stack', 'architecture'] as TabKey[]).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono transition-all duration-200 flex items-center gap-1 shrink-0 ${
+                    className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] font-mono transition-all duration-150 flex items-center gap-1.5 shrink-0 ${
                       activeTab === tab
-                        ? 'bg-[#21262d] text-cyan-300 font-semibold shadow-sm'
-                        : 'text-slate-400 hover:text-slate-200'
+                        ? 'bg-slate-800/80 text-cyan-300 font-semibold'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
                     }`}
                   >
-                    <Code2 className="w-3 h-3 hidden sm:inline" />
+                    <Code2 className="w-3 h-3" />
                     <span>{snippets[tab].filename}</span>
                   </button>
                 ))}
@@ -216,7 +216,7 @@ export const Hero: React.FC = () => {
               {/* Copy Code Action */}
               <button
                 onClick={handleCopy}
-                className="p-1 sm:p-1.5 rounded-md hover:bg-[#21262d] text-slate-400 hover:text-cyan-300 transition-colors shrink-0"
+                className="p-1 sm:p-1.5 rounded-md hover:bg-slate-800 text-slate-400 hover:text-cyan-300 transition-colors shrink-0"
                 title="Copy snippet"
                 aria-label="Copy snippet"
               >
@@ -224,8 +224,11 @@ export const Hero: React.FC = () => {
               </button>
             </div>
 
-            {/* Code Body with Line Numbers & Syntax Colors */}
-            <div className="p-3 sm:p-5 font-mono text-[11px] sm:text-[13px] leading-relaxed overflow-x-auto text-left min-h-[260px] sm:min-h-[310px] bg-[#0d1117] max-w-full">
+            {/* Code Body with Line Numbers & Syntax Colors with Tab Transition Animation */}
+            <div
+              key={activeTab}
+              className="tab-fade-in p-3 sm:p-5 font-mono text-[11px] sm:text-[13px] leading-relaxed overflow-x-auto no-scrollbar text-left min-h-[260px] sm:min-h-[310px] bg-[#0d1117] max-w-full"
+            >
               <div className="flex gap-2.5 sm:gap-4">
                 {/* Line numbers */}
                 <div className="select-none text-slate-600 text-right space-y-0.5 font-mono text-[10px] sm:text-xs pr-1.5 sm:pr-2 border-r border-slate-800/80 shrink-0">
