@@ -42,10 +42,10 @@ export const Hero: React.FC = () => {
           <div className="text-slate-600">// Production-proven technology matrix</div>
           <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">primaryStack</span> = &#123;</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">mobile</span>: [<span className="text-[#98c379]">'Flutter'</span>, <span className="text-[#98c379]">'Dart'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">frontend</span>: [<span className="text-[#98c379]">'React.js'</span>, <span className="text-[#98c379]">'TypeScript'</span>, <span className="text-[#98c379]">'Tailwind'</span>],</div>
+          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">frontend</span>: [<span className="text-[#98c379]">'React.js'</span>, <span className="text-[#98c379]">'TypeScript'</span>],</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">backend</span>: [<span className="text-[#98c379]">'Laravel'</span>, <span className="text-[#98c379]">'PHP 8+'</span>, <span className="text-[#98c379]">'Node.js'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">databases</span>: [<span className="text-[#98c379]">'PostgreSQL'</span>, <span className="text-[#98c379]">'MySQL'</span>, <span className="text-[#98c379]">'Redis'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">infrastructure</span>: [<span className="text-[#98c379]">'Linux'</span>, <span className="text-[#98c379]">'Nginx'</span>, <span className="text-[#98c379]">'CI/CD'</span>],</div>
+          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">databases</span>: [<span className="text-[#98c379]">'PostgreSQL'</span>, <span className="text-[#98c379]">'MySQL'</span>],</div>
+          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">infrastructure</span>: [<span className="text-[#98c379]">'Linux'</span>, <span className="text-[#98c379]">'Nginx'</span>],</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">specialties</span>: [<span className="text-[#98c379]">'Document AI'</span>, <span className="text-[#98c379]">'Cloud OCR'</span>, <span className="text-[#98c379]">'Async Queues'</span>]</div>
           <div>&#125; <span className="text-[#e5c07b]">as const</span>;</div>
         </>
