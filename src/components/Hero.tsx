@@ -15,13 +15,13 @@ export const Hero: React.FC = () => {
       code: (
         <>
           <div><span className="text-[#e06c75]">import</span> <span className="text-[#e5c07b]">type</span> &#123; <span className="text-[#e5c07b]">Engineer</span> &#125; <span className="text-[#e06c75]">from</span> <span className="text-[#98c379]">'@steve/core'</span>;</div>
-          <div className="text-slate-600">// Principal software engineer profile</div>
+          <div className="text-slate-600">// Full-stack & mobile developer profile</div>
           <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">steve</span>: <span className="text-[#e5c07b]">Engineer</span> = &#123;</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">name</span>: <span className="text-[#98c379]">'Steve'</span>,</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">title</span>: <span className="text-[#98c379]">'Full-Stack & Mobile Developer'</span>,</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">location</span>: <span className="text-[#98c379]">'Phnom Penh, Cambodia'</span>,</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">status</span>: <span className="text-[#98c379]">'Available for projects'</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">yearsActive</span>: <span className="text-[#d19a66]">4</span>,</div>
+          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">yearsActive</span>: <span className="text-[#d19a66]">2</span>,</div>
           <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">passions</span>: [</div>
           <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Clean Architecture'</span>,</div>
           <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Cross-Platform Apps'</span>,</div>
@@ -86,7 +86,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 sm:pt-28 pb-12 sm:pb-20 overflow-hidden">
+    <section className="relative flex items-center justify-center pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
       {/* Background Grid Accent */}
       <div className="absolute inset-0 cyber-grid opacity-75" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#05070e]/60 to-[#05070e] pointer-events-none" />
@@ -98,15 +98,15 @@ export const Hero: React.FC = () => {
       <div className="relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         {/* Left Column: Hero Intro */}
         <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-300 font-mono text-[11px] sm:text-xs shadow-[0_0_15px_rgba(34,211,238,0.15)] max-w-full">
+          {/* Status Indicator (Clean Minimalist) */}
+          <div className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
             </span>
-            <span className="text-slate-300 font-medium truncate">Software Engineer</span>
+            <span className="text-slate-300 font-medium">Software Developer</span>
             <span className="text-slate-600">/</span>
-            <span className="text-cyan-400 truncate">Open to Opportunities</span>
+            <span className="text-cyan-400">Open to Opportunities</span>
           </div>
 
           {/* Heading */}
@@ -169,11 +169,11 @@ export const Hero: React.FC = () => {
           {/* Stats Bar */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-4 border-t border-slate-800/80 font-mono text-left">
             <div>
-              <div className="text-base sm:text-2xl font-bold text-white tracking-tight">4+</div>
+              <div className="text-base sm:text-2xl font-bold text-white tracking-tight">2+</div>
               <div className="text-[10px] sm:text-xs text-slate-500">Years Exp</div>
             </div>
             <div>
-              <div className="text-base sm:text-2xl font-bold text-cyan-400 tracking-tight">15+</div>
+              <div className="text-base sm:text-2xl font-bold text-cyan-400 tracking-tight">5+</div>
               <div className="text-[10px] sm:text-xs text-slate-500">Production Builds</div>
             </div>
             <div>
@@ -261,9 +261,6 @@ export const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-[#05070e] to-transparent pointer-events-none" />
     </section>
   );
 };

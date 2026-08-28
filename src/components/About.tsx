@@ -1,119 +1,138 @@
 import React from 'react';
-import { MapPin, Briefcase, Layers, Sparkles, Code2, ShieldCheck, Zap, User } from 'lucide-react';
+import { Code2, Database, Smartphone, Zap, MapPin, Briefcase } from 'lucide-react';
 import { ReactIcon, FlutterIcon, LaravelIcon, PhpIcon } from './TechIcons';
-
-const WaveDivider = () => (
-  <div className="wave-divider -mt-1">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M0 40C240 10 480 70 720 40C960 10 1200 70 1440 40V80H0V40Z"
-        fill="rgba(7, 11, 20, 0.5)"
-      />
-      <path
-        d="M0 50C200 25 400 65 600 45C800 25 1000 65 1200 40C1300 30 1380 55 1440 50V80H0V50Z"
-        fill="#05070e"
-        fillOpacity="0.3"
-      />
-    </svg>
-  </div>
-);
-
-const metaItems = [
-  { icon: MapPin, label: 'Based In', value: 'Phnom Penh, Cambodia', color: 'text-cyan-400' },
-  { icon: Briefcase, label: 'Current Role', value: 'Full-Stack & Mobile Developer', color: 'text-violet-400' },
-  { icon: Layers, label: 'Core Domains', value: 'Web Apps, Flutter Mobile, REST APIs', color: 'text-emerald-400' },
-  { icon: Sparkles, label: 'Research Areas', value: 'Document AI, System Architecture, DevOps', color: 'text-pink-400' },
-];
-
-const pillars = [
-  { icon: Code2, title: 'Clean Architecture', desc: 'Maintainable, testable codebases with clear separation of concerns and robust typing.' },
-  { icon: ShieldCheck, title: 'Reliability & Security', desc: 'Secure token authentication, idempotent APIs, and stable relational database schemas.' },
-  { icon: Zap, title: 'Performance Focused', desc: 'Fast load times, responsive queries, and optimized state management pipelines.' },
-];
 
 export const About: React.FC = () => {
   return (
-    <section id="about" className="relative pt-6 pb-16 sm:pb-24 scroll-mt-20 sm:scroll-mt-24">
-      <WaveDivider />
+    <section id="about" className="relative py-10 sm:py-16 scroll-mt-20 sm:scroll-mt-24 overflow-hidden">
+      {/* Subtle Ambient Glow */}
+      <div className="absolute top-1/2 left-[-120px] w-[320px] h-[320px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-        {/* Header */}
-        <div className="text-left mb-8 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
-            <User className="w-3.5 h-3.5" />
-            <span>Developer Background</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Engineering with <span className="gradient-text-animated">Purpose</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Section Header */}
+        <div className="text-left mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            Building software with <span className="gradient-text-animated">pragmatic craft</span>.
           </h2>
+          <p className="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+            A developer focused on scalable backend architectures, responsive web interfaces, and cross-platform mobile apps.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Narrative & Pillars */}
-          <div className="lg:col-span-7 space-y-6 text-slate-300 leading-relaxed text-sm sm:text-base">
-            <p>
-              I am a software developer dedicated to building reliable digital products and solving real-world challenges through clean engineering. My background spans both responsive web platforms and cross-platform mobile development, with a strong focus on structured backend architectures.
-            </p>
-            
-            <p className="flex flex-wrap items-center gap-2">
-              <span>Over the course of my career, I have engineered full-cycle solutions using</span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-white">
-                <LaravelIcon className="w-4 h-4" />
-                <span>Laravel</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-white">
-                <PhpIcon className="w-4 h-4" />
-                <span>PHP</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-white">
-                <ReactIcon className="w-4 h-4" />
-                <span>React.js</span>
-              </span>
-              <span>and</span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-white">
-                <FlutterIcon className="w-4 h-4" />
-                <span>Flutter / Dart</span>
-              </span>
-              <span>with dependable relational databases.</span>
-            </p>
+        {/* Bento-Style Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          {/* Main Story & Core Capabilities (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
+            {/* Story Card */}
+            <div className="rounded-2xl p-5 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl space-y-4 shadow-lg">
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Hi, I'm Steve. Over the past 2+ years, I've helped teams and businesses build, scale, and maintain software products. My work spans the entire application lifecycle—from designing normalized relational databases and enterprise REST APIs to building fluid cross-platform mobile applications.
+              </p>
+              
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                I prioritize maintainable architecture over unnecessary complexity. My primary technology stack centers around <strong className="text-slate-200 font-medium">Laravel & PHP 8+</strong> on the backend, <strong className="text-slate-200 font-medium">React.js</strong> on the web, and <strong className="text-slate-200 font-medium">Flutter & Dart</strong> on mobile.
+              </p>
 
-            {/* Engineering Pillars */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
-              {pillars.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2.5 hover:border-cyan-500/30 transition-all duration-300">
-                  <div className="p-2.5 w-fit rounded-xl bg-slate-800 text-cyan-400">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <h4 className="font-bold text-white text-sm sm:text-base font-sans tracking-tight">{title}</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed font-sans">{desc}</p>
+              {/* Stack Highlight Pills */}
+              <div className="pt-1 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                  <LaravelIcon className="w-4 h-4" />
+                  <span>Laravel</span>
                 </div>
-              ))}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                  <PhpIcon className="w-4 h-4" />
+                  <span>PHP</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                  <ReactIcon className="w-4 h-4" />
+                  <span>React.js</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                  <FlutterIcon className="w-4 h-4" />
+                  <span>Flutter</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Practical Craft Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-cyan-500/30 transition-all duration-300">
+                <div className="p-2 w-fit rounded-xl bg-cyan-950/50 text-cyan-400 border border-cyan-500/20">
+                  <Database className="w-4 h-4" />
+                </div>
+                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Robust Schemas</h4>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  Normalized PostgreSQL & MySQL databases designed for data integrity, indexes, and fast queries.
+                </p>
+              </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-violet-500/30 transition-all duration-300">
+                <div className="p-2 w-fit rounded-xl bg-violet-950/50 text-violet-400 border border-violet-500/20">
+                  <Smartphone className="w-4 h-4" />
+                </div>
+                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Flutter Mobile</h4>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  Smooth iOS & Android apps written with Flutter, responsive state management, and offline support.
+                </p>
+              </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-emerald-500/30 transition-all duration-300">
+                <div className="p-2 w-fit rounded-xl bg-emerald-950/50 text-emerald-400 border border-emerald-500/20">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Reliable APIs</h4>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                  Stateless token authentication, rate limiting, and asynchronous background worker queues.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* System Metadata Card */}
-          <div className="lg:col-span-5">
-            <div className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl space-y-5 shadow-xl">
-              <h3 className="font-mono text-sm font-semibold text-slate-200 border-b border-slate-800 pb-3 flex items-center justify-between">
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  Developer Overview
-                </span>
-                <span className="text-[10px] text-slate-500 font-mono">v4.2.0</span>
-              </h3>
+          {/* Right Snapshot & Quick Stats Card (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl shadow-xl flex-1 flex flex-col justify-between space-y-6">
+              <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <div>
+                  <h3 className="text-base font-bold text-white font-sans">Developer Profile</h3>
+                  <p className="text-xs text-slate-400 font-mono">Steve &bull; Full-Stack & Mobile</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Active</span>
+                </div>
+              </div>
 
-              <div className="space-y-4 font-mono text-xs">
-                {metaItems.map(({ icon: Icon, label, value, color }) => (
-                  <div key={label} className="flex items-start gap-3.5 group">
-                    <div className={`p-2.5 rounded-xl bg-slate-900 border border-slate-800 ${color} group-hover:border-cyan-500/30 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] transition-all duration-300 shrink-0`}>
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-slate-500 block text-[10px] uppercase tracking-wider">{label}</span>
-                      <span className="text-slate-200 text-xs sm:text-sm font-sans font-medium">{value}</span>
-                    </div>
+              {/* Tangible Metrics & Details */}
+              <div className="space-y-4 text-xs font-mono">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4" />
                   </div>
-                ))}
+                  <div>
+                    <span className="text-slate-500 block text-[10px] uppercase tracking-wider">Location</span>
+                    <span className="text-slate-200 font-sans text-sm font-medium">Phnom Penh, Cambodia</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-violet-400 shrink-0 mt-0.5">
+                    <Briefcase className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px] uppercase tracking-wider">Experience Level</span>
+                    <span className="text-slate-200 font-sans text-sm font-medium">2+ Years Building Production Apps</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 shrink-0 mt-0.5">
+                    <Code2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block text-[10px] uppercase tracking-wider">Core Strengths</span>
+                    <span className="text-slate-200 font-sans text-sm font-medium">Backend Architecture &bull; Mobile Flutter</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

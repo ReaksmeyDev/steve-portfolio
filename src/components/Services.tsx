@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Smartphone, Server, Cpu, Wrench } from 'lucide-react';
+import { Globe, Smartphone, Server, Cpu } from 'lucide-react';
 import { SERVICES_DATA } from '../data/portfolioData';
 import { getTechIcon } from './TechIcons';
 
@@ -12,17 +12,13 @@ const iconConfig: Record<string, { icon: React.ElementType; color: string; borde
 
 export const Services: React.FC = () => {
   return (
-    <section id="services" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+    <section id="services" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-pink-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div className="text-left mb-8 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
-            <Wrench className="w-3.5 h-3.5" />
-            <span>Service Capabilities</span>
-          </div>
+        <div className="text-left mb-6 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Solutions I <span className="gradient-text-animated">Deliver</span>
           </h2>

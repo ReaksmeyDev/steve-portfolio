@@ -11,7 +11,6 @@ export const SKILLS_DATA: Skill[] = [
   { name: 'Node.js', category: 'Backend', description: 'Scalable backend services, async runtime environments.' },
   { name: 'REST APIs', category: 'Backend', description: 'JWT/OAuth auth, idempotent design, API documentation.' },
   { name: 'MySQL', category: 'Database', description: 'Relational design, indexing, transaction handling.' },
-  { name: 'SQL Server', category: 'Database', description: 'Enterprise databases, stored procedures, data integrity.' },
   { name: 'PostgreSQL', category: 'Database', description: 'Advanced JSONB querying, indexing, reliability.' },
   { name: 'Linux', category: 'DevOps & Infra', description: 'Ubuntu/Debian management, systemd, shell scripting.' },
   { name: 'Git', category: 'DevOps & Infra', description: 'Branch management, CI workflows, team collaboration.' },

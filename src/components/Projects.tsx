@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, FolderGit2, GitBranch, ArrowUpRight } from 'lucide-react';
+import { Github, FolderGit2, GitBranch } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { getTechIcon } from './TechIcons';
 
@@ -13,25 +13,21 @@ export const Projects: React.FC = () => {
 
   const getCategoryColor = (cat: string) => {
     switch (cat) {
-      case 'Web': return 'text-cyan-400 bg-cyan-950/40 border-cyan-500/30';
-      case 'Mobile': return 'text-violet-400 bg-violet-950/40 border-violet-500/30';
-      case 'Backend': return 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30';
-      default: return 'text-slate-400 bg-slate-900 border-slate-700';
+      case 'Web': return 'text-cyan-400';
+      case 'Mobile': return 'text-violet-400';
+      case 'Backend': return 'text-emerald-400';
+      default: return 'text-slate-400';
     }
   };
 
   return (
-    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+    <section id="projects" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Ambient blob */}
       <div className="absolute bottom-0 right-[-5%] w-[350px] h-[350px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div className="text-left mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
-            <FolderGit2 className="w-3.5 h-3.5" />
-            <span>Featured Case Studies</span>
-          </div>
+        <div className="text-left mb-6 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Selected <span className="gradient-text-animated">Projects</span>
           </h2>
@@ -41,7 +37,7 @@ export const Projects: React.FC = () => {
         </div>
 
         {/* Tab Filters */}
-        <div className="flex flex-wrap gap-2 mb-8 sm:mb-10 font-mono text-xs">
+        <div className="flex flex-wrap gap-2 mb-6 sm:mb-8 font-mono text-xs">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -70,15 +66,14 @@ export const Projects: React.FC = () => {
                   <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 group-hover:border-cyan-500/30 transition-colors">
                     <FolderGit2 className="w-5 h-5 text-cyan-400" />
                   </div>
-                  <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full border ${getCategoryColor(project.category)}`}>
+                  <span className={`text-xs font-mono font-medium ${getCategoryColor(project.category)}`}>
                     {project.category}
                   </span>
                 </div>
 
-                {/* Title (Modern Sans) */}
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2.5 font-sans tracking-tight group-hover:text-cyan-300 transition-colors flex items-center justify-between gap-2">
-                  <span>{project.title}</span>
-                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200 text-cyan-400 shrink-0" />
+                {/* Title */}
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2.5 font-sans tracking-tight group-hover:text-cyan-300 transition-colors">
+                  {project.title}
                 </h3>
 
                 {/* Description */}
@@ -101,25 +96,18 @@ export const Projects: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Footer Action */}
-                {project.githubUrl && (
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-800/80 font-mono text-xs">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-slate-300 hover:text-cyan-300 transition-colors"
-                    >
-                      <Github className="w-4 h-4" />
-                      <span>View Source</span>
-                    </a>
-
-                    <div className="flex items-center gap-1.5 text-slate-500 text-[11px]">
-                      <GitBranch className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>main</span>
-                    </div>
+                {/* Footer Action (Non-link info badge) */}
+                <div className="flex items-center justify-between pt-4 border-t border-slate-800/80 font-mono text-xs">
+                  <div className="inline-flex items-center gap-2 text-slate-400">
+                    <Github className="w-4 h-4 text-slate-500" />
+                    <span>Source Code</span>
                   </div>
-                )}
+
+                  <div className="flex items-center gap-1.5 text-slate-500 text-[11px]">
+                    <GitBranch className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>main</span>
+                  </div>
+                </div>
               </div>
 
               {/* Subtle top edge glow */}

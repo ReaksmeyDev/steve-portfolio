@@ -54,7 +54,9 @@ export const App: React.FC = () => {
         <Navbar />
         <main>
           <Hero />
+          <SectionBridge />
           <About />
+          <SectionBridge />
           <Skills />
           <SectionBridge />
           <Experience />

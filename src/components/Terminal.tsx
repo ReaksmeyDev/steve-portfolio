@@ -54,7 +54,7 @@ export const Terminal: React.FC = () => {
             <div><span className="text-cyan-400 font-semibold">Mobile:</span> Flutter, Dart</div>
             <div><span className="text-cyan-400 font-semibold">Frontend:</span> React.js, TypeScript, Tailwind CSS</div>
             <div><span className="text-cyan-400 font-semibold">Backend:</span> Laravel, PHP 8+, Node.js, REST APIs</div>
-            <div><span className="text-cyan-400 font-semibold">Databases:</span> PostgreSQL, MySQL, SQL Server</div>
+            <div><span className="text-cyan-400 font-semibold">Databases:</span> PostgreSQL, MySQL</div>
             <div><span className="text-cyan-400 font-semibold">DevOps:</span> Linux Server Management, Nginx, CI/CD</div>
           </div>
         );
@@ -112,16 +112,12 @@ export const Terminal: React.FC = () => {
   }, [history]);
 
   return (
-    <section id="terminal" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+    <section id="terminal" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
       <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-cyan-500/5 rounded-full blur-[90px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-left mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
-            <TerminalIcon className="w-3.5 h-3.5" />
-            <span>Interactive Console</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Developer <span className="gradient-text-animated">Terminal</span>
           </h2>

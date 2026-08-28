@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SKILLS_DATA } from '../data/portfolioData';
 import { getTechIcon, getTechBrandColor } from './TechIcons';
-import { Layers, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export const Skills: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -11,34 +11,25 @@ export const Skills: React.FC = () => {
     ? SKILLS_DATA
     : SKILLS_DATA.filter((s) => s.category === selectedCategory);
 
-  const getCategoryBadge = (cat: string) => {
+  const getCategoryColor = (cat: string) => {
     switch (cat) {
-      case 'Frontend':
-        return 'text-cyan-400 bg-cyan-950/40 border-cyan-500/30';
-      case 'Backend':
-        return 'text-violet-400 bg-violet-950/40 border-violet-500/30';
-      case 'Database':
-        return 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30';
-      case 'DevOps & Infra':
-        return 'text-amber-400 bg-amber-950/40 border-amber-500/30';
-      default:
-        return 'text-slate-400 bg-slate-900 border-slate-700';
+      case 'Frontend': return 'text-cyan-400';
+      case 'Backend': return 'text-violet-400';
+      case 'Database': return 'text-emerald-400';
+      case 'DevOps & Infra': return 'text-amber-400';
+      default: return 'text-slate-400';
     }
   };
 
   return (
-    <section id="skills" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+    <section id="skills" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-[-10%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[350px] h-[350px] bg-violet-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div className="text-left mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Technical Mastery</span>
-          </div>
+        <div className="text-left mb-6 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Skills & <span className="gradient-text-animated">Expertise</span>
           </h2>
@@ -48,7 +39,7 @@ export const Skills: React.FC = () => {
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-8 sm:mb-10 font-mono text-xs">
+        <div className="flex flex-wrap gap-2 mb-6 sm:mb-8 font-mono text-xs">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -82,17 +73,13 @@ export const Skills: React.FC = () => {
                       {getTechIcon(skill.name, 'w-7 h-7 object-contain')}
                     </div>
                     <div>
-                      <h3 className="font-bold text-white group-hover:text-cyan-300 transition-colors font-sans tracking-tight text-base sm:text-lg flex items-center gap-1.5">
-                        <span>{skill.name}</span>
+                      <h3 className="font-bold text-white group-hover:text-cyan-300 transition-colors font-sans tracking-tight text-base sm:text-lg">
+                        {skill.name}
                       </h3>
-                      <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1 mt-0.5">
-                        <CheckCircle2 className="w-3 h-3" />
-                        <span>Production Ready</span>
-                      </span>
                     </div>
                   </div>
 
-                  <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border ${getCategoryBadge(skill.category)}`}>
+                  <span className={`text-[11px] font-mono font-medium ${getCategoryColor(skill.category)}`}>
                     {skill.category}
                   </span>
                 </div>
