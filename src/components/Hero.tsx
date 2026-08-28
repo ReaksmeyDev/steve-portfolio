@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Download, Check, Copy, Code2, Sparkles } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { ArrowRight, Check, Copy, Code2, Sparkles } from 'lucide-react';
 import { ReactIcon, FlutterIcon, LaravelIcon, NodeIcon, PostgresIcon } from './TechIcons';
 
 type TabKey = 'developer' | 'stack' | 'architecture';
@@ -8,8 +7,6 @@ type TabKey = 'developer' | 'stack' | 'architecture';
 export const Hero: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('developer');
   const [copied, setCopied] = useState(false);
-  const leftAnim = useScrollAnimation();
-  const rightAnim = useScrollAnimation();
 
   const snippets: Record<TabKey, { filename: string; language: string; code: React.ReactNode }> = {
     developer: {
@@ -100,10 +97,7 @@ export const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         {/* Left Column: Hero Intro */}
-        <div
-          ref={leftAnim.ref}
-          className={`lg:col-span-7 space-y-4 sm:space-y-6 text-left scroll-slide-left ${leftAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-cyan-300 font-mono text-[11px] sm:text-xs shadow-[0_0_15px_rgba(34,211,238,0.15)] max-w-full">
             <span className="relative flex h-2 w-2 shrink-0">
@@ -170,14 +164,6 @@ export const Hero: React.FC = () => {
             >
               <span>Get in Touch</span>
             </a>
-
-            <a
-              href="#cv"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-mono text-slate-400 hover:text-cyan-300 transition-colors duration-300"
-            >
-              <Download className="w-4 h-4" />
-              <span>Download CV</span>
-            </a>
           </div>
 
           {/* Stats Bar */}
@@ -198,10 +184,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Right Column: Interactive Syntax-Highlighted Editor */}
-        <div
-          ref={rightAnim.ref}
-          className={`lg:col-span-5 scroll-slide-right ${rightAnim.isVisible ? 'visible' : ''} w-full max-w-full overflow-hidden`}
-        >
+        <div className="lg:col-span-5 w-full max-w-full overflow-hidden">
           <div className="rounded-2xl border border-cyan-500/20 bg-[#0d1117] shadow-2xl overflow-hidden backdrop-blur-xl relative w-full">
             {/* Editor Window Header & Tabs */}
             <div className="bg-[#161b22] px-2.5 sm:px-3.5 py-2 sm:py-2.5 border-b border-slate-800 flex items-center justify-between gap-1 overflow-x-auto">

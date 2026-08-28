@@ -1,6 +1,5 @@
 import React from 'react';
 import { Github, Linkedin, Send, Facebook } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com', label: 'GitHub' },
@@ -10,8 +9,6 @@ const socialLinks = [
 ];
 
 export const Footer: React.FC = () => {
-  const footerAnim = useScrollAnimation({ threshold: 0.05 });
-
   return (
     <footer className="relative border-t border-slate-800/40 bg-[#03050a]/80 backdrop-blur-sm">
       {/* Wave Divider */}
@@ -21,10 +18,7 @@ export const Footer: React.FC = () => {
         </svg>
       </div>
 
-      <div
-        ref={footerAnim.ref}
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col items-center gap-6 sm:gap-8 sm:flex-row sm:justify-between scroll-fade-up ${footerAnim.isVisible ? 'visible' : ''}`}
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col items-center gap-6 sm:gap-8 sm:flex-row sm:justify-between">
         {/* Brand */}
         <div className="text-center sm:text-left">
           <span className="font-mono font-bold text-white tracking-wider text-base">

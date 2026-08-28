@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, Send, CheckCircle2 } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const headerAnim = useScrollAnimation();
-  const leftAnim = useScrollAnimation();
-  const formAnim = useScrollAnimation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,22 +12,16 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-20 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Decorative blobs */}
-      <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] animate-blob-slow pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-cyan-500/5 rounded-full blur-[80px] animate-blob-reverse pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-violet-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Info */}
-          <div
-            ref={leftAnim.ref}
-            className={`lg:col-span-5 text-left space-y-5 scroll-slide-left ${leftAnim.isVisible ? 'visible' : ''}`}
-          >
-            <div
-              ref={headerAnim.ref}
-              className={`scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-            >
+          <div className="lg:col-span-5 text-left space-y-5">
+            <div>
               <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest">// Connection Gateway</span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mt-2">
                 Let's Build Something{' '}
@@ -65,10 +55,7 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Right Form */}
-          <div
-            ref={formAnim.ref}
-            className={`lg:col-span-7 scroll-slide-right ${formAnim.isVisible ? 'visible' : ''}`}
-          >
+          <div className="lg:col-span-7">
             <div className="relative rounded-2xl bg-[rgba(13,20,40,0.5)] backdrop-blur-xl border border-cyan-500/[0.08] p-5 sm:p-8">
               {submitted ? (
                 <div className="py-10 sm:py-14 text-center space-y-4">

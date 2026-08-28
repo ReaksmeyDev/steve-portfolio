@@ -252,51 +252,6 @@ html, body {
   background: rgba(15, 23, 42, 0.95);
 }
 
-/* ─── Scroll Animations (Desktop Smooth, Mobile Safe) ─── */
-.scroll-fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.scroll-fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-zoom-in {
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.scroll-zoom-in.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.scroll-slide-left {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.scroll-slide-left.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-slide-right {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.scroll-slide-right.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ─── Wave Divider ─── */
 .wave-divider {
   position: relative;
@@ -390,18 +345,8 @@ html, body {
   background: rgba(34, 211, 238, 0.4);
 }
 
-/* ─── Mobile Optimizations (Guaranteed Fit & Immediate Visibility) ─── */
+/* ─── Mobile Optimizations ─── */
 @media (max-width: 768px) {
-  /* Ensure all elements are immediately visible on mobile to eliminate scroll lag */
-  .scroll-fade-up,
-  .scroll-zoom-in,
-  .scroll-slide-left,
-  .scroll-slide-right {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
   .liquid-blob {
     filter: blur(30px);
     opacity: 0.12;

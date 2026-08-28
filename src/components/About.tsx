@@ -1,6 +1,5 @@
 import React from 'react';
 import { MapPin, Briefcase, Layers, Sparkles, Code2, ShieldCheck, Zap, User } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { ReactIcon, FlutterIcon, LaravelIcon, PhpIcon } from './TechIcons';
 
 const WaveDivider = () => (
@@ -33,20 +32,13 @@ const pillars = [
 ];
 
 export const About: React.FC = () => {
-  const headerAnim = useScrollAnimation();
-  const leftAnim = useScrollAnimation();
-  const rightAnim = useScrollAnimation();
-
   return (
-    <section id="about" className="relative py-16 sm:py-24">
+    <section id="about" className="relative pt-6 pb-16 sm:pb-24 scroll-mt-20 sm:scroll-mt-24">
       <WaveDivider />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         {/* Header */}
-        <div
-          ref={headerAnim.ref}
-          className={`text-left mb-8 sm:mb-14 scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="text-left mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
             <User className="w-3.5 h-3.5" />
             <span>Developer Background</span>
@@ -58,10 +50,7 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Narrative & Pillars */}
-          <div
-            ref={leftAnim.ref}
-            className={`lg:col-span-7 space-y-6 text-slate-300 leading-relaxed text-sm sm:text-base scroll-slide-left ${leftAnim.isVisible ? 'visible' : ''}`}
-          >
+          <div className="lg:col-span-7 space-y-6 text-slate-300 leading-relaxed text-sm sm:text-base">
             <p>
               I am a software developer dedicated to building reliable digital products and solving real-world challenges through clean engineering. My background spans both responsive web platforms and cross-platform mobile development, with a strong focus on structured backend architectures.
             </p>
@@ -103,10 +92,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* System Metadata Card */}
-          <div
-            ref={rightAnim.ref}
-            className={`lg:col-span-5 scroll-zoom-in ${rightAnim.isVisible ? 'visible' : ''}`}
-          >
+          <div className="lg:col-span-5">
             <div className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl space-y-5 shadow-xl">
               <h3 className="font-mono text-sm font-semibold text-slate-200 border-b border-slate-800 pb-3 flex items-center justify-between">
                 <span className="flex items-center gap-2">

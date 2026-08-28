@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Terminal as TerminalIcon, CornerDownLeft } from 'lucide-react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export const Terminal: React.FC = () => {
   const [history, setHistory] = useState<Array<{ command: string; output: string | React.ReactNode }>>([
@@ -24,8 +23,6 @@ export const Terminal: React.FC = () => {
   ]);
   const [inputVal, setInputVal] = useState('');
   const outputContainerRef = useRef<HTMLDivElement>(null);
-  const headerAnim = useScrollAnimation();
-  const terminalAnim = useScrollAnimation();
 
   const quickCommands = ['whoami', 'skills', 'projects', 'status', 'contact', 'clear'];
 
@@ -115,15 +112,12 @@ export const Terminal: React.FC = () => {
   }, [history]);
 
   return (
-    <section id="terminal" className="py-18 sm:py-24 relative overflow-hidden">
+    <section id="terminal" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
       <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-cyan-500/5 rounded-full blur-[90px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div
-          ref={headerAnim.ref}
-          className={`text-left mb-6 sm:mb-8 scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="text-left mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
             <TerminalIcon className="w-3.5 h-3.5" />
             <span>Interactive Console</span>
@@ -152,10 +146,7 @@ export const Terminal: React.FC = () => {
         </div>
 
         {/* Terminal Window */}
-        <div
-          ref={terminalAnim.ref}
-          className={`rounded-2xl overflow-hidden font-mono text-[12px] sm:text-sm scroll-zoom-in ${terminalAnim.isVisible ? 'visible' : ''} border border-slate-800/90 bg-[#0d1117] shadow-2xl backdrop-blur-xl`}
-        >
+        <div className="rounded-2xl overflow-hidden font-mono text-[12px] sm:text-sm border border-slate-800/90 bg-[#0d1117] shadow-2xl backdrop-blur-xl">
           {/* Title Bar */}
           <div className="bg-[#161b22] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-2.5">

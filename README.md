@@ -25,7 +25,7 @@ A modern, high-performance developer portfolio featuring a liquid glassmorphic U
 - ⚡ **Official Icons8 Visual System**: Pixel-perfect official brand icons for React, Flutter, Dart, Laravel, PHP, Node.js, PostgreSQL, MySQL, Linux, Git, Nginx, Cloud, and AI.
 - ⌨️ **Interactive Developer Terminal (CLI)**: Fully interactive terminal component supporting commands (`whoami`, `skills`, `projects`, `status`, `contact`, `clear`) with quick-action click pills and structured output.
 - 🚀 **Performance-Safe Animations**: CSS-only 3-layer parallax starfield background using `will-change: transform` on GPU layers.
-- 📱 **Mobile-First Responsive Design**: Instant layout rendering on mobile devices with zero scroll lag, touch-friendly navigation drawer, and fluid viewport typography.
+- 📱 **Mobile-First Responsive Design**: Instant layout rendering on mobile devices with zero lag, touch-friendly navigation drawer, and fluid viewport typography.
 
 ---
 
@@ -36,7 +36,7 @@ A modern, high-performance developer portfolio featuring a liquid glassmorphic U
 | **Frontend Core** | React 18 (TypeScript), Vite 5 |
 | **Styling & UI** | Tailwind CSS 3, Vanilla CSS Keyframes, CSS Grid & Flexbox |
 | **Icons & Media** | [Icons8 Color & Fluency Assets](https://icons8.com/), Lucide React |
-| **Animations** | CSS Hardware-Accelerated Keyframes, Custom IntersectionObserver Hooks |
+| **Animations** | CSS Hardware-Accelerated Keyframes & Transitions |
 | **Tooling** | PostCSS, Autoprefixer, ESLint / TypeScript Compiler |
 
 ---
@@ -61,8 +61,6 @@ steve-portfolio/
 │   │   └── Terminal.tsx        # Interactive CLI terminal emulator
 │   ├── data/
 │   │   └── portfolioData.ts    # Centralized portfolio content & metadata
-│   ├── hooks/
-│   │   └── useScrollAnimation.ts # Mobile-first scroll trigger animation hook
 │   ├── types/
 │   │   └── portfolio.ts        # TypeScript interfaces & domain types
 │   ├── App.tsx                 # Root application component

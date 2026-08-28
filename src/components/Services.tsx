@@ -1,7 +1,6 @@
 import React from 'react';
 import { Globe, Smartphone, Server, Cpu, Wrench } from 'lucide-react';
 import { SERVICES_DATA } from '../data/portfolioData';
-import { useScrollAnimation, useStaggeredAnimation } from '../hooks/useScrollAnimation';
 import { getTechIcon } from './TechIcons';
 
 const iconConfig: Record<string, { icon: React.ElementType; color: string; border: string; glow: string }> = {
@@ -12,20 +11,14 @@ const iconConfig: Record<string, { icon: React.ElementType; color: string; borde
 };
 
 export const Services: React.FC = () => {
-  const headerAnim = useScrollAnimation();
-  const gridAnim = useStaggeredAnimation(SERVICES_DATA.length);
-
   return (
-    <section id="services" className="py-16 sm:py-24 relative overflow-hidden">
+    <section id="services" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-pink-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div
-          ref={headerAnim.ref}
-          className={`text-left mb-8 sm:mb-14 scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="text-left mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
             <Wrench className="w-3.5 h-3.5" />
             <span>Service Capabilities</span>
@@ -38,11 +31,8 @@ export const Services: React.FC = () => {
           </p>
         </div>
 
-        <div
-          ref={gridAnim.containerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6"
-        >
-          {SERVICES_DATA.map((srv, index) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+          {SERVICES_DATA.map((srv) => {
             const config = iconConfig[srv.id] || { icon: Cpu, color: 'text-slate-400', border: 'border-slate-700', glow: '' };
             const IconComp = config.icon;
 
@@ -50,7 +40,6 @@ export const Services: React.FC = () => {
               <div
                 key={srv.id}
                 className="rounded-2xl p-5 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/30 hover:bg-[#0f172a]/90 transition-all duration-300 group backdrop-blur-xl shadow-lg relative flex flex-col justify-between"
-                style={gridAnim.getItemStyle(index)}
               >
                 <div>
                   {/* Icon */}

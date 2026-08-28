@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { Github, FolderGit2, GitBranch, ArrowUpRight } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
-import { useScrollAnimation, useStaggeredAnimation } from '../hooks/useScrollAnimation';
 import { getTechIcon } from './TechIcons';
 
 export const Projects: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('All');
   const tabs = ['All', 'Web', 'Mobile', 'Backend'];
-  const headerAnim = useScrollAnimation();
 
   const filteredProjects = activeTab === 'All'
     ? PROJECTS_DATA
     : PROJECTS_DATA.filter((p) => p.category === activeTab);
-
-  const gridAnim = useStaggeredAnimation(filteredProjects.length);
 
   const getCategoryColor = (cat: string) => {
     switch (cat) {
@@ -25,16 +21,13 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden">
+    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Ambient blob */}
       <div className="absolute bottom-0 right-[-5%] w-[350px] h-[350px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <div
-          ref={headerAnim.ref}
-          className={`text-left mb-8 sm:mb-12 scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="text-left mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
             <FolderGit2 className="w-3.5 h-3.5" />
             <span>Featured Case Studies</span>
@@ -65,15 +58,11 @@ export const Projects: React.FC = () => {
         </div>
 
         {/* Project Cards */}
-        <div
-          ref={gridAnim.containerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
-        >
-          {filteredProjects.map((project, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/40 hover:bg-[#0f172a]/90 transition-all duration-300 flex flex-col justify-between group relative backdrop-blur-xl shadow-lg hover:shadow-[0_12px_36px_rgba(0,0,0,0.5)]"
-              style={gridAnim.getItemStyle(index)}
             >
               <div>
                 {/* Header */}

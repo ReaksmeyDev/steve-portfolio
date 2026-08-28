@@ -1,18 +1,11 @@
 import React from 'react';
 import { Calendar, Building, CheckCircle2, Briefcase } from 'lucide-react';
 import { EXPERIENCE_DATA } from '../data/portfolioData';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { getTechIcon } from './TechIcons';
 
-const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number }> = ({ item, index }) => {
-  const cardAnim = useScrollAnimation({ rootMargin: '0px 0px -60px 0px' });
-
+const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number }> = ({ item }) => {
   return (
-    <div
-      ref={cardAnim.ref}
-      className={`relative scroll-fade-up ${cardAnim.isVisible ? 'visible' : ''}`}
-      style={{ transitionDelay: `${index * 150}ms` }}
-    >
+    <div className="relative">
       {/* Timeline Dot – Glowing Ring */}
       <div className="absolute -left-[calc(1.5rem+9px)] sm:-left-[calc(2.5rem+9px)] top-2">
         <div className="relative">
@@ -45,7 +38,7 @@ const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number 
 
         <div className="space-y-2.5 mb-5 sm:mb-6">
           {item.responsibilities.map((resp, idx) => (
-            <div key={idx} className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-slate-300">
+            <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300">
               <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0 mt-0.5" />
               <span className="leading-normal">{resp}</span>
             </div>
@@ -69,18 +62,13 @@ const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number 
 };
 
 export const Experience: React.FC = () => {
-  const headerAnim = useScrollAnimation();
-
   return (
-    <section id="experience" className="py-16 sm:py-24 relative overflow-hidden">
+    <section id="experience" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
       <div className="absolute top-1/3 left-[-80px] w-[300px] h-[300px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div
-          ref={headerAnim.ref}
-          className={`text-left mb-8 sm:mb-14 scroll-fade-up ${headerAnim.isVisible ? 'visible' : ''}`}
-        >
+        <div className="text-left mb-8 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-cyan-950/30 border border-cyan-500/20 text-cyan-400 font-mono text-xs mb-3">
             <Briefcase className="w-3.5 h-3.5" />
             <span>Career Milestones</span>
