@@ -10,7 +10,7 @@ export const About: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
-        <div className="text-left mb-8 sm:mb-12">
+        <div className="text-left mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Building software with <span className="gradient-text-animated">pragmatic craft</span>.
           </h2>
@@ -19,22 +19,23 @@ export const About: React.FC = () => {
           </p>
         </div>
 
-        {/* Bento-Style Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          {/* Main Story & Core Capabilities (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
+        {/* Unified Bento Grid */}
+        <div className="space-y-5 sm:space-y-6">
+          {/* Top Row: Story Card (7 cols) + Developer Profile (5 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
             {/* Story Card */}
-            <div className="rounded-2xl p-5 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl space-y-4 shadow-lg">
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Hi, I'm Steve. Over the past 2+ years, I've helped teams and businesses build, scale, and maintain software products. My work spans the entire application lifecycle—from designing normalized relational databases and enterprise REST APIs to building fluid cross-platform mobile applications.
-              </p>
-              
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                I prioritize maintainable architecture over unnecessary complexity. My primary technology stack centers around <strong className="text-slate-200 font-medium">Laravel & PHP 8+</strong> on the backend, <strong className="text-slate-200 font-medium">React.js</strong> on the web, and <strong className="text-slate-200 font-medium">Flutter & Dart</strong> on mobile.
-              </p>
+            <div className="lg:col-span-7 rounded-2xl p-6 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl flex flex-col justify-between space-y-4 shadow-lg">
+              <div className="space-y-3">
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Hi, I'm Steve. Over the past 2+ years, I've helped teams and businesses build, scale, and maintain software products. My work spans the entire application lifecycle—from designing normalized relational databases and enterprise REST APIs to building fluid cross-platform mobile applications.
+                </p>
+                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                  I prioritize maintainable architecture over unnecessary complexity. My primary technology stack centers around <strong className="text-slate-200 font-medium">Laravel & PHP 8+</strong> on the backend, <strong className="text-slate-200 font-medium">React.js</strong> on the web, and <strong className="text-slate-200 font-medium">Flutter & Dart</strong> on mobile.
+                </p>
+              </div>
 
               {/* Stack Highlight Pills */}
-              <div className="pt-1 flex flex-wrap gap-2">
+              <div className="pt-2 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
                   <LaravelIcon className="w-4 h-4" />
                   <span>Laravel</span>
@@ -54,44 +55,9 @@ export const About: React.FC = () => {
               </div>
             </div>
 
-            {/* Practical Craft Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-cyan-500/30 transition-all duration-300">
-                <div className="p-2 w-fit rounded-xl bg-cyan-950/50 text-cyan-400 border border-cyan-500/20">
-                  <Database className="w-4 h-4" />
-                </div>
-                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Robust Schemas</h4>
-                <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                  Normalized PostgreSQL & MySQL databases designed for data integrity, indexes, and fast queries.
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-violet-500/30 transition-all duration-300">
-                <div className="p-2 w-fit rounded-xl bg-violet-950/50 text-violet-400 border border-violet-500/20">
-                  <Smartphone className="w-4 h-4" />
-                </div>
-                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Flutter Mobile</h4>
-                <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                  Smooth iOS & Android apps written with Flutter, responsive state management, and offline support.
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2 hover:border-emerald-500/30 transition-all duration-300">
-                <div className="p-2 w-fit rounded-xl bg-emerald-950/50 text-emerald-400 border border-emerald-500/20">
-                  <Zap className="w-4 h-4" />
-                </div>
-                <h4 className="font-bold text-white text-sm font-sans tracking-tight">Reliable APIs</h4>
-                <p className="text-xs text-slate-400 leading-relaxed font-sans">
-                  Stateless token authentication, rate limiting, and asynchronous background worker queues.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Snapshot & Quick Stats Card (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl shadow-xl flex-1 flex flex-col justify-between space-y-6">
-              <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+            {/* Developer Profile Card */}
+            <div className="lg:col-span-5 rounded-2xl p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl flex flex-col justify-between space-y-5 shadow-lg">
+              <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
                 <div>
                   <h3 className="text-base font-bold text-white font-sans">Developer Profile</h3>
                   <p className="text-xs text-slate-400 font-mono">Steve &bull; Full-Stack & Mobile</p>
@@ -102,10 +68,9 @@ export const About: React.FC = () => {
                 </div>
               </div>
 
-              {/* Tangible Metrics & Details */}
               <div className="space-y-4 text-xs font-mono">
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 shrink-0 mt-0.5">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
@@ -115,7 +80,7 @@ export const About: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-violet-400 shrink-0 mt-0.5">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-violet-400 shrink-0">
                     <Briefcase className="w-4 h-4" />
                   </div>
                   <div>
@@ -125,7 +90,7 @@ export const About: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 shrink-0 mt-0.5">
+                  <div className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 shrink-0">
                     <Code2 className="w-4 h-4" />
                   </div>
                   <div>
@@ -134,6 +99,39 @@ export const About: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Bottom Row: 3 Practical Craft Grid Cards (Full width 12 cols) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-cyan-500/30 transition-all duration-300">
+              <div className="p-2.5 w-fit rounded-xl bg-cyan-950/50 text-cyan-400 border border-cyan-500/20">
+                <Database className="w-4 h-4" />
+              </div>
+              <h4 className="font-bold text-white text-base font-sans tracking-tight">Robust Schemas</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                Normalized PostgreSQL & MySQL databases designed for data integrity, indexes, and fast queries.
+              </p>
+            </div>
+
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-violet-500/30 transition-all duration-300">
+              <div className="p-2.5 w-fit rounded-xl bg-violet-950/50 text-violet-400 border border-violet-500/20">
+                <Smartphone className="w-4 h-4" />
+              </div>
+              <h4 className="font-bold text-white text-base font-sans tracking-tight">Flutter Mobile</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                Smooth iOS & Android apps written with Flutter, responsive state management, and offline support.
+              </p>
+            </div>
+
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-emerald-500/30 transition-all duration-300">
+              <div className="p-2.5 w-fit rounded-xl bg-emerald-950/50 text-emerald-400 border border-emerald-500/20">
+                <Zap className="w-4 h-4" />
+              </div>
+              <h4 className="font-bold text-white text-base font-sans tracking-tight">Reliable APIs</h4>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                Stateless token authentication, rate limiting, and asynchronous background worker queues.
+              </p>
             </div>
           </div>
         </div>
