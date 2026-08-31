@@ -9,7 +9,6 @@ import { Services } from './components/Services';
 import { Terminal } from './components/Terminal';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { ScrollReveal } from './components/ScrollReveal';
 
 const SectionBridge: React.FC = () => (
   <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-[-1px] pointer-events-none" aria-hidden="true">
@@ -38,44 +37,28 @@ export const App: React.FC = () => {
       <div className="relative z-10">
         <Navbar />
         <main>
-          <ScrollReveal initiallyVisible={true}>
-            <Hero />
-          </ScrollReveal>
+          <Hero />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <About />
-          </ScrollReveal>
+          <About />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Skills />
-          </ScrollReveal>
+          <Skills />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Experience />
-          </ScrollReveal>
+          <Experience />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Projects />
-          </ScrollReveal>
+          <Projects />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Services />
-          </ScrollReveal>
+          <Services />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Terminal />
-          </ScrollReveal>
+          <Terminal />
           <SectionBridge />
 
-          <ScrollReveal delay={30}>
-            <Contact />
-          </ScrollReveal>
+          <Contact />
         </main>
         <Footer />
       </div>
