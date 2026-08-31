@@ -68,9 +68,9 @@ export const Skills: React.FC = () => {
               >
                 <div className="flex items-start justify-between gap-3 mb-3.5">
                   <div className="flex items-center gap-3.5">
-                    {/* Brand Tech Icon Container */}
-                    <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 shadow-inner group-hover:scale-110 transition-transform duration-300 shrink-0 flex items-center justify-center">
-                      {getTechIcon(skill.name, 'w-7 h-7 object-contain')}
+                    {/* Brand Tech Icon (Clean Icon Only) */}
+                    <div className="shrink-0 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+                      {getTechIcon(skill.name, 'w-8 h-8 object-contain')}
                     </div>
                     <div>
                       <h3 className="font-bold text-white group-hover:text-cyan-300 transition-colors font-sans tracking-tight text-base sm:text-lg">

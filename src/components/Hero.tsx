@@ -204,8 +204,8 @@ export const Hero: React.FC = () => {
             Specializing in <span className="text-cyan-300 font-medium">Laravel</span>, <span className="text-cyan-300 font-medium">React</span>, and <span className="text-cyan-300 font-medium">Flutter</span>. I engineer high-performance systems with clean architectural patterns, robust databases, and polished user experiences.
           </p>
 
-          {/* Quick Tech Pill Badges */}
-          <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 pt-1">
+          {/* Quick Tech Icons (Clean Icons Only) */}
+          <div className="flex items-center gap-3.5 pt-1">
             {[
               { name: 'React', icon: ReactIcon },
               { name: 'Flutter', icon: FlutterIcon },
@@ -215,10 +215,10 @@ export const Hero: React.FC = () => {
             ].map(({ name, icon: Icon }) => (
               <div
                 key={name}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 hover:text-white transition-colors"
+                title={name}
+                className="hover:scale-125 transition-transform duration-200 cursor-pointer flex items-center justify-center"
               >
-                <Icon className="w-4 h-4" />
-                <span>{name}</span>
+                <Icon className="w-6 h-6 object-contain" />
               </div>
             ))}
           </div>
