@@ -58,7 +58,7 @@ export const Projects: React.FC = () => {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/40 hover:bg-[#0f172a]/90 transition-all duration-300 flex flex-col justify-between group relative backdrop-blur-xl shadow-lg hover:shadow-[0_12px_36px_rgba(0,0,0,0.5)]"
+              className="beam-border-card rounded-2xl p-5 sm:p-6 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/40 hover:bg-[#0f172a]/90 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group relative backdrop-blur-xl shadow-lg hover:shadow-[0_12px_36px_rgba(0,0,0,0.5)]"
             >
               <div>
                 {/* Header */}

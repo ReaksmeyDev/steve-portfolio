@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal as TerminalIcon, Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -18,43 +18,58 @@ export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('');
 
-  const updateScrollState = useCallback(() => {
-    const currentScroll = window.scrollY;
-    setScrolled(currentScroll > 8);
-
-    const scrollPosition = currentScroll + 120;
-    for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
-      const section = document.getElementById(NAV_LINKS[i].id);
-      if (section && section.offsetTop <= scrollPosition) {
-        setActiveSection(NAV_LINKS[i].id);
-        return;
-      }
-    }
-    setActiveSection('');
-  }, []);
-
+  // 1. Efficient, guarded scroll listener for navbar appearance (zero unnecessary re-renders)
   useEffect(() => {
-    let ticking = false;
+    let prevScrolled = window.scrollY > 8;
 
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateScrollState();
-          ticking = false;
-        });
-        ticking = true;
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 8;
+      if (isScrolled !== prevScrolled) {
+        prevScrolled = isScrolled;
+        setScrolled(isScrolled);
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateScrollState();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [updateScrollState]);
+  // 2. High-performance IntersectionObserver for active section highlighting (zero forced reflows)
+  useEffect(() => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      // Find the entry with the highest intersection ratio or topmost visible
+      const visibleEntries = entries.filter((e) => e.isIntersecting);
+      if (visibleEntries.length > 0) {
+        // Sort by position relative to top of viewport
+        visibleEntries.sort(
+          (a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top)
+        );
+        const targetId = visibleEntries[0].target.id;
+        setActiveSection((prev) => (prev !== targetId ? targetId : prev));
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: '-15% 0px -60% 0px',
+      threshold: [0, 0.2, 0.5],
+    });
+
+    NAV_LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
     return () => {
       document.body.style.overflow = '';
     };
@@ -94,19 +109,19 @@ export const Navbar: React.FC = () => {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            <div className="flex items-center gap-1 text-xs font-mono text-slate-400 bg-slate-900/60 rounded-full p-1 border border-slate-800/80">
+          {/* Desktop Navigation (Clean Minimalist Typography) */}
+          <div className="hidden lg:flex items-center gap-8">
+            <div className="flex items-center gap-6 text-xs font-mono">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`px-3 py-1.5 rounded-full transition-all duration-150 ${
+                    className={`transition-colors duration-150 ${
                       isActive
-                        ? 'text-cyan-300 bg-cyan-500/15 font-semibold shadow-[0_0_12px_rgba(34,211,238,0.25)]'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                        ? 'text-cyan-300 font-semibold'
+                        : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     {link.name}
@@ -115,13 +130,16 @@ export const Navbar: React.FC = () => {
               })}
             </div>
 
-            <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono">
+            <a
+              href="#contact"
+              className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors text-xs font-mono"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span>Available</span>
-            </div>
+              <span>Open for Projects</span>
+            </a>
           </div>
 
           {/* Mobile Menu Toggle Button */}

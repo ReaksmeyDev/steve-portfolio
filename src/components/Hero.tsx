@@ -1,12 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Check, Copy, Code2, Sparkles } from 'lucide-react';
 import { ReactIcon, FlutterIcon, LaravelIcon, NodeIcon, PostgresIcon } from './TechIcons';
 
 type TabKey = 'developer' | 'stack' | 'architecture';
 
+const HERO_PHRASES = [
+  'Building scalable web ecosystems & cross-platform mobile apps.',
+  'Architecting high-performance Laravel backends & REST APIs.',
+  'Crafting modern, fluid iOS & Android apps with Flutter.',
+  'Engineering reliable full-stack systems with clean architecture.',
+];
+
 export const Hero: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('developer');
   const [copied, setCopied] = useState(false);
+
+  // Typewriter effect state
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = HERO_PHRASES[phraseIndex];
+    const typingSpeed = isDeleting ? 25 : 50;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentPhrase.slice(0, displayText.length + 1));
+        if (displayText.length + 1 === currentPhrase.length) {
+          setTimeout(() => setIsDeleting(true), 2500);
+        }
+      } else {
+        setDisplayText(currentPhrase.slice(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setPhraseIndex((prev) => (prev + 1) % HERO_PHRASES.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, phraseIndex]);
 
   const snippets: Record<TabKey, { filename: string; language: string; code: React.ReactNode }> = {
     developer: {
@@ -114,8 +148,9 @@ export const Hero: React.FC = () => {
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
               Hi, I'm <span className="gradient-text-animated">Steve</span>.
             </h1>
-            <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug">
-              Building scalable web ecosystems & cross-platform mobile apps.
+            <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug min-h-[3.2rem] sm:min-h-[2.2rem]">
+              <span>{displayText}</span>
+              <span className="typewriter-cursor" />
             </p>
           </div>
 
@@ -124,25 +159,25 @@ export const Hero: React.FC = () => {
             Specializing in <span className="text-cyan-300 font-medium">Laravel</span>, <span className="text-cyan-300 font-medium">React</span>, and <span className="text-cyan-300 font-medium">Flutter</span>. I engineer high-performance systems with clean architectural patterns, robust databases, and polished user experiences.
           </p>
 
-          {/* Quick Tech Pill Badges */}
+          {/* Quick Tech Pill Badges with Micro-Floating Animations */}
           <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 pt-1">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
               <ReactIcon className="w-4 h-4" />
               <span>React</span>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+            <div className="float-badge-delayed flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
               <FlutterIcon className="w-4 h-4" />
               <span>Flutter</span>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
               <LaravelIcon className="w-4 h-4" />
               <span>Laravel</span>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+            <div className="float-badge-delayed flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
               <NodeIcon className="w-4 h-4" />
               <span>Node.js</span>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300">
+            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
               <PostgresIcon className="w-4 h-4" />
               <span>PostgreSQL</span>
             </div>

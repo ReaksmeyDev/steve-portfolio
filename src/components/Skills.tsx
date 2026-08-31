@@ -64,7 +64,7 @@ export const Skills: React.FC = () => {
             return (
               <div
                 key={skill.name}
-                className={`rounded-2xl p-5 sm:p-6 bg-[#0b101c]/85 border border-slate-800/80 ${brandStyle.borderHover} ${brandStyle.glow} hover:bg-[#0f172a] transition-all duration-300 group relative backdrop-blur-xl shadow-sm hover:-translate-y-1`}
+                className={`beam-border-card rounded-2xl p-5 sm:p-6 bg-[#0b101c]/85 border border-slate-800/80 ${brandStyle.borderHover} ${brandStyle.glow} hover:bg-[#0f172a] transition-all duration-300 group relative backdrop-blur-xl shadow-sm hover:-translate-y-1`}
               >
                 <div className="flex items-start justify-between gap-3 mb-3.5">
                   <div className="flex items-center gap-3.5">

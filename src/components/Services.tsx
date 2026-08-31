@@ -35,7 +35,7 @@ export const Services: React.FC = () => {
             return (
               <div
                 key={srv.id}
-                className="rounded-2xl p-5 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/30 hover:bg-[#0f172a]/90 transition-all duration-300 group backdrop-blur-xl shadow-lg relative flex flex-col justify-between"
+                className="beam-border-card rounded-2xl p-5 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/30 hover:bg-[#0f172a]/90 hover:-translate-y-1.5 transition-all duration-300 group backdrop-blur-xl shadow-lg relative flex flex-col justify-between"
               >
                 <div>
                   {/* Icon */}

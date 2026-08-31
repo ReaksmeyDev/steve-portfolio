@@ -24,7 +24,7 @@ export const About: React.FC = () => {
           {/* Top Row: Story Card (7 cols) + Developer Profile (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
             {/* Story Card */}
-            <div className="lg:col-span-7 rounded-2xl p-6 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl flex flex-col justify-between space-y-4 shadow-lg">
+            <div className="beam-border-card lg:col-span-7 rounded-2xl p-6 sm:p-7 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between space-y-4 shadow-lg">
               <div className="space-y-3">
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
                   Hi, I'm Steve. Over the past 2+ years, I've helped teams and businesses build, scale, and maintain software products. My work spans the entire application lifecycle—from designing normalized relational databases and enterprise REST APIs to building fluid cross-platform mobile applications.
@@ -36,19 +36,19 @@ export const About: React.FC = () => {
 
               {/* Stack Highlight Pills */}
               <div className="pt-2 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500/40 transition-colors">
                   <LaravelIcon className="w-4 h-4" />
                   <span>Laravel</span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500/40 transition-colors">
                   <PhpIcon className="w-4 h-4" />
                   <span>PHP</span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500/40 transition-colors">
                   <ReactIcon className="w-4 h-4" />
                   <span>React.js</span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-200 hover:border-cyan-500/40 transition-colors">
                   <FlutterIcon className="w-4 h-4" />
                   <span>Flutter</span>
                 </div>
@@ -56,7 +56,7 @@ export const About: React.FC = () => {
             </div>
 
             {/* Developer Profile Card */}
-            <div className="lg:col-span-5 rounded-2xl p-6 bg-[#0b101c]/80 border border-slate-800/80 backdrop-blur-xl flex flex-col justify-between space-y-5 shadow-lg">
+            <div className="beam-border-card lg:col-span-5 rounded-2xl p-6 bg-[#0b101c]/80 border border-slate-800/80 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between space-y-5 shadow-lg">
               <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
                 <div>
                   <h3 className="text-base font-bold text-white font-sans">Developer Profile</h3>
@@ -104,7 +104,7 @@ export const About: React.FC = () => {
 
           {/* Bottom Row: 3 Practical Craft Grid Cards (Full width 12 cols) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-cyan-500/30 transition-all duration-300">
+            <div className="beam-border-card p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300">
               <div className="p-2.5 w-fit rounded-xl bg-cyan-950/50 text-cyan-400 border border-cyan-500/20">
                 <Database className="w-4 h-4" />
               </div>
@@ -114,7 +114,7 @@ export const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-violet-500/30 transition-all duration-300">
+            <div className="beam-border-card p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-violet-500/30 hover:-translate-y-1 transition-all duration-300">
               <div className="p-2.5 w-fit rounded-xl bg-violet-950/50 text-violet-400 border border-violet-500/20">
                 <Smartphone className="w-4 h-4" />
               </div>
@@ -124,7 +124,7 @@ export const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-emerald-500/30 transition-all duration-300">
+            <div className="beam-border-card p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-emerald-500/30 hover:-translate-y-1 transition-all duration-300">
               <div className="p-2.5 w-fit rounded-xl bg-emerald-950/50 text-emerald-400 border border-emerald-500/20">
                 <Zap className="w-4 h-4" />
               </div>
