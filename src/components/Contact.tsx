@@ -48,7 +48,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="font-mono text-sm min-w-0">
                   <span className="text-slate-500 text-[10px] uppercase tracking-wider block">Telegram</span>
-                  <span className="text-slate-200">@Stevejkj</span>
+                  <span className="text-slate-200">@stevejkj</span>
                 </div>
               </div>
             </div>
