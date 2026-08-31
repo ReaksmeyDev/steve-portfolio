@@ -335,19 +335,6 @@ body {
   50% { opacity: 0; }
 }
 
-.float-badge {
-  animation: floatBadge 6s ease-in-out infinite;
-}
-
-.float-badge-delayed {
-  animation: floatBadge 6s ease-in-out 3s infinite;
-}
-
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-
 .beam-border-card {
   position: relative;
   overflow: hidden;

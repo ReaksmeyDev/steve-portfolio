@@ -62,28 +62,32 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     id: 'exp-1',
     position: 'Full-Stack Developer',
     organization: 'Software Solutions Inc.',
-    period: '2023 - Present',
+    period: '2024 - Present',
     description: 'Developing and scaling enterprise web platforms and integrated mobile applications.',
     responsibilities: [
       'Designed and deployed scalable RESTful APIs in Laravel consumed by web and Flutter clients.',
       'Implemented document ingestion pipelines leveraging OCR and asynchronous queues.',
-      'Configured Linux production instances, Nginx reverse proxies, and automated deployment pipelines.'
+      'Optimized SQL queries and schema models across MySQL databases.',
+      'Collaborated with frontend developers to deliver responsive administrative portals.',
+      'Configured Linux production instances, Nginx reverse proxies, and automated deployment pipelines.',
+      'Integrated cloud services such as Document AI, Google Cloud Storage, and SendGrid for enhanced functionality and user experience.',
+      'Managed and maintained multiple development and production environments, ensuring high availability and performance.'
     ],
-    technologies: ['Laravel', 'Flutter', 'React.js', 'MySQL', 'Linux', 'Nginx']
+    technologies: ['Laravel', 'Flutter', 'MySQL', 'Linux', 'Nginx', 'REST APIs', 'Document AI']
   },
-  {
-    id: 'exp-2',
-    position: 'Backend Developer',
-    organization: 'Digital Systems Enterprise',
-    period: '2021 - 2023',
-    description: 'Engineered backend databases, business logic layers, and internal operational tooling.',
-    responsibilities: [
-      'Optimized SQL queries and schema models across MySQL and SQL Server databases.',
-      'Constructed role-based access control (RBAC) authentication microservices.',
-      'Collaborated with frontend developers to deliver responsive administrative portals.'
-    ],
-    technologies: ['PHP', 'Laravel', 'SQL Server', 'MySQL', 'JavaScript', 'Git']
-  }
+  // {
+  //   id: 'exp-2',
+  //   position: 'Backend Developer',
+  //   organization: 'Digital Systems Enterprise',
+  //   period: '2021 - 2023',
+  //   description: 'Engineered backend databases, business logic layers, and internal operational tooling.',
+  //   responsibilities: [
+  //     'Optimized SQL queries and schema models across MySQL and SQL Server databases.',
+  //     'Constructed role-based access control (RBAC) authentication microservices.',
+  //     'Collaborated with frontend developers to deliver responsive administrative portals.'
+  //   ],
+  //   technologies: ['PHP', 'Laravel', 'SQL Server', 'MySQL', 'JavaScript', 'Git']
+  // }
 ];
 
 export const SERVICES_DATA: ServiceItem[] = [
@@ -91,7 +95,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     id: 'srv-web',
     title: 'Web Applications',
     description: 'Production-ready web applications built with Laravel and React.js. Focused on performance, responsive layouts, modular state management, and clear UI hierarchy.',
-    skills: ['React.js', 'Laravel', 'REST APIs', 'Tailwind CSS']
+    skills: ['React.js', 'Laravel', 'REST APIs']
   },
   {
     id: 'srv-mobile',

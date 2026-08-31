@@ -39,7 +39,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="font-mono text-sm min-w-0">
                   <span className="text-slate-500 text-[10px] uppercase tracking-wider block">Email</span>
-                  <span className="text-slate-200 break-all">contact@example.com</span>
+                  <span className="text-slate-200 break-all">steve.code.dev@gmail.com</span>
                 </div>
               </div>
               <div className="flex items-center gap-4 group">
@@ -48,7 +48,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div className="font-mono text-sm min-w-0">
                   <span className="text-slate-500 text-[10px] uppercase tracking-wider block">Telegram</span>
-                  <span className="text-slate-200">@developer_placeholder</span>
+                  <span className="text-slate-200">@Stevejkj</span>
                 </div>
               </div>
             </div>

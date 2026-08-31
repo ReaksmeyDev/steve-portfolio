@@ -204,28 +204,23 @@ export const Hero: React.FC = () => {
             Specializing in <span className="text-cyan-300 font-medium">Laravel</span>, <span className="text-cyan-300 font-medium">React</span>, and <span className="text-cyan-300 font-medium">Flutter</span>. I engineer high-performance systems with clean architectural patterns, robust databases, and polished user experiences.
           </p>
 
-          {/* Quick Tech Pill Badges with Micro-Floating Animations */}
+          {/* Quick Tech Pill Badges */}
           <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 pt-1">
-            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
-              <ReactIcon className="w-4 h-4" />
-              <span>React</span>
-            </div>
-            <div className="float-badge-delayed flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
-              <FlutterIcon className="w-4 h-4" />
-              <span>Flutter</span>
-            </div>
-            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
-              <LaravelIcon className="w-4 h-4" />
-              <span>Laravel</span>
-            </div>
-            <div className="float-badge-delayed flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
-              <NodeIcon className="w-4 h-4" />
-              <span>Node.js</span>
-            </div>
-            <div className="float-badge flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 transition-colors">
-              <PostgresIcon className="w-4 h-4" />
-              <span>PostgreSQL</span>
-            </div>
+            {[
+              { name: 'React', icon: ReactIcon },
+              { name: 'Flutter', icon: FlutterIcon },
+              { name: 'Laravel', icon: LaravelIcon },
+              { name: 'Node.js', icon: NodeIcon },
+              { name: 'PostgreSQL', icon: PostgresIcon },
+            ].map(({ name, icon: Icon }) => (
+              <div
+                key={name}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800 text-[11px] sm:text-xs font-mono text-slate-300 hover:border-cyan-500/40 hover:text-white transition-colors"
+              >
+                <Icon className="w-4 h-4" />
+                <span>{name}</span>
+              </div>
+            ))}
           </div>
 
           {/* Action CTAs */}
