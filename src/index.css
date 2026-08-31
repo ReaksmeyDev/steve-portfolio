@@ -455,6 +455,27 @@ body {
   100% { background-position: 200% 0; }
 }
 
+/* ─── High-Performance GPU Scroll Reveal (Zero Blur Overhead) ─── */
+.reveal-init {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0) scale(0.975);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+}
+
+/* Stagger Delay Classes */
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 150ms; }
+.reveal-delay-3 { transition-delay: 220ms; }
+.reveal-delay-4 { transition-delay: 300ms; }
+
 /* ─── Noise Texture Overlay (GPU Isolated Layer) ─── */
 .noise-overlay::after {
   content: '';

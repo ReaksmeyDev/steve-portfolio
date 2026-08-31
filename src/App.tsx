@@ -9,6 +9,7 @@ import { Services } from './components/Services';
 import { Terminal } from './components/Terminal';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { ScrollReveal } from './components/ScrollReveal';
 
 const SectionBridge: React.FC = () => (
   <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-[-1px] pointer-events-none" aria-hidden="true">
@@ -21,22 +22,6 @@ const SectionBridge: React.FC = () => (
 export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#05070e] text-slate-200 relative selection:bg-cyan-500/30 selection:text-cyan-300 noise-overlay">
-      {/* SVG Filters for Gooey / Liquid Effects */}
-      <svg className="absolute w-0 h-0" aria-hidden="true">
-        <defs>
-          <filter id="gooey">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-              result="goo"
-            />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-          </filter>
-        </defs>
-      </svg>
-
       {/* Starfield Background (CSS-only, GPU-accelerated) */}
       <div className="starfield">
         <div className="starfield-layer starfield-layer-1" />
@@ -53,21 +38,44 @@ export const App: React.FC = () => {
       <div className="relative z-10">
         <Navbar />
         <main>
-          <Hero />
+          <ScrollReveal initiallyVisible={true}>
+            <Hero />
+          </ScrollReveal>
           <SectionBridge />
-          <About />
+
+          <ScrollReveal delay={30}>
+            <About />
+          </ScrollReveal>
           <SectionBridge />
-          <Skills />
+
+          <ScrollReveal delay={30}>
+            <Skills />
+          </ScrollReveal>
           <SectionBridge />
-          <Experience />
+
+          <ScrollReveal delay={30}>
+            <Experience />
+          </ScrollReveal>
           <SectionBridge />
-          <Projects />
+
+          <ScrollReveal delay={30}>
+            <Projects />
+          </ScrollReveal>
           <SectionBridge />
-          <Services />
+
+          <ScrollReveal delay={30}>
+            <Services />
+          </ScrollReveal>
           <SectionBridge />
-          <Terminal />
+
+          <ScrollReveal delay={30}>
+            <Terminal />
+          </ScrollReveal>
           <SectionBridge />
-          <Contact />
+
+          <ScrollReveal delay={30}>
+            <Contact />
+          </ScrollReveal>
         </main>
         <Footer />
       </div>

@@ -45,6 +45,15 @@ export const PROJECTS_DATA: Project[] = [
     description: 'A backend processing pipeline that ingests multi-page PDF documents, extracts text using cloud OCR, structures unstructured content, and pushes it to search indices.',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Google Cloud Vision', 'Queue System'],
     githubUrl: 'https://github.com'
+  },
+  {
+    id: 'documents-management-system',
+    title: 'Documents Management System',
+    category: 'Web',
+    description: 'A comprehensive document management system designed for storing, organizing, and retrieving documents. It provides a centralized platform for managing documents with advanced search. ',
+    technologies: ['Laravel', 'MySQL'],
+    githubUrl: 'https://github.com',
+    liveUrl: 'https://example.com'
   }
 ];
 
