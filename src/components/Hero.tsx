@@ -11,6 +11,51 @@ const HERO_PHRASES = [
   'Engineering reliable full-stack systems with clean architecture.',
 ];
 
+// Dynamically highlights key engineering terms inside the active typed text
+const renderHighlightedTypedText = (text: string): React.ReactNode => {
+  const keywords: Array<{ word: string; className: string }> = [
+    { word: 'Laravel backends', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
+    { word: 'Laravel', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
+    { word: 'REST APIs', className: 'text-violet-300 font-semibold drop-shadow-[0_0_10px_rgba(167,139,250,0.35)]' },
+    { word: 'Flutter', className: 'text-sky-300 font-semibold drop-shadow-[0_0_10px_rgba(56,189,248,0.35)]' },
+    { word: 'clean architecture', className: 'text-emerald-300 font-semibold drop-shadow-[0_0_10px_rgba(52,211,153,0.35)]' },
+    { word: 'cross-platform', className: 'text-cyan-300 font-semibold' },
+    { word: 'scalable web ecosystems', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
+  ];
+
+  let parts: React.ReactNode[] = [];
+  let remaining = text;
+  let keyIdx = 0;
+
+  while (remaining.length > 0) {
+    let earliestMatch: { index: number; keyword: string; className: string } | null = null;
+
+    for (const { word, className } of keywords) {
+      const idx = remaining.indexOf(word);
+      if (idx !== -1 && (earliestMatch === null || idx < earliestMatch.index)) {
+        earliestMatch = { index: idx, keyword: word, className };
+      }
+    }
+
+    if (earliestMatch !== null) {
+      if (earliestMatch.index > 0) {
+        parts.push(<span key={keyIdx++}>{remaining.slice(0, earliestMatch.index)}</span>);
+      }
+      parts.push(
+        <span key={keyIdx++} className={earliestMatch.className}>
+          {earliestMatch.keyword}
+        </span>
+      );
+      remaining = remaining.slice(earliestMatch.index + earliestMatch.keyword.length);
+    } else {
+      parts.push(<span key={keyIdx++}>{remaining}</span>);
+      break;
+    }
+  }
+
+  return parts;
+};
+
 export const Hero: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('developer');
   const [copied, setCopied] = useState(false);
@@ -22,13 +67,13 @@ export const Hero: React.FC = () => {
 
   useEffect(() => {
     const currentPhrase = HERO_PHRASES[phraseIndex];
-    const typingSpeed = isDeleting ? 25 : 50;
+    const typingSpeed = isDeleting ? 18 : 38;
 
     const timer = setTimeout(() => {
       if (!isDeleting) {
         setDisplayText(currentPhrase.slice(0, displayText.length + 1));
         if (displayText.length + 1 === currentPhrase.length) {
-          setTimeout(() => setIsDeleting(true), 2500);
+          setTimeout(() => setIsDeleting(true), 2800);
         }
       } else {
         setDisplayText(currentPhrase.slice(0, displayText.length - 1));
@@ -148,8 +193,8 @@ export const Hero: React.FC = () => {
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
               Hi, I'm <span className="gradient-text-animated">Steve</span>.
             </h1>
-            <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug min-h-[3.2rem] sm:min-h-[2.2rem]">
-              <span>{displayText}</span>
+            <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug min-h-[3.8rem] sm:min-h-[2.4rem]">
+              <span>{renderHighlightedTypedText(displayText)}</span>
               <span className="typewriter-cursor" />
             </p>
           </div>
@@ -220,7 +265,7 @@ export const Hero: React.FC = () => {
 
         {/* Right Column: Interactive Syntax-Highlighted Editor */}
         <div className="lg:col-span-5 w-full max-w-full overflow-hidden">
-          <div className="rounded-2xl border border-cyan-500/20 bg-[#0d1117] shadow-2xl overflow-hidden backdrop-blur-xl relative w-full">
+          <div className="beam-border-card rounded-2xl border border-cyan-500/25 hover:border-cyan-500/45 bg-[#0d1117] shadow-2xl overflow-hidden backdrop-blur-xl relative w-full transition-all duration-300">
             {/* Editor Window Header & Tabs */}
             <div className="bg-[#161b22] px-3 sm:px-4 py-2 border-b border-slate-800 flex items-center justify-between gap-2">
               {/* Window Controls */}
