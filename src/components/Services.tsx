@@ -10,7 +10,7 @@ const iconConfig: Record<string, { icon: React.ElementType; color: string; borde
   'srv-devops': { icon: Cpu, color: 'text-amber-400', border: 'border-amber-500/30', glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]' },
 };
 
-export const Services: React.FC = () => {
+export const Services: React.FC = React.memo(() => {
   return (
     <section id="services" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
@@ -70,4 +70,4 @@ export const Services: React.FC = () => {
       </div>
     </section>
   );
-};
+});

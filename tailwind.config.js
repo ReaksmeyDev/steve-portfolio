@@ -50,20 +50,20 @@ export default {
       },
       keyframes: {
         blob: {
-          '0%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%', transform: 'translate(0, 0) scale(1)' },
-          '33%': { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%', transform: 'translate(15px, -20px) scale(1.05)' },
-          '66%': { borderRadius: '50% 60% 30% 60% / 30% 40% 70% 60%', transform: 'translate(-10px, 15px) scale(0.97)' },
-          '100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%', transform: 'translate(0, 0) scale(1)' },
+          '0%': { transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)' },
+          '33%': { transform: 'translate3d(15px, -20px, 0) scale(1.05) rotate(120deg)' },
+          '66%': { transform: 'translate3d(-10px, 15px, 0) scale(0.97) rotate(240deg)' },
+          '100%': { transform: 'translate3d(0, 0, 0) scale(1) rotate(360deg)' },
         },
         'blob-reverse': {
-          '0%': { borderRadius: '40% 60% 70% 30% / 40% 70% 30% 60%' },
-          '33%': { borderRadius: '60% 30% 40% 70% / 60% 40% 60% 30%' },
-          '66%': { borderRadius: '30% 50% 60% 40% / 70% 30% 50% 60%' },
-          '100%': { borderRadius: '40% 60% 70% 30% / 40% 70% 30% 60%' },
+          '0%': { transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)' },
+          '33%': { transform: 'translate3d(-15px, 20px, 0) scale(0.98) rotate(-120deg)' },
+          '66%': { transform: 'translate3d(12px, -12px, 0) scale(1.04) rotate(-240deg)' },
+          '100%': { transform: 'translate3d(0, 0, 0) scale(1) rotate(-360deg)' },
         },
         float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
+          '50%': { transform: 'translate3d(0, -20px, 0)' },
         },
         'liquid-flow': {
           '0%': { backgroundPosition: '0% 50%' },

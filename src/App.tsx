@@ -10,13 +10,13 @@ import { Terminal } from './components/Terminal';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
-const SectionBridge: React.FC = () => (
+const SectionBridge: React.FC = React.memo(() => (
   <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-[-1px] pointer-events-none" aria-hidden="true">
     <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent relative">
       <div className="absolute left-1/2 -translate-x-1/2 -top-[3px] w-1.5 h-1.5 rounded-full bg-cyan-400/40 shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
     </div>
   </div>
-);
+));
 
 export const App: React.FC = () => {
   return (

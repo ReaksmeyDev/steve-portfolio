@@ -2,7 +2,7 @@ import React from 'react';
 import { Code2, Database, Smartphone, Zap, MapPin, Briefcase } from 'lucide-react';
 import { ReactIcon, FlutterIcon, LaravelIcon, PhpIcon } from './TechIcons';
 
-export const About: React.FC = () => {
+export const About: React.FC = React.memo(() => {
   return (
     <section id="about" className="relative py-10 sm:py-16 scroll-mt-20 sm:scroll-mt-24 overflow-hidden">
       {/* Subtle Ambient Glow */}
@@ -138,4 +138,4 @@ export const About: React.FC = () => {
       </div>
     </section>
   );
-};
+});

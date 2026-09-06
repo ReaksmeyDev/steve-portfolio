@@ -8,7 +8,7 @@ const socialLinks = [
   { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
 ];
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC = React.memo(() => {
   return (
     <footer className="relative border-t border-slate-800/40 bg-[#03050a]/80 backdrop-blur-sm">
       {/* Wave Divider */}
@@ -53,4 +53,4 @@ export const Footer: React.FC = () => {
       <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
     </footer>
   );
-};
+});

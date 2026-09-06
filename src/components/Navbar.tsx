@@ -18,15 +18,22 @@ export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('');
 
-  // 1. Efficient, guarded scroll listener for navbar appearance (zero unnecessary re-renders)
+  // 1. Efficient, rAF-throttled scroll listener for navbar appearance (zero layout thrashing)
   useEffect(() => {
+    let ticking = false;
     let prevScrolled = window.scrollY > 8;
 
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 8;
-      if (isScrolled !== prevScrolled) {
-        prevScrolled = isScrolled;
-        setScrolled(isScrolled);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 8;
+          if (isScrolled !== prevScrolled) {
+            prevScrolled = isScrolled;
+            setScrolled(isScrolled);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

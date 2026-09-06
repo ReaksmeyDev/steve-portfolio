@@ -3,7 +3,7 @@ import { Calendar, Building, CheckCircle2 } from 'lucide-react';
 import { EXPERIENCE_DATA } from '../data/portfolioData';
 import { getTechIcon } from './TechIcons';
 
-const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number }> = ({ item }) => {
+const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number }> = React.memo(({ item }) => {
   return (
     <div className="relative">
       {/* Timeline Dot – Glowing Ring */}
@@ -59,9 +59,9 @@ const ExperienceCard: React.FC<{ item: typeof EXPERIENCE_DATA[0]; index: number 
       </div>
     </div>
   );
-};
+});
 
-export const Experience: React.FC = () => {
+export const Experience: React.FC = React.memo(() => {
   return (
     <section id="experience" className="py-10 sm:py-16 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
       {/* Background Accent */}
@@ -86,4 +86,4 @@ export const Experience: React.FC = () => {
       </div>
     </section>
   );
-};
+});

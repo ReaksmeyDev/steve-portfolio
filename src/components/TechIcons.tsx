@@ -3,6 +3,7 @@ import React from 'react';
 interface IconProps {
   className?: string;
   size?: number;
+  priority?: boolean;
 }
 
 // Icons8 Official Color Assets
@@ -55,99 +56,110 @@ const resolveIcons8Url = (name: string): string => {
   return ICONS8_MAP.react;
 };
 
-export const Icons8Image: React.FC<{ name: string; alt?: string; className?: string }> = ({
+export const Icons8Image: React.FC<{
+  name: string;
+  alt?: string;
+  className?: string;
+  priority?: boolean;
+}> = React.memo(({
   name,
   alt,
   className = 'w-6 h-6 object-contain',
+  priority = false,
 }) => {
   const url = resolveIcons8Url(name);
   return (
     <img
       src={url}
       alt={alt || `${name} icon`}
-      loading="lazy"
+      width={48}
+      height={48}
+      loading={priority ? 'eager' : 'lazy'}
       decoding="async"
+      fetchPriority={priority ? 'high' : 'auto'}
+      crossOrigin="anonymous"
+      referrerPolicy="no-referrer"
       className={className}
     />
   );
-};
+});
 
 // Named Export Components
-export const ReactIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="react" className={className} />
+export const ReactIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="react" className={className} priority={priority} />
 );
 
-export const FlutterIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="flutter" className={className} />
+export const FlutterIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="flutter" className={className} priority={priority} />
 );
 
-export const DartIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="dart" className={className} />
+export const DartIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="dart" className={className} priority={priority} />
 );
 
-export const JsIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="javascript" className={className} />
+export const JsIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="javascript" className={className} priority={priority} />
 );
 
-export const TsIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="typescript" className={className} />
+export const TsIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="typescript" className={className} priority={priority} />
 );
 
-export const HtmlCssIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="html" className={className} />
+export const HtmlCssIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="html" className={className} priority={priority} />
 );
 
-export const LaravelIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="laravel" className={className} />
+export const LaravelIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="laravel" className={className} priority={priority} />
 );
 
-export const PhpIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="php" className={className} />
+export const PhpIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="php" className={className} priority={priority} />
 );
 
-export const NodeIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="node" className={className} />
+export const NodeIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="node" className={className} priority={priority} />
 );
 
-export const RestApiIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="rest" className={className} />
+export const RestApiIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="rest" className={className} priority={priority} />
 );
 
-export const MysqlIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="mysql" className={className} />
+export const MysqlIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="mysql" className={className} priority={priority} />
 );
 
-export const SqlServerIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="sqlserver" className={className} />
+export const SqlServerIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="sqlserver" className={className} priority={priority} />
 );
 
-export const PostgresIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="postgres" className={className} />
+export const PostgresIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="postgres" className={className} priority={priority} />
 );
 
-export const LinuxIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="linux" className={className} />
+export const LinuxIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="linux" className={className} priority={priority} />
 );
 
-export const GitIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="git" className={className} />
+export const GitIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="git" className={className} priority={priority} />
 );
 
-export const NginxIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="nginx" className={className} />
+export const NginxIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="nginx" className={className} priority={priority} />
 );
 
-export const CloudIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="cloud" className={className} />
+export const CloudIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="cloud" className={className} priority={priority} />
 );
 
-export const AiIcon: React.FC<IconProps> = ({ className = 'w-6 h-6' }) => (
-  <Icons8Image name="ai" className={className} />
+export const AiIcon: React.FC<IconProps> = ({ className = 'w-6 h-6', priority }) => (
+  <Icons8Image name="ai" className={className} priority={priority} />
 );
 
 // Helper function to resolve Icons8 icon for any technology name
-export const getTechIcon = (name: string, className = 'w-6 h-6') => {
-  return <Icons8Image name={name} className={className} />;
+export const getTechIcon = (name: string, className = 'w-6 h-6', priority = false) => {
+  return <Icons8Image name={name} className={className} priority={priority} />;
 };
 
 // Brand Accent Colors for Card Glow on Hover

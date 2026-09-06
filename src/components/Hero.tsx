@@ -56,16 +56,90 @@ const renderHighlightedTypedText = (text: string): React.ReactNode => {
   return parts;
 };
 
-export const Hero: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>('developer');
-  const [copied, setCopied] = useState(false);
+const SNIPPETS: Record<TabKey, { filename: string; language: string; code: React.ReactNode }> = {
+  developer: {
+    filename: 'developer.ts',
+    language: 'TypeScript',
+    code: (
+      <>
+        <div><span className="text-[#e06c75]">import</span> <span className="text-[#e5c07b]">type</span> &#123; <span className="text-[#e5c07b]">Engineer</span> &#125; <span className="text-[#e06c75]">from</span> <span className="text-[#98c379]">'@steve/core'</span>;</div>
+        <div className="text-slate-600">// Full-stack & mobile developer profile</div>
+        <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">steve</span>: <span className="text-[#e5c07b]">Engineer</span> = &#123;</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">name</span>: <span className="text-[#98c379]">'Steve'</span>,</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">title</span>: <span className="text-[#98c379]">'Full-Stack & Mobile Developer'</span>,</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">location</span>: <span className="text-[#98c379]">'Phnom Penh, Cambodia'</span>,</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">status</span>: <span className="text-[#98c379]">'Available for projects'</span>,</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">yearsActive</span>: <span className="text-[#d19a66]">2</span>,</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">passions</span>: [</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Clean Architecture'</span>,</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Cross-Platform Apps'</span>,</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Scalable REST APIs'</span>,</div>
+        <div className="pl-3 sm:pl-4">],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#61afef]">buildSolution</span>: (<span className="text-[#abb2bf]">idea</span>) <span className="text-[#c678dd]">=&gt;</span> &#123;</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#c678dd]">return</span> <span className="text-[#61afef]">deployToProduction</span>(<span className="text-[#abb2bf]">idea</span>);</div>
+        <div className="pl-3 sm:pl-4">&#125;</div>
+        <div>&#125;;</div>
+      </>
+    ),
+  },
+  stack: {
+    filename: 'stack.config.ts',
+    language: 'TypeScript',
+    code: (
+      <>
+        <div className="text-slate-600">// Production-proven technology matrix</div>
+        <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">primaryStack</span> = &#123;</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">mobile</span>: [<span className="text-[#98c379]">'Flutter'</span>, <span className="text-[#98c379]">'Dart'</span>],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">frontend</span>: [<span className="text-[#98c379]">'React.js'</span>, <span className="text-[#98c379]">'TypeScript'</span>],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">backend</span>: [<span className="text-[#98c379]">'Laravel'</span>, <span className="text-[#98c379]">'PHP 8+'</span>, <span className="text-[#98c379]">'Node.js'</span>],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">databases</span>: [<span className="text-[#98c379]">'PostgreSQL'</span>, <span className="text-[#98c379]">'MySQL'</span>],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">infrastructure</span>: [<span className="text-[#98c379]">'Linux'</span>, <span className="text-[#98c379]">'Nginx'</span>],</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">specialties</span>: [<span className="text-[#98c379]">'Document AI'</span>, <span className="text-[#98c379]">'Cloud OCR'</span>, <span className="text-[#98c379]">'Async Queues'</span>]</div>
+        <div>&#125; <span className="text-[#e5c07b]">as const</span>;</div>
+      </>
+    ),
+  },
+  architecture: {
+    filename: 'architecture.ts',
+    language: 'TypeScript',
+    code: (
+      <>
+        <div className="text-slate-600">// Engineering principles & standards</div>
+        <div><span className="text-[#c678dd]">class</span> <span className="text-[#e5c07b]">SystemArchitecture</span> &#123;</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#c678dd]">readonly</span> <span className="text-[#e06c75]">principles</span> = [</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'High Performance'</span>,</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Modular & Maintainable'</span>,</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Fault Tolerant'</span>,</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Security by Design'</span></div>
+        <div className="pl-3 sm:pl-4">];</div>
+        <div className="pl-3 sm:pl-4"><span className="text-[#61afef]">verifyHealth</span>(): <span className="text-[#56b6c2]">Promise</span>&lt;<span className="text-[#56b6c2]">boolean</span>&gt; &#123;</div>
+        <div className="pl-6 sm:pl-8"><span className="text-[#c678dd]">return</span> <span className="text-[#56b6c2]">Promise</span>.<span className="text-[#61afef]">resolve</span>(<span className="text-[#d19a66]">true</span>);</div>
+        <div className="pl-3 sm:pl-4">&#125;</div>
+        <div>&#125;</div>
+      </>
+    ),
+  },
+};
 
-  // Typewriter effect state
+const LINE_NUMBERS = Array.from({ length: 14 }, (_, i) => i + 1);
+
+const HERO_TECH_STACK = [
+  { name: 'React', icon: ReactIcon },
+  { name: 'Flutter', icon: FlutterIcon },
+  { name: 'Laravel', icon: LaravelIcon },
+  { name: 'Node.js', icon: NodeIcon },
+  { name: 'PostgreSQL', icon: PostgresIcon },
+];
+
+// Isolated Typewriter Subcomponent (only this small text node re-renders during typing)
+const TypewriterHeadline: React.FC<{ isVisible: boolean }> = React.memo(({ isVisible }) => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const currentPhrase = HERO_PHRASES[phraseIndex];
     const typingSpeed = isDeleting ? 18 : 38;
 
@@ -85,72 +159,37 @@ export const Hero: React.FC = () => {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, phraseIndex]);
+  }, [displayText, isDeleting, phraseIndex, isVisible]);
 
-  const snippets: Record<TabKey, { filename: string; language: string; code: React.ReactNode }> = {
-    developer: {
-      filename: 'developer.ts',
-      language: 'TypeScript',
-      code: (
-        <>
-          <div><span className="text-[#e06c75]">import</span> <span className="text-[#e5c07b]">type</span> &#123; <span className="text-[#e5c07b]">Engineer</span> &#125; <span className="text-[#e06c75]">from</span> <span className="text-[#98c379]">'@steve/core'</span>;</div>
-          <div className="text-slate-600">// Full-stack & mobile developer profile</div>
-          <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">steve</span>: <span className="text-[#e5c07b]">Engineer</span> = &#123;</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">name</span>: <span className="text-[#98c379]">'Steve'</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">title</span>: <span className="text-[#98c379]">'Full-Stack & Mobile Developer'</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">location</span>: <span className="text-[#98c379]">'Phnom Penh, Cambodia'</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">status</span>: <span className="text-[#98c379]">'Available for projects'</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">yearsActive</span>: <span className="text-[#d19a66]">2</span>,</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">passions</span>: [</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Clean Architecture'</span>,</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Cross-Platform Apps'</span>,</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Scalable REST APIs'</span>,</div>
-          <div className="pl-3 sm:pl-4">],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#61afef]">buildSolution</span>: (<span className="text-[#abb2bf]">idea</span>) <span className="text-[#c678dd]">=&gt;</span> &#123;</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#c678dd]">return</span> <span className="text-[#61afef]">deployToProduction</span>(<span className="text-[#abb2bf]">idea</span>);</div>
-          <div className="pl-3 sm:pl-4">&#125;</div>
-          <div>&#125;;</div>
-        </>
-      ),
-    },
-    stack: {
-      filename: 'stack.config.ts',
-      language: 'TypeScript',
-      code: (
-        <>
-          <div className="text-slate-600">// Production-proven technology matrix</div>
-          <div><span className="text-[#c678dd]">export const</span> <span className="text-[#61afef]">primaryStack</span> = &#123;</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">mobile</span>: [<span className="text-[#98c379]">'Flutter'</span>, <span className="text-[#98c379]">'Dart'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">frontend</span>: [<span className="text-[#98c379]">'React.js'</span>, <span className="text-[#98c379]">'TypeScript'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">backend</span>: [<span className="text-[#98c379]">'Laravel'</span>, <span className="text-[#98c379]">'PHP 8+'</span>, <span className="text-[#98c379]">'Node.js'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">databases</span>: [<span className="text-[#98c379]">'PostgreSQL'</span>, <span className="text-[#98c379]">'MySQL'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">infrastructure</span>: [<span className="text-[#98c379]">'Linux'</span>, <span className="text-[#98c379]">'Nginx'</span>],</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#e06c75]">specialties</span>: [<span className="text-[#98c379]">'Document AI'</span>, <span className="text-[#98c379]">'Cloud OCR'</span>, <span className="text-[#98c379]">'Async Queues'</span>]</div>
-          <div>&#125; <span className="text-[#e5c07b]">as const</span>;</div>
-        </>
-      ),
-    },
-    architecture: {
-      filename: 'architecture.ts',
-      language: 'TypeScript',
-      code: (
-        <>
-          <div className="text-slate-600">// Engineering principles & standards</div>
-          <div><span className="text-[#c678dd]">class</span> <span className="text-[#e5c07b]">SystemArchitecture</span> &#123;</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#c678dd]">readonly</span> <span className="text-[#e06c75]">principles</span> = [</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'High Performance'</span>,</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Modular & Maintainable'</span>,</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Fault Tolerant'</span>,</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#98c379]">'Security by Design'</span></div>
-          <div className="pl-3 sm:pl-4">];</div>
-          <div className="pl-3 sm:pl-4"><span className="text-[#61afef]">verifyHealth</span>(): <span className="text-[#56b6c2]">Promise</span>&lt;<span className="text-[#56b6c2]">boolean</span>&gt; &#123;</div>
-          <div className="pl-6 sm:pl-8"><span className="text-[#c678dd]">return</span> <span className="text-[#56b6c2]">Promise</span>.<span className="text-[#61afef]">resolve</span>(<span className="text-[#d19a66]">true</span>);</div>
-          <div className="pl-3 sm:pl-4">&#125;</div>
-          <div>&#125;</div>
-        </>
-      ),
-    },
-  };
+  return (
+    <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug min-h-[3.8rem] sm:min-h-[2.4rem]">
+      <span>{renderHighlightedTypedText(displayText)}</span>
+      <span className="typewriter-cursor" />
+    </p>
+  );
+});
+
+export const Hero: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabKey>('developer');
+  const [copied, setCopied] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const heroRef = React.useRef<HTMLElement>(null);
+
+  // Pause typewriter timer when Hero is off-screen
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleCopy = () => {
     const rawCode = activeTab === 'developer'
@@ -165,7 +204,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative flex items-center justify-center pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
+    <section ref={heroRef} className="relative flex items-center justify-center pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
       {/* Background Grid Accent */}
       <div className="absolute inset-0 cyber-grid opacity-75" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#05070e]/60 to-[#05070e] pointer-events-none" />
@@ -193,10 +232,7 @@ export const Hero: React.FC = () => {
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
               Hi, I'm <span className="gradient-text-animated">Steve</span>.
             </h1>
-            <p className="text-lg sm:text-2xl font-medium text-slate-200 tracking-tight leading-snug min-h-[3.8rem] sm:min-h-[2.4rem]">
-              <span>{renderHighlightedTypedText(displayText)}</span>
-              <span className="typewriter-cursor" />
-            </p>
+            <TypewriterHeadline isVisible={isVisible} />
           </div>
 
           {/* Bio */}
@@ -204,21 +240,15 @@ export const Hero: React.FC = () => {
             Specializing in <span className="text-cyan-300 font-medium">Laravel</span>, <span className="text-cyan-300 font-medium">React</span>, and <span className="text-cyan-300 font-medium">Flutter</span>. I engineer high-performance systems with clean architectural patterns, robust databases, and polished user experiences.
           </p>
 
-          {/* Quick Tech Icons (Clean Icons Only) */}
+          {/* Quick Tech Icons (Clean Icons Only with Priority Eager Loading) */}
           <div className="flex items-center gap-3.5 pt-1">
-            {[
-              { name: 'React', icon: ReactIcon },
-              { name: 'Flutter', icon: FlutterIcon },
-              { name: 'Laravel', icon: LaravelIcon },
-              { name: 'Node.js', icon: NodeIcon },
-              { name: 'PostgreSQL', icon: PostgresIcon },
-            ].map(({ name, icon: Icon }) => (
+            {HERO_TECH_STACK.map(({ name, icon: Icon }) => (
               <div
                 key={name}
                 title={name}
                 className="hover:scale-125 transition-transform duration-200 cursor-pointer flex items-center justify-center"
               >
-                <Icon className="w-6 h-6 object-contain" />
+                <Icon className="w-6 h-6 object-contain" priority={true} />
               </div>
             ))}
           </div>
@@ -283,7 +313,7 @@ export const Hero: React.FC = () => {
                     }`}
                   >
                     <Code2 className="w-3 h-3" />
-                    <span>{snippets[tab].filename}</span>
+                    <span>{SNIPPETS[tab].filename}</span>
                   </button>
                 ))}
               </div>
@@ -307,14 +337,14 @@ export const Hero: React.FC = () => {
               <div className="flex gap-2.5 sm:gap-4">
                 {/* Line numbers */}
                 <div className="select-none text-slate-600 text-right space-y-0.5 font-mono text-[10px] sm:text-xs pr-1.5 sm:pr-2 border-r border-slate-800/80 shrink-0">
-                  {Array.from({ length: 14 }).map((_, i) => (
-                    <div key={i}>{i + 1}</div>
+                  {LINE_NUMBERS.map((num) => (
+                    <div key={num}>{num}</div>
                   ))}
                 </div>
 
                 {/* Highlighted code */}
                 <div className="flex-1 space-y-0.5 font-mono min-w-0">
-                  {snippets[activeTab].code}
+                  {SNIPPETS[activeTab].code}
                 </div>
               </div>
             </div>
