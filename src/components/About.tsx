@@ -103,7 +103,7 @@ export const About: React.FC = React.memo(() => {
           </div>
 
           {/* Bottom Row: 3 Practical Craft Grid Cards (Full width 12 cols) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
             <div className="beam-border-card p-5 sm:p-6 rounded-2xl bg-[#0b101c]/70 border border-slate-800/80 space-y-2.5 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300">
               <div className="p-2.5 w-fit rounded-xl bg-cyan-950/50 text-cyan-400 border border-cyan-500/20">
                 <Database className="w-4 h-4" />
@@ -133,7 +133,7 @@ export const About: React.FC = React.memo(() => {
                 Stateless token authentication, rate limiting, and asynchronous background worker queues.
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
