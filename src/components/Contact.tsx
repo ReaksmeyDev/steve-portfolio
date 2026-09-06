@@ -63,10 +63,16 @@ export const Contact: React.FC = () => {
                     <CheckCircle2 className="w-12 sm:w-14 h-12 sm:h-14 text-emerald-400 relative z-10" />
                     <div className="absolute inset-0 w-12 sm:w-14 h-12 sm:h-14 bg-emerald-400/20 rounded-full animate-ping" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white font-mono">Transmission Received</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white font-mono">Message has been sent!</h3>
                   <p className="text-sm text-slate-400 max-w-sm mx-auto">
-                    Thank you for reaching out. I will respond to your message shortly.
+                    Thank you for your message. I will respond to you as soon as possible.
                   </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900/50 text-slate-400 border border-slate-800 hover:text-cyan-400 hover:border-cyan-500/30 hover:shadow-glow-cyan transition-all duration-300"
+                  >
+                    <Send className="w-4 h-4" /> Send Another Message
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5 font-mono text-xs">

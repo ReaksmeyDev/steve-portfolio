@@ -2,10 +2,10 @@ import React from 'react';
 import { Github, Linkedin, Send, Facebook } from 'lucide-react';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Send, href: 'https://t.me', label: 'Telegram' },
-  { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
+  { icon: Github, label: 'GitHub' },
+  { icon: Linkedin, label: 'LinkedIn' },
+  { icon: Send, label: 'Telegram' },
+  { icon: Facebook, label: 'Facebook' },
 ];
 
 export const Footer: React.FC = React.memo(() => {
@@ -29,10 +29,9 @@ export const Footer: React.FC = React.memo(() => {
 
         {/* Social Icons */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {socialLinks.map(({ icon: Icon, href, label }) => (
+          {socialLinks.map(({ icon: Icon, label }) => (
             <a
               key={label}
-              href={href}
               target="_blank"
               rel="noreferrer"
               className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl text-slate-400 bg-slate-900/50 border border-slate-800/50 hover:text-cyan-400 hover:border-cyan-500/30 hover:shadow-glow-cyan transition-all duration-300"
