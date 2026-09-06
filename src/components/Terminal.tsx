@@ -82,7 +82,7 @@ export const Terminal: React.FC = () => {
       case 'contact':
         response = (
           <span className="text-slate-300">
-            Email: <a href="mailto:contact@example.com" className="text-cyan-400 underline">contact@example.com</a> | Location: <span className="text-emerald-400">Phnom Penh, Cambodia</span>
+            Email: <a href="mailto:steve.code.dev@gmail.com" className="text-cyan-400 underline">steve.code.dev@gmail.com</a> | Location: <span className="text-emerald-400">Phnom Penh, Cambodia</span>
           </span>
         );
         break;
