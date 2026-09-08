@@ -93,13 +93,12 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${
-          mobileOpen
+        className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${mobileOpen
             ? 'bg-[#05070e] border-b border-slate-900'
             : scrolled
-            ? 'bg-[#05070e]/95 backdrop-blur-xl border-b border-cyan-500/15 shadow-lg shadow-black/40'
-            : 'bg-[#05070e]/75 backdrop-blur-md border-b border-slate-800/40'
-        }`}
+              ? 'bg-[#05070e]/95 backdrop-blur-xl border-b border-cyan-500/15 shadow-lg shadow-black/40'
+              : 'bg-[#05070e]/75 backdrop-blur-md border-b border-slate-800/40'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
@@ -125,11 +124,10 @@ export const Navbar: React.FC = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`transition-colors duration-150 ${
-                      isActive
+                    className={`transition-colors duration-150 ${isActive
                         ? 'text-cyan-300 font-semibold'
                         : 'text-slate-400 hover:text-slate-200'
-                    }`}
+                      }`}
                   >
                     {link.name}
                   </a>
@@ -162,11 +160,10 @@ export const Navbar: React.FC = () => {
 
       {/* Clean Minimal Liquid Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-[#05070e] transition-all duration-300 flex flex-col justify-between pt-24 pb-10 px-8 ${
-          mobileOpen
+        className={`lg:hidden fixed inset-0 z-40 bg-[#05070e] transition-all duration-300 flex flex-col justify-between pt-24 pb-10 px-8 ${mobileOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-3'
-        }`}
+          }`}
       >
         {/* Soft Liquid Ambient Glow in Background */}
         <div className="absolute top-1/3 left-1/4 w-[260px] h-[260px] bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
@@ -180,11 +177,10 @@ export const Navbar: React.FC = () => {
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.href)}
-                className={`text-left font-sans text-2xl font-semibold tracking-tight transition-all duration-200 flex items-center justify-between group ${
-                  isActive
+                className={`text-left font-sans text-2xl font-semibold tracking-tight transition-all duration-200 flex items-center justify-between group ${isActive
                     ? 'text-cyan-300'
                     : 'text-slate-400 hover:text-slate-100 hover:translate-x-1.5'
-                }`}
+                  }`}
               >
                 <span>{link.name}</span>
                 {isActive && (
@@ -199,7 +195,7 @@ export const Navbar: React.FC = () => {
         <div className="relative z-10 pt-6 border-t border-slate-900/80 flex items-center justify-between text-xs font-mono text-slate-400">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400">Available for projects</span>
+            <span className="text-emerald-400">Available for freelance projects</span>
           </div>
 
           <a
