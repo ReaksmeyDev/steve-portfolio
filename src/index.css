@@ -161,6 +161,67 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath d='M160 0H0V160' fill='none' stroke='rgba(34,211,238,0.06)' stroke-width='1.2'/%3E%3Cpath d='M0 0m-6 0h12m-6-6v12' stroke='rgba(34,211,238,0.5)' stroke-width='1.5' stroke-linecap='round'/%3E%3Ccircle cx='80' cy='80' r='1.2' fill='rgba(34,211,238,0.25)'/%3E%3C/svg%3E");
 }
 
+/* ─── Cybernetic Architectural Custom Cursor (Matches Background Vibe) ─── */
+html, body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3 3L10.5 21L13.8 13.8L21 10.5L3 3Z' fill='%23060b14' stroke='%2322d3ee' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='13.8' cy='13.8' r='1.5' fill='%2322d3ee'/%3E%3C/svg%3E") 3 3, auto;
+}
+
+button, a, [role='button'], .cursor-pointer, input[type='submit'], input[type='button'], summary {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Cpath d='M6 10V6H10' stroke='%2322d3ee' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M18 6H22V10' stroke='%2322d3ee' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M22 18V22H18' stroke='%2322d3ee' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M10 22H6V18' stroke='%2322d3ee' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M14 8V12M14 16V20M8 14H12M16 14H20' stroke='%2322d3ee' stroke-width='1' opacity='0.7'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%2322d3ee'/%3E%3C/svg%3E") 14 14, pointer;
+}
+
+input[type='text'], input[type='email'], textarea, .cursor-text {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 4H15M12 4V20M9 20H15' stroke='%2322d3ee' stroke-width='1.5' stroke-linecap='square'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%2322d3ee'/%3E%3C/svg%3E") 12 12, text;
+}
+
+/* Light Mode Cursors */
+html.light, html.light body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3 3L10.5 21L13.8 13.8L21 10.5L3 3Z' fill='%23ffffff' stroke='%23007489' stroke-width='1.5' stroke-linejoin='round'/%3E%3Ccircle cx='13.8' cy='13.8' r='1.5' fill='%230891b2'/%3E%3C/svg%3E") 3 3, auto;
+}
+
+html.light button, html.light a, html.light [role='button'], html.light .cursor-pointer, html.light input[type='submit'], html.light input[type='button'], html.light summary {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28' fill='none'%3E%3Cpath d='M6 10V6H10' stroke='%23007489' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M18 6H22V10' stroke='%23007489' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M22 18V22H18' stroke='%23007489' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M10 22H6V18' stroke='%23007489' stroke-width='1.5' stroke-linecap='square'/%3E%3Cpath d='M14 8V12M14 16V20M8 14H12M16 14H20' stroke='%23007489' stroke-width='1' opacity='0.7'/%3E%3Ccircle cx='14' cy='14' r='2' fill='%23007489'/%3E%3C/svg%3E") 14 14, pointer;
+}
+
+html.light input[type='text'], html.light input[type='email'], html.light textarea, html.light .cursor-text {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 4H15M12 4V20M9 20H15' stroke='%23007489' stroke-width='1.5' stroke-linecap='square'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%23007489'/%3E%3C/svg%3E") 12 12, text;
+}
+
+/* ─── Ambient Cursor Spotlight (Follows cursor across background grid) ─── */
+.cursor-ambient-spotlight {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  contain: strict;
+  transform: translateZ(0);
+  background: radial-gradient(
+    550px circle at var(--cursor-x, -1000px) var(--cursor-y, -1000px),
+    rgba(34, 211, 238, 0.055) 0%,
+    rgba(6, 182, 212, 0.02) 40%,
+    transparent 70%
+  );
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-ambient-spotlight {
+    opacity: 1;
+  }
+}
+
+html.light .cursor-ambient-spotlight {
+  background: radial-gradient(
+    500px circle at var(--cursor-x, -1000px) var(--cursor-y, -1000px),
+    rgba(8, 145, 178, 0.04) 0%,
+    rgba(6, 182, 212, 0.015) 40%,
+    transparent 70%
+  );
+}
+
 /* ─── Top Ambient Spotlight Cone (Linear / Vercel style - Zero Blur Overhead) ─── */
 .top-spotlight-cone {
   position: fixed;

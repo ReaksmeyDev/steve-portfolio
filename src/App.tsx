@@ -64,6 +64,28 @@ const BackToTopButton: React.FC = React.memo(() => {
 });
 
 export const App: React.FC = () => {
+  // Ambient cursor lighting following background vibe (Zero-Re-Render via CSS properties + RAF)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      return;
+    }
+
+    let ticking = false;
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+          document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => window.removeEventListener('pointermove', handlePointerMove);
+  }, []);
+
   return (
     <div id="top" className="min-h-screen bg-[#05070e] text-slate-200 relative selection:bg-cyan-500/30 selection:text-cyan-300 noise-overlay">
       {/* Viewport Sentinels for Zero-JS-Scroll Observers */}
@@ -76,6 +98,9 @@ export const App: React.FC = () => {
       {/* Precision Geometric Grid Square Background System */}
       <div className="grid-square-background" aria-hidden="true" />
       <div className="grid-square-major" aria-hidden="true" />
+
+      {/* Interactive Cursor Ambient Glow (Follows cursor across background vibe) */}
+      <div className="cursor-ambient-spotlight" aria-hidden="true" />
 
       {/* Starfield Background (CSS-only, GPU-accelerated single layer) */}
       <div className="starfield" aria-hidden="true">
