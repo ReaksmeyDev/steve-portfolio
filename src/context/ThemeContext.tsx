@@ -9,7 +9,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
   setTheme: () => {},
 });
@@ -17,23 +17,26 @@ const ThemeContext = createContext<ThemeContextType>({
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('steve-theme') as Theme | null;
+      if (localStorage.getItem('steve-theme')) {
+        localStorage.removeItem('steve-theme');
+      }
+      const saved = localStorage.getItem('steve-portfolio-theme') as Theme | null;
       if (saved === 'dark' || saved === 'light') return saved;
-      return 'dark';
+      return 'light';
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    } else {
+    if (theme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
     }
-    localStorage.setItem('steve-theme', theme);
+    localStorage.setItem('steve-portfolio-theme', theme);
 
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {

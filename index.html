@@ -8,17 +8,17 @@
   <title>Steve | Full-Stack & Mobile Developer</title>
   <meta name="description"
     content="Portfolio of Steve, Full-Stack Developer and Mobile Engineer specializing in Laravel, React, Flutter, and scalable web architectures." />
-  <meta name="theme-color" content="#05070e" />
+  <meta name="theme-color" content="#f8fafc" />
   <script>
     (function() {
       try {
-        var theme = localStorage.getItem('steve-theme') || 'dark';
-        if (theme === 'light') {
-          document.documentElement.classList.add('light');
-          document.documentElement.classList.remove('dark');
-        } else {
+        var theme = localStorage.getItem('steve-portfolio-theme') || 'light';
+        if (theme === 'dark') {
           document.documentElement.classList.add('dark');
           document.documentElement.classList.remove('light');
+        } else {
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
         }
       } catch (e) {}
     })();
