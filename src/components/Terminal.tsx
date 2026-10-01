@@ -40,7 +40,22 @@ export const Terminal: React.FC = React.memo(() => {
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const quickCommands = ['whoami', 'skills', 'projects', 'experience', 'status', 'contact', 'clear'];
+  const quickCommands = ['whoami', 'about', 'skills', 'projects', 'experience', 'services', 'status', 'contact', 'clear'];
+  const availableCommands = [
+    'help',
+    'whoami',
+    'about',
+    'skills',
+    'projects',
+    'experience',
+    'services',
+    'status',
+    'contact',
+    'ls',
+    'pwd',
+    'date',
+    'clear',
+  ];
 
   // Clean up timers on unmount
   useEffect(() => {
@@ -50,110 +65,175 @@ export const Terminal: React.FC = React.memo(() => {
     };
   }, []);
 
+  // Cancel simulateTyping if user starts typing manually
+  const cancelSimulation = useCallback(() => {
+    if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+    if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+    setIsTyping(false);
+    setActiveRunningCmd(null);
+  }, []);
+
   const executeCmd = useCallback((cmdText: string) => {
-    const cmd = cmdText.trim().toLowerCase();
+    const rawCmd = cmdText.trim();
+    const cmd = rawCmd.toLowerCase();
     if (!cmd) return;
 
     // Track command in history for ArrowUp/Down navigation
-    commandHistoryRef.current.push(cmdText.trim());
+    commandHistoryRef.current.push(rawCmd);
     setHistoryPointer(-1);
 
     let response: string | React.ReactNode = '';
 
-    switch (cmd) {
-      case 'help':
-        response = (
-          <span className="text-slate-400">
-            Available commands: <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('whoami')}>whoami</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('skills')}>skills</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('projects')}>projects</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('experience')}>experience</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('status')}>status</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('contact')}>contact</span>, <span className="text-cyan-300 font-semibold cursor-pointer hover:underline" onClick={() => simulateTyping('clear')}>clear</span>
-          </span>
-        );
-        break;
-      case 'whoami':
-        response = (
-          <span className="text-slate-300">
-            <span className="text-cyan-400 font-bold">Steve</span> &mdash; Full-Stack & Mobile Developer (Laravel, React.js, Flutter, PostgreSQL, Linux)
-          </span>
-        );
-        break;
-      case 'skills':
-      case 'skills --list':
-        response = (
-          <div className="space-y-1 text-xs">
-            <div><span className="text-cyan-400 font-semibold">Mobile:</span> Flutter, Dart (iOS & Android)</div>
-            <div><span className="text-cyan-400 font-semibold">Frontend:</span> React.js, TypeScript, Modern CSS/Tailwind</div>
-            <div><span className="text-cyan-400 font-semibold">Backend:</span> Laravel, PHP 8+, Node.js, REST APIs</div>
-            <div><span className="text-cyan-400 font-semibold">Databases:</span> PostgreSQL, MySQL, Relational Schemas</div>
-            <div><span className="text-cyan-400 font-semibold">DevOps:</span> Linux Server Administration, Nginx, CI/CD</div>
+    if (cmd === 'help') {
+      response = (
+        <div className="space-y-1.5 text-xs text-slate-300">
+          <div className="text-cyan-400 font-semibold">Available Commands:</div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 text-[11px] sm:text-xs">
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('whoami')}>whoami</span> &mdash; Intro</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('about')}>about</span> &mdash; Bio</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('skills')}>skills</span> &mdash; Tech stack</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('projects')}>projects</span> &mdash; Builds</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('experience')}>experience</span> &mdash; Career</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('services')}>services</span> &mdash; Solutions</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('status')}>status</span> &mdash; Availability</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('contact')}>contact</span> &mdash; Reach out</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('ls')}>ls</span> &mdash; List files</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('pwd')}>pwd</span> &mdash; Current dir</div>
+            <div><span className="text-cyan-300 font-bold cursor-pointer hover:underline" onClick={() => simulateTyping('clear')}>clear</span> &mdash; Reset screen</div>
           </div>
-        );
-        break;
-      case 'status':
-        response = (
-          <span className="text-cyan-400 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>Open to full-time roles, contracts, and architecture consulting.</span>
-          </span>
-        );
-        break;
-      case 'projects':
-        response = (
-          <div className="space-y-1.5 text-xs">
-            <div><span className="text-cyan-400 font-semibold">1. School Management System</span> &mdash; Enterprise academic & administrative platform (Laravel + React)</div>
-            <div><span className="text-cyan-400 font-semibold">2. Rules & Document Search App</span> &mdash; Cross-platform offline-ready legal query app (Flutter + Dart)</div>
-            <div><span className="text-cyan-400 font-semibold">3. OCR Document Engine</span> &mdash; Automated cloud text extraction pipeline (Laravel + Cloud AI)</div>
-            <div><span className="text-cyan-400 font-semibold">4. Documents Management System</span> &mdash; Centralized document archiving and indexing system (Laravel + MySQL)</div>
+          <div className="text-[10px] text-slate-500 pt-0.5">
+            Tip: Press <kbd className="px-1 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">Tab</kbd> to autocomplete &bull; <kbd className="px-1 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">↑</kbd> <kbd className="px-1 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">↓</kbd> for history
           </div>
-        );
-        break;
-      case 'experience':
-        response = (
-          <div className="space-y-1 text-xs">
-            <div><span className="text-cyan-400 font-semibold">Full-Stack Developer</span> &bull; Software Solutions Inc. (2024 - Present)</div>
-            <div className="text-slate-400">Architected Laravel REST APIs, built Flutter mobile apps, optimized MySQL queries, and automated deployment pipelines.</div>
+        </div>
+      );
+    } else if (cmd === 'whoami') {
+      response = (
+        <span className="text-slate-300">
+          <span className="text-cyan-400 font-bold">Steve</span> &mdash; Full-Stack Developer & Mobile Engineer (Laravel, React.js, Flutter, PostgreSQL, Linux) based in <span className="text-cyan-300">Phnom Penh, Cambodia</span>
+        </span>
+      );
+    } else if (cmd === 'about') {
+      response = (
+        <div className="space-y-1 text-xs text-slate-300">
+          <p>
+            2+ years of software engineering building reliable web systems, scalable REST APIs, and fluid cross-platform mobile apps.
+          </p>
+          <div className="text-slate-400">
+            Core stack: <strong className="text-cyan-300">Laravel / PHP 8+</strong> &bull; <strong className="text-cyan-300">React.js</strong> &bull; <strong className="text-cyan-300">Flutter / Dart</strong> &bull; <strong className="text-cyan-300">PostgreSQL</strong>
           </div>
-        );
-        break;
-      case 'contact':
-        response = (
-          <span className="text-slate-300">
-            Email: <a href="mailto:steve.code.dev@gmail.com" className="text-cyan-400 underline">steve.code.dev@gmail.com</a> | Telegram: <a href="https://t.me/stevejkj" target="_blank" rel="noreferrer" className="text-cyan-400 underline">@stevejkj</a> | Location: <span className="text-cyan-400">Phnom Penh, Cambodia</span>
-          </span>
-        );
-        break;
-      case 'clear':
-        setHistory([]);
-        setInputVal('');
-        return;
-      default:
-        response = (
-          <span className="text-rose-400">
-            Command not recognized: '{cmd}'. Type <span className="text-cyan-300 font-bold cursor-pointer underline" onClick={() => simulateTyping('help')}>'help'</span> for available commands.
-          </span>
-        );
+        </div>
+      );
+    } else if (cmd === 'skills' || cmd === 'skills --list') {
+      response = (
+        <div className="space-y-1 text-xs">
+          <div><span className="text-cyan-400 font-semibold">Mobile:</span> Flutter, Dart (iOS & Android)</div>
+          <div><span className="text-cyan-400 font-semibold">Frontend:</span> React.js, TypeScript, Modern CSS/Tailwind</div>
+          <div><span className="text-cyan-400 font-semibold">Backend:</span> Laravel, PHP 8+, Node.js, REST APIs</div>
+          <div><span className="text-cyan-400 font-semibold">Databases:</span> PostgreSQL, MySQL, Relational Schemas</div>
+          <div><span className="text-cyan-400 font-semibold">DevOps:</span> Linux Server Administration, Nginx, CI/CD</div>
+        </div>
+      );
+    } else if (cmd === 'status') {
+      response = (
+        <span className="text-cyan-400 flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span>Active & available for full-time engineering roles, high-impact contracts & consulting.</span>
+        </span>
+      );
+    } else if (cmd === 'projects') {
+      response = (
+        <div className="space-y-1.5 text-xs">
+          <div><span className="text-cyan-400 font-semibold">1. School Management System</span> &mdash; Enterprise academic & administrative platform (Laravel + React)</div>
+          <div><span className="text-cyan-400 font-semibold">2. Rules & Document Search App</span> &mdash; Cross-platform offline-ready legal query app (Flutter + Dart)</div>
+          <div><span className="text-cyan-400 font-semibold">3. OCR Document Engine</span> &mdash; Automated cloud text extraction pipeline (Laravel + Cloud AI)</div>
+          <div><span className="text-cyan-400 font-semibold">4. Documents Management System</span> &mdash; Centralized document archiving and indexing system (Laravel + MySQL)</div>
+        </div>
+      );
+    } else if (cmd === 'experience') {
+      response = (
+        <div className="space-y-1 text-xs">
+          <div><span className="text-cyan-400 font-semibold">Full-Stack Developer</span> &bull; Software Solutions Inc. (2024 - Present)</div>
+          <div className="text-slate-400">Architected Laravel REST APIs, built Flutter mobile apps, optimized MySQL queries, and automated deployment pipelines.</div>
+        </div>
+      );
+    } else if (cmd === 'services') {
+      response = (
+        <div className="space-y-1 text-xs">
+          <div><span className="text-cyan-400 font-semibold">1. Web Application Development:</span> Production React.js & Laravel systems.</div>
+          <div><span className="text-cyan-400 font-semibold">2. Cross-Platform Mobile Apps:</span> High-performance Flutter iOS & Android apps.</div>
+          <div><span className="text-cyan-400 font-semibold">3. RESTful API & Backend Engineering:</span> Secure, transactional microservices.</div>
+          <div><span className="text-cyan-400 font-semibold">4. Database Architecture & Optimization:</span> PostgreSQL & MySQL schema design.</div>
+        </div>
+      );
+    } else if (cmd === 'contact') {
+      response = (
+        <span className="text-slate-300">
+          Email: <a href="mailto:steve.code.dev@gmail.com" className="text-cyan-400 underline">steve.code.dev@gmail.com</a> | Telegram: <a href="https://t.me/stevejkj" target="_blank" rel="noreferrer" className="text-cyan-400 underline">@stevejkj</a> | Location: <span className="text-cyan-400">Phnom Penh, Cambodia</span>
+        </span>
+      );
+    } else if (cmd === 'ls' || cmd === 'dir') {
+      response = (
+        <div className="space-y-1 text-xs font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-cyan-300">
+            <span className="cursor-pointer hover:underline text-cyan-400" onClick={() => simulateTyping('about')}>about.md</span>
+            <span className="cursor-pointer hover:underline text-cyan-400" onClick={() => simulateTyping('skills')}>skills.json</span>
+            <span className="cursor-pointer hover:underline text-cyan-400" onClick={() => simulateTyping('projects')}>projects.txt</span>
+            <span className="cursor-pointer hover:underline text-cyan-400" onClick={() => simulateTyping('contact')}>contact.txt</span>
+          </div>
+        </div>
+      );
+    } else if (cmd === 'pwd') {
+      response = <span className="text-slate-300 font-mono">/home/steve/portfolio</span>;
+    } else if (cmd === 'date') {
+      response = <span className="text-slate-300 font-mono">{new Date().toLocaleString()} (Asia/Phnom_Penh GMT+7)</span>;
+    } else if (cmd.startsWith('cat ')) {
+      const target = cmd.replace('cat ', '').trim();
+      if (target.includes('about')) {
+        response = <span className="text-slate-300">Steve: Full-Stack Developer with 2+ years experience in Laravel, React, and Flutter.</span>;
+      } else if (target.includes('skill')) {
+        response = <span className="text-slate-300 font-mono">['Flutter', 'Dart', 'React', 'TypeScript', 'Laravel', 'PHP', 'PostgreSQL', 'MySQL']</span>;
+      } else if (target.includes('contact')) {
+        response = <span className="text-slate-300 font-mono">email: steve.code.dev@gmail.com | telegram: @stevejkj</span>;
+      } else {
+        response = <span className="text-slate-400 font-mono">File: {target} &mdash; Content loaded from portfolio data.</span>;
+      }
+    } else if (cmd.startsWith('sudo')) {
+      response = <span className="text-cyan-300 font-bold font-mono">[sudo] Authorization granted: Welcome aboard! Steve is ready for high-impact production engineering.</span>;
+    } else if (cmd === 'clear') {
+      setHistory([]);
+      setInputVal('');
+      return;
+    } else {
+      response = (
+        <span className="text-rose-400">
+          Command not recognized: '{cmd}'. Type <span className="text-cyan-300 font-bold cursor-pointer underline" onClick={() => simulateTyping('help')}>'help'</span> for available commands.
+        </span>
+      );
     }
 
-    setHistory((prev) => [...prev, { command: cmdText, output: response }]);
+    setHistory((prev) => [...prev, { command: rawCmd, output: response }]);
     setInputVal('');
   }, []);
 
   // Simulate realistic typing when clicking quick command buttons
   const simulateTyping = (targetCmd: string) => {
-    if (isTyping) return;
+    cancelSimulation();
     setIsTyping(true);
     setActiveRunningCmd(targetCmd);
     setInputVal('');
 
     let charIdx = 0;
     typingIntervalRef.current = setInterval(() => {
+      charIdx++;
       if (charIdx <= targetCmd.length) {
         setInputVal(targetCmd.slice(0, charIdx));
-        charIdx++;
       } else {
         if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
         typingTimerRef.current = setTimeout(() => {
           executeCmd(targetCmd);
           setIsTyping(false);
           setActiveRunningCmd(null);
+          inputRef.current?.focus();
         }, 120);
       }
     }, 35);
@@ -165,8 +245,31 @@ export const Terminal: React.FC = React.memo(() => {
     executeCmd(inputVal);
   };
 
-  // Keyboard navigation for command history
+  // Keyboard navigation for command history & autocompletion
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // If simulation was running and user interacts, cancel simulation immediately
+    if (isTyping) {
+      cancelSimulation();
+    }
+
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const query = inputVal.trim().toLowerCase();
+      if (!query) return;
+      const match = availableCommands.find((c) => c.startsWith(query));
+      if (match) {
+        setInputVal(match);
+      }
+      return;
+    }
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      setInputVal('');
+      cancelSimulation();
+      return;
+    }
+
     const historyList = commandHistoryRef.current;
     if (historyList.length === 0) return;
 
@@ -213,7 +316,7 @@ export const Terminal: React.FC = React.memo(() => {
             Developer <span className="gradient-text-animated">Terminal</span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base mt-2">
-            Click any quick action or type directly into the terminal to query live developer details. Press ↑ and ↓ to browse command history.
+            Click any quick action or type directly into the terminal to query live developer details. Press Tab to autocomplete, ↑/↓ for history.
           </p>
         </div>
 
@@ -227,7 +330,7 @@ export const Terminal: React.FC = React.memo(() => {
             <button
               key={cmd}
               type="button"
-              disabled={isTyping}
+              disabled={isTyping && activeRunningCmd === cmd}
               onClick={() => simulateTyping(cmd)}
               className={`px-2.5 py-1 rounded-lg border transition-all duration-200 active:scale-95 flex items-center gap-1 ${
                 activeRunningCmd === cmd
@@ -291,25 +394,32 @@ export const Terminal: React.FC = React.memo(() => {
 
           {/* Input Command Line */}
           <form onSubmit={handleCommand} className="border-t border-slate-800/90 bg-[#161b22] p-3.5 flex items-center gap-3 relative z-10">
-            <span className="text-cyan-400 font-bold pl-1">&gt;</span>
-            <div className="flex-1 flex items-center min-w-0">
+            <span className="text-cyan-400 font-bold pl-1 shrink-0">&gt;</span>
+            <div className="flex-1 flex items-center min-w-0 relative">
               <input
                 ref={inputRef}
                 type="text"
                 value={inputVal}
-                disabled={isTyping}
-                onChange={(e) => setInputVal(e.target.value)}
+                readOnly={isTyping}
+                onChange={(e) => {
+                  if (isTyping) cancelSimulation();
+                  setInputVal(e.target.value);
+                }}
                 onKeyDown={handleKeyDown}
-                placeholder={isTyping ? 'Simulating typing...' : "Type 'help' or enter a command (↑/↓ for history)..."}
-                className="w-full bg-transparent text-slate-100 outline-none text-xs sm:text-sm placeholder-slate-600 font-mono disabled:opacity-80"
+                placeholder={isTyping ? '' : "Type 'help', 'skills', 'about' (Tab to autocomplete)..."}
+                className="w-full bg-transparent text-slate-100 outline-none text-xs sm:text-sm placeholder-slate-500/70 font-mono caret-cyan-400"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
               />
-              <span className="terminal-cursor-block" />
             </div>
             <button
               type="submit"
               disabled={isTyping || !inputVal.trim()}
               className="p-1.5 sm:p-2 text-slate-400 hover:text-cyan-300 disabled:opacity-40 transition-colors rounded-lg hover:bg-slate-800 shrink-0"
               aria-label="Run command"
+              title="Press Enter to run"
             >
               <CornerDownLeft className="w-4 h-4" />
             </button>

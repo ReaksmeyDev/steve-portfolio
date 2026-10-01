@@ -838,10 +838,18 @@ html.light .terminal-window .text-cyan-300 {
   color: #67e8f9 !important;
 }
 
-html.light .terminal-window input {
+.terminal-window input {
+  caret-color: #22d3ee !important;
+}
+
+html.light .terminal-window input,
+html.light .terminal-window input:focus {
   background-color: transparent !important;
   color: #f8fafc !important;
   border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  caret-color: #22d3ee !important;
 }
 
 html.light .terminal-window .bg-slate-900\/80,
