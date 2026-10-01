@@ -61,7 +61,11 @@ const SKILL_AREAS: SkillArea[] = [
 export const Skills: React.FC = React.memo(() => {
   return (
     <section id="skills" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24 topo-lines-overlay">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Ambient Liquid Gradient Blobs (Fluid Glass Refraction) */}
+      <div className="liquid-blob w-[450px] h-[450px] bg-cyan-500/[0.045] top-[15%] right-[-5%] pointer-events-none" aria-hidden="true" />
+      <div className="liquid-blob w-[380px] h-[380px] bg-cyan-400/[0.035] bottom-[10%] left-[-5%] pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section matching reference design */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16">
           <div>
@@ -79,7 +83,7 @@ export const Skills: React.FC = React.memo(() => {
           </div>
         </div>
 
-        {/* 3 Area Columns with Sharp Corner Brackets & Sharp Skill Chips (No Border Radius) */}
+        {/* 3 Area Columns with Liquid Glass Style & Sharp Corner Brackets (No Radius) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 items-stretch">
           {SKILL_AREAS.map((area) => {
             const bracketColor = area.isHighlighted
@@ -89,7 +93,7 @@ export const Skills: React.FC = React.memo(() => {
             return (
               <div
                 key={area.tag}
-                className="relative p-6 sm:p-8 rounded-none bg-white/40 dark:bg-[#0b101c]/35 backdrop-blur-[2px] transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between"
+                className="liquid-glass-sharp relative p-6 sm:p-8 rounded-none transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between"
               >
                 {/* 4 Sharp 90° Architectural L-Bracket Corner Accents (No Radius) */}
                 <span
@@ -126,12 +130,12 @@ export const Skills: React.FC = React.memo(() => {
                   </p>
                 </div>
 
-                {/* Sharp Skill Chips (No Border Radius, matching reference image) */}
+                {/* Liquid Glass Sharp Skill Chips (No Border Radius) */}
                 <div className="flex flex-wrap gap-2 sm:gap-2.5">
                   {area.skills.map((skill) => (
                     <div
                       key={skill}
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-none bg-white dark:bg-[#0c1220] border border-slate-200/90 dark:border-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:border-cyan-500/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-default select-none group/chip"
+                      className="liquid-glass-chip inline-flex items-center gap-2 px-3 py-2 rounded-none cursor-default select-none group/chip"
                     >
                       <div className="w-5 h-5 shrink-0 flex items-center justify-center rounded-none">
                         {getTechIcon(skill, 'w-4 h-4 sm:w-5 sm:h-5 object-contain')}

@@ -331,6 +331,182 @@ html.light .topo-lines-overlay {
     0 0 20px rgba(34, 211, 238, 0.06);
 }
 
+/* ─── Liquid Glass Sharp (Zero-Radius Architectural Glass Card) ─── */
+.liquid-glass-sharp {
+  position: relative;
+  background: rgba(11, 16, 28, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(34, 211, 238, 0.12);
+  box-shadow: 
+    0 8px 32px -4px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass-sharp:hover {
+  background: rgba(13, 20, 36, 0.82);
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow:
+    0 16px 40px -8px rgba(0, 0, 0, 0.55),
+    0 0 24px rgba(34, 211, 238, 0.1),
+    inset 0 1px 0 rgba(34, 211, 238, 0.25);
+}
+
+/* ─── Liquid Glass Chip (Sharp Rectangular Tech Badge) ─── */
+.liquid-glass-chip {
+  position: relative;
+  background: rgba(13, 19, 33, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass-chip:hover {
+  background: rgba(16, 26, 46, 0.95);
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(34, 211, 238, 0.2),
+    inset 0 1px 0 rgba(34, 211, 238, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ─── Connected Vertical Timeline Style (Zero Radius Architecture) ─── */
+.timeline-card {
+  position: relative;
+  background: rgba(13, 19, 33, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 0 !important;
+  box-shadow:
+    0 16px 40px -10px rgba(0, 0, 0, 0.55),
+    0 0 24px rgba(34, 211, 238, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow:
+    0 24px 50px -10px rgba(0, 0, 0, 0.7),
+    0 0 32px rgba(34, 211, 238, 0.12);
+  transform: translateY(-2px);
+}
+
+.timeline-spine-node {
+  border-radius: 0 !important;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.5), inset 0 0 8px rgba(34, 211, 238, 0.3);
+  transition: all 0.3s ease;
+}
+
+.group:hover .timeline-spine-node {
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.8), inset 0 0 12px rgba(34, 211, 238, 0.5);
+  transform: scale(1.08);
+}
+
+/* ─── Architectural Experience Ledger Card (Clean, Minimalist, High-Contrast) ─── */
+.experience-ledger-card {
+  position: relative;
+  background: rgba(11, 16, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 16px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(34, 211, 238, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.experience-ledger-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow:
+    0 24px 50px -10px rgba(0, 0, 0, 0.65),
+    0 0 32px rgba(34, 211, 238, 0.1);
+}
+
+/* ─── Executive Engineering Dossier Card (Distinct Experience Style) ─── */
+.dossier-card {
+  position: relative;
+  background: radial-gradient(130% 100% at 50% 0%, rgba(15, 23, 42, 0.95) 0%, rgba(8, 12, 22, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 20px 50px -12px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(34, 211, 238, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 20px rgba(34, 211, 238, 0.02);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dossier-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow:
+    0 28px 60px -12px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(34, 211, 238, 0.12),
+    inset 0 1px 0 rgba(34, 211, 238, 0.3);
+  transform: translateY(-2px);
+}
+
+.dossier-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.6) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.dossier-stat-box {
+  background: rgba(13, 19, 33, 0.65);
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  border-radius: 0.875rem;
+  transition: all 0.25s ease;
+}
+
+.dossier-stat-box:hover {
+  background: rgba(16, 26, 46, 0.9);
+  border-color: rgba(34, 211, 238, 0.35);
+  transform: translateY(-1px);
+}
+
+.dossier-deliverable-item {
+  position: relative;
+  background: rgba(13, 19, 33, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.875rem;
+  transition: all 0.25s ease;
+}
+
+.dossier-deliverable-item:hover {
+  background: rgba(16, 26, 46, 0.8);
+  border-color: rgba(34, 211, 238, 0.3);
+  transform: translateX(4px);
+}
+
+.dossier-chip {
+  position: relative;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dossier-chip:hover {
+  background: rgba(16, 26, 46, 0.95);
+  border-color: rgba(34, 211, 238, 0.55);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.22);
+  transform: translateY(-1px);
+}
+
 /* ─── Animated Gradient Text (Non-clipping, Pure Cyan Vibe) ─── */
 .gradient-text-animated {
   background: linear-gradient(
@@ -979,6 +1155,139 @@ html.light .liquid-card {
   background: rgba(255, 255, 255, 0.95) !important;
   border-color: rgba(226, 232, 240, 0.9) !important;
   box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light .liquid-glass-sharp {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(8, 145, 178, 0.22) !important;
+  box-shadow: 
+    0 8px 30px -4px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light .liquid-glass-sharp:hover {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(8, 145, 178, 0.45) !important;
+  box-shadow:
+    0 16px 36px -6px rgba(15, 23, 42, 0.1),
+    0 0 20px rgba(8, 145, 178, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+html.light .liquid-glass-chip {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(203, 213, 225, 0.9) !important;
+  box-shadow: 
+    0 2px 6px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+html.light .liquid-glass-chip:hover {
+  background: #ffffff !important;
+  border-color: rgba(8, 145, 178, 0.5) !important;
+  box-shadow: 
+    0 6px 16px -2px rgba(15, 23, 42, 0.08),
+    0 0 12px rgba(8, 145, 178, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+/* ─── Light Mode Timeline Card Overrides ─── */
+html.light .timeline-card {
+  background: #ffffff !important;
+  border-color: rgba(226, 232, 240, 0.95) !important;
+  border-radius: 0 !important;
+  box-shadow:
+    0 16px 36px -6px rgba(15, 23, 42, 0.06),
+    0 0 20px rgba(8, 145, 178, 0.04) !important;
+}
+
+html.light .timeline-card:hover {
+  border-color: rgba(8, 145, 178, 0.45) !important;
+  box-shadow:
+    0 22px 48px -8px rgba(15, 23, 42, 0.1),
+    0 0 28px rgba(8, 145, 178, 0.1) !important;
+}
+
+html.light .timeline-spine-node {
+  background: #ffffff !important;
+  border-color: #0891b2 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 12px rgba(8, 145, 178, 0.35) !important;
+}
+
+/* ─── Light Mode Experience Ledger Card Overrides ─── */
+html.light .experience-ledger-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(226, 232, 240, 0.95) !important;
+  box-shadow:
+    0 16px 36px -6px rgba(15, 23, 42, 0.06),
+    0 0 20px rgba(8, 145, 178, 0.04) !important;
+}
+
+html.light .experience-ledger-card:hover {
+  border-color: rgba(8, 145, 178, 0.4) !important;
+  box-shadow:
+    0 20px 45px -8px rgba(15, 23, 42, 0.1),
+    0 0 24px rgba(8, 145, 178, 0.08) !important;
+}
+
+/* ─── Light Mode Dossier Card Overrides ─── */
+html.light .dossier-card {
+  background: #ffffff !important;
+  border-color: rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 
+    0 16px 40px -8px rgba(15, 23, 42, 0.08),
+    0 0 24px rgba(8, 145, 178, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+html.light .dossier-card:hover {
+  border-color: rgba(8, 145, 178, 0.4) !important;
+  box-shadow: 
+    0 24px 50px -10px rgba(15, 23, 42, 0.12),
+    0 0 30px rgba(8, 145, 178, 0.1) !important;
+}
+
+html.light .dossier-card::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(8, 145, 178, 0.4) 50%, transparent 100%) !important;
+}
+
+html.light .dossier-stat-box {
+  background: #f8fafc !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+html.light .dossier-stat-box:hover {
+  background: #ffffff !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .dossier-deliverable-item {
+  background: #f8fafc !important;
+  border-color: rgba(226, 232, 240, 0.8) !important;
+}
+
+html.light .dossier-deliverable-item:hover {
+  background: #ffffff !important;
+  border-color: rgba(8, 145, 178, 0.3) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .dossier-chip {
+  background: #ffffff !important;
+  border-color: rgba(203, 213, 225, 0.9) !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03) !important;
+}
+
+html.light .dossier-chip:hover {
+  background: #ffffff !important;
+  border-color: rgba(8, 145, 178, 0.5) !important;
+  box-shadow: 0 4px 14px rgba(8, 145, 178, 0.15) !important;
 }
 
 /* Mobile Drawer */
