@@ -220,92 +220,96 @@ export const Navbar: React.FC = () => {
 
             <div className="h-4 w-px bg-slate-800" aria-hidden="true" />
 
-            {/* Ultra-Modern Segmented Capsule Theme Switcher */}
+            {/* Architectural Cybernetic Theme Switcher */}
             <div
-              className="relative inline-flex items-center p-1 rounded-full bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 transition-all duration-200 shadow-inner"
+              id="theme-switcher-desktop"
+              className="relative inline-flex items-center p-1 rounded-none bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-200 shadow-inner"
               role="group"
               aria-label="Theme mode switcher"
             >
               {/* Sliding Active Pill Background */}
               <div
-                className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-sm pointer-events-none ${
+                className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none ${
                   theme === 'dark'
-                    ? 'left-[calc(50%+2px)] bg-cyan-950/90 border border-cyan-500/40 shadow-[0_0_12px_rgba(34,211,238,0.3)]'
-                    : 'left-1 bg-white border border-slate-200/90 shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
+                    ? 'left-[calc(50%+2px)] bg-cyan-950 border border-cyan-400/60 shadow-[0_0_12px_rgba(34,211,238,0.35)]'
+                    : 'left-1 bg-white border border-slate-300 shadow-[0_1px_4px_rgba(0,0,0,0.1)]'
                 }`}
               />
 
               {/* Light Option Button */}
               <button
+                id="theme-btn-light"
                 type="button"
-                onClick={() => theme !== 'light' && toggleTheme()}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
+                onClick={(e) => theme !== 'light' && toggleTheme(e)}
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
                   theme === 'light'
-                    ? 'text-cyan-900 font-semibold'
+                    ? 'text-cyan-950 font-bold'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
                 aria-pressed={theme === 'light'}
                 title="Switch to Light mode"
               >
-                <Sun className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'light' ? 'rotate-45 text-cyan-600' : 'text-slate-500'}`} />
-                <span className="text-[11px]">Light</span>
+                <Sun className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'light' ? 'rotate-90 text-amber-500 scale-110' : 'text-slate-500'}`} />
+                <span className="text-[11px] uppercase tracking-wider font-semibold">Light</span>
               </button>
 
               {/* Night Option Button */}
               <button
+                id="theme-btn-night"
                 type="button"
-                onClick={() => theme !== 'dark' && toggleTheme()}
-                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
+                onClick={(e) => theme !== 'dark' && toggleTheme(e)}
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
                   theme === 'dark'
-                    ? 'text-cyan-300 font-semibold'
+                    ? 'text-cyan-300 font-bold'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
                 aria-pressed={theme === 'dark'}
                 title="Switch to Night mode"
               >
-                <Moon className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'dark' ? '-rotate-12 text-cyan-400' : 'text-slate-500'}`} />
-                <span className="text-[11px]">Night</span>
+                <Moon className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'dark' ? '-rotate-12 text-cyan-400 scale-110' : 'text-slate-500'}`} />
+                <span className="text-[11px] uppercase tracking-wider font-semibold">Night</span>
               </button>
             </div>
           </nav>
 
-          {/* Mobile Right Controls: Modern Capsule Theme Toggle + Menu Button */}
+          {/* Mobile Right Controls: Modern Architectural Theme Toggle + Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
             <div
-              className="relative flex items-center p-0.5 rounded-full bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-colors shadow-inner"
+              id="theme-switcher-mobile"
+              className="relative flex items-center p-0.5 rounded-none bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-colors shadow-inner"
               role="group"
               aria-label="Theme mode switcher"
             >
               <div
-                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] pointer-events-none ${
+                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
                   theme === 'dark'
-                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-500/40 shadow-[0_0_10px_rgba(34,211,238,0.25)]'
-                    : 'left-0.5 bg-white border border-slate-200 shadow-sm'
+                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-400/60 shadow-[0_0_10px_rgba(34,211,238,0.3)]'
+                    : 'left-0.5 bg-white border border-slate-300 shadow-sm'
                 }`}
               />
 
               <button
                 type="button"
-                onClick={() => theme !== 'light' && toggleTheme()}
-                className={`relative z-10 p-1.5 rounded-full transition-colors ${
-                  theme === 'light' ? 'text-cyan-700' : 'text-slate-400 hover:text-slate-200'
+                onClick={(e) => theme !== 'light' && toggleTheme(e)}
+                className={`relative z-10 p-1.5 rounded-none transition-colors ${
+                  theme === 'light' ? 'text-amber-500 font-bold' : 'text-slate-400 hover:text-slate-200'
                 }`}
                 aria-label="Switch to Light mode"
                 title="Switch to Light mode"
               >
-                <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'rotate-45' : ''}`} />
+                <Sun className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'light' ? 'rotate-90 scale-110' : ''}`} />
               </button>
 
               <button
                 type="button"
-                onClick={() => theme !== 'dark' && toggleTheme()}
-                className={`relative z-10 p-1.5 rounded-full transition-colors ${
-                  theme === 'dark' ? 'text-cyan-400' : 'text-slate-400 hover:text-slate-200'
+                onClick={(e) => theme !== 'dark' && toggleTheme(e)}
+                className={`relative z-10 p-1.5 rounded-none transition-colors ${
+                  theme === 'dark' ? 'text-cyan-400 font-bold' : 'text-slate-400 hover:text-slate-200'
                 }`}
                 aria-label="Switch to Night mode"
                 title="Switch to Night mode"
               >
-                <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? '-rotate-12' : ''}`} />
+                <Moon className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'dark' ? '-rotate-12 scale-110' : ''}`} />
               </button>
             </div>
 
