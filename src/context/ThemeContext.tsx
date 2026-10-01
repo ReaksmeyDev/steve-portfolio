@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { flushSync } from 'react-dom';
 
 export type Theme = 'dark' | 'light';
@@ -28,26 +28,47 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return 'dark';
   });
 
-  useEffect(() => {
+  const isTransitioningRef = useRef<boolean>(false);
+
+  // Helper to synchronously synchronize DOM classes and meta tags
+  const applyThemeToDom = useCallback((targetTheme: Theme) => {
     const root = document.documentElement;
-    if (theme === 'dark') {
+    if (targetTheme === 'dark') {
       root.classList.add('dark');
       root.classList.remove('light');
     } else {
       root.classList.add('light');
       root.classList.remove('dark');
     }
-    localStorage.setItem('steve-portfolio-theme', theme);
+    localStorage.setItem('steve-portfolio-theme', targetTheme);
 
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', theme === 'dark' ? '#05070e' : '#f8fafc');
+      metaTheme.setAttribute('content', targetTheme === 'dark' ? '#05070e' : '#f8fafc');
     }
-  }, [theme]);
+  }, []);
 
-  // Smooth & Interesting Theme Switcher starting precisely from the switch button
-  const toggleTheme = (event?: React.MouseEvent | MouseEvent) => {
+  // Ensure DOM is synchronized on initial mount or direct setTheme call
+  useEffect(() => {
+    applyThemeToDom(theme);
+  }, [theme, applyThemeToDom]);
+
+  // Smooth & High-Performance Theme Switcher starting precisely from the switch button
+  const toggleTheme = useCallback((event?: React.MouseEvent | MouseEvent) => {
+    // Prevent overlapping transitions if already active
+    if (isTransitioningRef.current) return;
+
     const nextTheme: Theme = theme === 'dark' ? 'light' : 'dark';
+
+    // Immediate change if reduced motion is requested
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setTheme(nextTheme);
+      applyThemeToDom(nextTheme);
+      return;
+    }
 
     // 1. Locate the exact center of the switch button
     let x = typeof window !== 'undefined' ? Math.round(window.innerWidth * 0.85) : 0;
@@ -88,12 +109,27 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       y = Math.round(event.clientY);
     }
 
+    // Clamp coordinates safely within viewport
+    if (typeof window !== 'undefined') {
+      x = Math.max(0, Math.min(x, window.innerWidth));
+      y = Math.max(0, Math.min(y, window.innerHeight));
+    }
+
+    // Maximum distance from the switch button to any corner of viewport
+    const endRadius = Math.ceil(
+      Math.hypot(
+        Math.max(x, (typeof window !== 'undefined' ? window.innerWidth : 1200) - x),
+        Math.max(y, (typeof window !== 'undefined' ? window.innerHeight : 800) - y)
+      )
+    );
+
     const root = document.documentElement;
     root.style.setProperty('--theme-origin-x', `${x}px`);
     root.style.setProperty('--theme-origin-y', `${y}px`);
+    root.style.setProperty('--theme-end-radius', `${endRadius}px`);
 
-    // 2. Trigger expanding cyber shockwave wave element originating exactly at the switch button
-    if (typeof document !== 'undefined') {
+    const spawnShockwave = () => {
+      if (typeof document === 'undefined') return;
       const ripple = document.createElement('div');
       ripple.className = 'theme-shockwave-ring';
       ripple.style.left = `${x}px`;
@@ -101,94 +137,93 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       document.body.appendChild(ripple);
       setTimeout(() => {
         ripple.remove();
-      }, 700);
-    }
+      }, 420);
+    };
 
     const isAppearanceTransition =
       typeof document !== 'undefined' &&
       // @ts-expect-error View Transitions API check
-      Boolean(document.startViewTransition) &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Maximum distance from the switch button to any corner of viewport
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
+      Boolean(document.startViewTransition);
 
     if (!isAppearanceTransition) {
-      // Fallback for browsers without View Transitions:
-      // An expanding circular overlay mask blooms from (x, y)
+      // Fallback for browsers without native View Transitions:
+      isTransitioningRef.current = true;
+      root.classList.add('theme-transitioning');
+
       const overlay = document.createElement('div');
       overlay.className = 'theme-fallback-wipe';
       overlay.style.backgroundColor = nextTheme === 'dark' ? '#05070e' : '#f8fafc';
       overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
       document.body.appendChild(overlay);
 
+      spawnShockwave();
+
       requestAnimationFrame(() => {
-        overlay.style.transition = 'clip-path 0.55s cubic-bezier(0.16, 1, 0.3, 1)';
+        overlay.style.transition = 'clip-path 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
         overlay.style.clipPath = `circle(${endRadius}px at ${x}px ${y}px)`;
       });
 
-      root.classList.add('theme-transitioning');
       setTimeout(() => {
         setTheme(nextTheme);
-        if (nextTheme === 'dark') {
-          root.classList.add('dark');
-          root.classList.remove('light');
-        } else {
-          root.classList.add('light');
-          root.classList.remove('dark');
-        }
-      }, 150);
+        applyThemeToDom(nextTheme);
+      }, 160);
 
       setTimeout(() => {
         overlay.remove();
         root.classList.remove('theme-transitioning');
-      }, 600);
+        isTransitioningRef.current = false;
+      }, 400);
       return;
     }
 
+    // Modern View Transitions API flow
+    isTransitioningRef.current = true;
     root.classList.add('theme-transitioning');
 
     // @ts-expect-error View Transitions API call
     const transition = document.startViewTransition(() => {
       flushSync(() => {
         setTheme(nextTheme);
-        if (nextTheme === 'dark') {
-          root.classList.add('dark');
-          root.classList.remove('light');
-        } else {
-          root.classList.add('light');
-          root.classList.remove('dark');
-        }
+        applyThemeToDom(nextTheme);
       });
     });
 
     transition.ready
       .then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`,
-            ],
-          },
-          {
-            duration: 560,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            pseudoElement: '::view-transition-new(root)',
-          }
-        );
+        // Spawn subtle GPU cyber shockwave ripple now that snapshots are captured
+        spawnShockwave();
+
+        try {
+          const anim = document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: 380,
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+              pseudoElement: '::view-transition-new(root)',
+            }
+          );
+          return anim.finished;
+        } catch {
+          // If pseudoElement animate is not supported, CSS keyframes handle the circular expansion
+        }
+      })
+      .catch(() => {
+        // Gracefully handle any transition interruption
       })
       .finally(() => {
         transition.finished
           .catch(() => {})
           .finally(() => {
             root.classList.remove('theme-transitioning');
+            isTransitioningRef.current = false;
           });
       });
-  };
+  }, [theme, applyThemeToDom]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

@@ -223,16 +223,16 @@ export const Navbar: React.FC = () => {
             {/* Architectural Cybernetic Theme Switcher */}
             <div
               id="theme-switcher-desktop"
-              className="relative inline-flex items-center p-1 rounded-none bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-200 shadow-inner"
+              className="relative inline-flex items-center p-1 rounded-none bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-colors duration-200 shadow-inner"
               role="group"
               aria-label="Theme mode switcher"
             >
-              {/* Sliding Active Pill Background */}
+              {/* Sliding Active Pill Background (GPU-accelerated transform) */}
               <div
-                className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none ${
+                className={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-none transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none will-change-transform ${
                   theme === 'dark'
-                    ? 'left-[calc(50%+2px)] bg-cyan-950 border border-cyan-400/60 shadow-[0_0_12px_rgba(34,211,238,0.35)]'
-                    : 'left-1 bg-white border border-slate-300 shadow-[0_1px_4px_rgba(0,0,0,0.1)]'
+                    ? 'translate-x-full bg-cyan-950 border border-cyan-400/60 shadow-[0_0_12px_rgba(34,211,238,0.35)]'
+                    : 'translate-x-0 bg-white border border-slate-300 shadow-[0_1px_4px_rgba(0,0,0,0.1)]'
                 }`}
               />
 
@@ -249,7 +249,7 @@ export const Navbar: React.FC = () => {
                 aria-pressed={theme === 'light'}
                 title="Switch to Light mode"
               >
-                <Sun className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'light' ? 'rotate-90 text-amber-500 scale-110' : 'text-slate-500'}`} />
+                <Sun className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'light' ? 'rotate-90 text-amber-500 scale-110' : 'text-slate-500'}`} />
                 <span className="text-[11px] uppercase tracking-wider font-semibold">Light</span>
               </button>
 
@@ -266,7 +266,7 @@ export const Navbar: React.FC = () => {
                 aria-pressed={theme === 'dark'}
                 title="Switch to Night mode"
               >
-                <Moon className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'dark' ? '-rotate-12 text-cyan-400 scale-110' : 'text-slate-500'}`} />
+                <Moon className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'dark' ? '-rotate-12 text-cyan-400 scale-110' : 'text-slate-500'}`} />
                 <span className="text-[11px] uppercase tracking-wider font-semibold">Night</span>
               </button>
             </div>
@@ -281,10 +281,10 @@ export const Navbar: React.FC = () => {
               aria-label="Theme mode switcher"
             >
               <div
-                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
+                className={`absolute top-0.5 bottom-0.5 left-0.5 w-[calc(50%-2px)] rounded-none transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none will-change-transform ${
                   theme === 'dark'
-                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-400/60 shadow-[0_0_10px_rgba(34,211,238,0.3)]'
-                    : 'left-0.5 bg-white border border-slate-300 shadow-sm'
+                    ? 'translate-x-full bg-cyan-950 border border-cyan-400/60 shadow-[0_0_10px_rgba(34,211,238,0.3)]'
+                    : 'translate-x-0 bg-white border border-slate-300 shadow-sm'
                 }`}
               />
 
@@ -298,7 +298,7 @@ export const Navbar: React.FC = () => {
                 aria-label="Switch to Light mode"
                 title="Switch to Light mode"
               >
-                <Sun className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'light' ? 'rotate-90 scale-110' : ''}`} />
+                <Sun className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'light' ? 'rotate-90 scale-110' : ''}`} />
               </button>
 
               <button
@@ -311,7 +311,7 @@ export const Navbar: React.FC = () => {
                 aria-label="Switch to Night mode"
                 title="Switch to Night mode"
               >
-                <Moon className={`w-3.5 h-3.5 transition-transform duration-500 ${theme === 'dark' ? '-rotate-12 scale-110' : ''}`} />
+                <Moon className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'dark' ? '-rotate-12 scale-110' : ''}`} />
               </button>
             </div>
 
@@ -373,10 +373,10 @@ export const Navbar: React.FC = () => {
               role="group"
             >
               <div
-                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-none transition-all duration-300 ease-out pointer-events-none ${
+                className={`absolute top-0.5 bottom-0.5 left-0.5 w-[calc(50%-2px)] rounded-none transition-transform duration-300 ease-out pointer-events-none will-change-transform ${
                   theme === 'dark'
-                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-500/40'
-                    : 'left-0.5 bg-white border border-slate-200'
+                    ? 'translate-x-full bg-cyan-950 border border-cyan-500/40'
+                    : 'translate-x-0 bg-white border border-slate-200'
                 }`}
               />
               <button
