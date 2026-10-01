@@ -29,6 +29,9 @@ export const ICONS8_MAP: Record<string, string> = {
   ai: 'https://img.icons8.com/color/48/artificial-intelligence.png',
   docker: 'https://img.icons8.com/color/48/docker.png',
   redis: 'https://img.icons8.com/color/48/redis.png',
+  tailwind: 'https://img.icons8.com/color/48/tailwind_css.png',
+  github: 'https://img.icons8.com/color/48/github--v1.png',
+  postman: 'https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-postman-is-the-only-complete-api-development-platform-logo-color-tal-revivo.png',
 };
 
 const resolveIcons8Url = (name: string): string => {
@@ -38,6 +41,7 @@ const resolveIcons8Url = (name: string): string => {
   if (n.includes('dart')) return ICONS8_MAP.dart;
   if (n.includes('typescript') || n.includes('ts')) return ICONS8_MAP.typescript;
   if (n.includes('javascript') || n.includes('js')) return ICONS8_MAP.javascript;
+  if (n.includes('tailwind')) return ICONS8_MAP.tailwind;
   if (n.includes('html') || n.includes('css')) return ICONS8_MAP.html;
   if (n.includes('laravel')) return ICONS8_MAP.laravel;
   if (n.includes('php')) return ICONS8_MAP.php;
@@ -47,10 +51,12 @@ const resolveIcons8Url = (name: string): string => {
   if (n.includes('mysql')) return ICONS8_MAP.mysql;
   if (n.includes('postgres')) return ICONS8_MAP.postgres;
   if (n.includes('linux')) return ICONS8_MAP.linux;
+  if (n.includes('github')) return ICONS8_MAP.github;
   if (n.includes('git')) return ICONS8_MAP.git;
   if (n.includes('nginx')) return ICONS8_MAP.nginx;
   if (n.includes('docker')) return ICONS8_MAP.docker;
   if (n.includes('redis')) return ICONS8_MAP.redis;
+  if (n.includes('postman')) return ICONS8_MAP.postman;
   if (n.includes('cloud')) return ICONS8_MAP.cloud;
   if (n.includes('ai') || n.includes('ocr') || n.includes('document')) return ICONS8_MAP.ai;
   return ICONS8_MAP.react;

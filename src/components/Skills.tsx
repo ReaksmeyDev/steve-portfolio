@@ -1,118 +1,146 @@
-import React, { useState, useMemo } from 'react';
-import { SKILLS_DATA } from '../data/portfolioData';
-import { getTechIcon, getTechBrandColor } from './TechIcons';
+import React from 'react';
+import { getTechIcon } from './TechIcons';
+
+interface SkillArea {
+  tag: string;
+  title: string;
+  description: string;
+  skills: string[];
+  isHighlighted?: boolean;
+}
+
+const SKILL_AREAS: SkillArea[] = [
+  {
+    tag: 'BUILD',
+    title: 'FULL-STACK & MOBILE',
+    description: 'Building web apps and mobile solutions end to end, from the interface people click on to the server and database behind it.',
+    skills: [
+      'TypeScript',
+      'JavaScript',
+      'React.js',
+      'Flutter',
+      'Dart',
+      'Tailwind CSS',
+      'HTML & CSS',
+      'Node.js'
+    ],
+    isHighlighted: false
+  },
+  {
+    tag: 'BACKEND',
+    title: 'API & ARCHITECTURE',
+    description: 'Designing scalable backend systems: RESTful APIs, asynchronous queue pipelines, normalized databases, and secure business logic.',
+    skills: [
+      'Laravel',
+      'PHP 8+',
+      'REST APIs',
+      'MySQL',
+      'PostgreSQL',
+      'Redis'
+    ],
+    isHighlighted: false
+  },
+  {
+    tag: 'TOOLS',
+    title: 'AI, CLOUD & TOOLS',
+    description: 'The services and tooling behind shipped products: cloud infrastructure, reverse proxies, containerization, and intelligent document extraction.',
+    skills: [
+      'Linux',
+      'Git',
+      'GitHub',
+      'Nginx',
+      'Cloud Infra',
+      'Document AI',
+      'Docker',
+      'Postman'
+    ],
+    isHighlighted: true
+  }
+];
 
 export const Skills: React.FC = React.memo(() => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const categories = ['All', 'Frontend', 'Backend', 'Database', 'DevOps & Infra'];
-
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { All: SKILLS_DATA.length };
-    categories.forEach((cat) => {
-      if (cat !== 'All') {
-        counts[cat] = SKILLS_DATA.filter((s) => s.category === cat).length;
-      }
-    });
-    return counts;
-  }, [categories]);
-
-  const filteredSkills = useMemo(() => {
-    return selectedCategory === 'All'
-      ? SKILLS_DATA
-      : SKILLS_DATA.filter((s) => s.category === selectedCategory);
-  }, [selectedCategory]);
-
-  const getCategoryColor = (_cat: string) => {
-    return 'text-cyan-300 border-cyan-500/30 bg-cyan-950/40';
-  };
-
   return (
-    <section id="skills" className="py-12 sm:py-20 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
-      {/* Background Accent (Pure Cyan) */}
-      <div className="absolute top-1/2 left-[-10%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[350px] h-[350px] bg-cyan-600/5 rounded-full blur-[100px] pointer-events-none" />
-
+    <section id="skills" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24 topo-lines-overlay">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Header */}
-        <div className="text-left mb-8 sm:mb-12">
-          <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-2">// Technical Expertise</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Tools & <span className="gradient-text-animated">Technologies</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2.5 max-w-2xl leading-relaxed">
-            Technologies, libraries, and infrastructure actively deployed across production systems.
-          </p>
+        {/* Header Section matching reference design */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16">
+          <div>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight font-sans uppercase">
+              SKILLS
+            </h2>
+          </div>
+          <div className="sm:text-right">
+            <span className="block text-xs sm:text-sm font-mono tracking-widest text-cyan-600 dark:text-cyan-400 uppercase font-semibold">
+              WHAT I WORK WITH
+            </span>
+            <span className="block text-xs sm:text-sm font-mono tracking-widest text-slate-500 dark:text-slate-400 uppercase font-medium mt-0.5">
+              3 AREAS
+            </span>
+          </div>
         </div>
 
-        {/* Category Filters with Counts */}
-        <div className="flex flex-wrap gap-2 mb-8 font-mono text-xs">
-          {categories.map((cat) => {
-            const count = categoryCounts[cat] || 0;
-            const isSelected = selectedCategory === cat;
-
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl transition-all duration-200 border flex items-center gap-2 ${
-                  isSelected
-                    ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_16px_rgba(34,211,238,0.2)] font-semibold scale-[1.01]'
-                    : 'bg-slate-900/70 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
-                }`}
-              >
-                <span>{cat}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                  isSelected ? 'bg-cyan-400/20 text-cyan-300' : 'bg-slate-800 text-slate-500'
-                }`}>
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Skills Grid */}
-        <div key={selectedCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 tab-fade-in">
-          {filteredSkills.map((skill) => {
-            const brandStyle = getTechBrandColor(skill.name);
-            const badgeClass = getCategoryColor(skill.category);
+        {/* 3 Area Columns with Sharp Corner Brackets & Sharp Skill Chips (No Border Radius) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 items-stretch">
+          {SKILL_AREAS.map((area) => {
+            const bracketColor = area.isHighlighted
+              ? 'border-cyan-500 dark:border-cyan-400'
+              : 'border-slate-400 dark:border-slate-600 group-hover:border-cyan-500/80';
 
             return (
               <div
-                key={skill.name}
-                className={`tech-bracket-card rounded-2xl p-5 sm:p-6 bg-[#0b101c] border border-slate-800/80 ${brandStyle.borderHover} hover:bg-[#0f172a] transition-all duration-200 group relative shadow-sm hover:-translate-y-1 flex flex-col justify-between`}
+                key={area.tag}
+                className="relative p-6 sm:p-8 rounded-none bg-white/40 dark:bg-[#0b101c]/35 backdrop-blur-[2px] transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between"
               >
+                {/* 4 Sharp 90° Architectural L-Bracket Corner Accents (No Radius) */}
+                <span
+                  className={`absolute -top-2.5 -left-2.5 w-5 h-5 border-t-2 border-l-2 ${bracketColor} rounded-none transition-colors duration-200 pointer-events-none`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`absolute -top-2.5 -right-2.5 w-5 h-5 border-t-2 border-r-2 ${bracketColor} rounded-none transition-colors duration-200 pointer-events-none`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`absolute -bottom-2.5 -left-2.5 w-5 h-5 border-b-2 border-l-2 ${bracketColor} rounded-none transition-colors duration-200 pointer-events-none`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`absolute -bottom-2.5 -right-2.5 w-5 h-5 border-b-2 border-r-2 ${bracketColor} rounded-none transition-colors duration-200 pointer-events-none`}
+                  aria-hidden="true"
+                />
+
                 <div>
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="shrink-0 group-hover:scale-110 transition-transform duration-200 flex items-center justify-center p-1 rounded-lg">
-                        {getTechIcon(skill.name, 'w-7 h-7 object-contain')}
-                      </div>
-                      <h3 className="font-bold text-white group-hover:text-cyan-300 transition-colors font-sans tracking-tight text-base sm:text-lg">
-                        {skill.name}
-                      </h3>
-                    </div>
+                  {/* Category Subtitle */}
+                  <span className="text-xs font-mono font-bold tracking-wider text-cyan-600 dark:text-cyan-400 uppercase mb-2 block">
+                    {area.tag}
+                  </span>
 
-                    <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded-md border ${badgeClass}`}>
-                      {skill.category}
-                    </span>
-                  </div>
+                  {/* Area Title */}
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight font-sans uppercase mb-3 leading-tight">
+                    {area.title}
+                  </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans mt-2">
-                    {skill.description}
+                  {/* Area Description */}
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans mb-8">
+                    {area.description}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span className="flex items-center gap-1.5">
-                    <span className="text-cyan-400 font-bold">//</span>
-                    <span>Production Verified</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors shadow-[0_0_8px_rgba(34,211,238,0.7)]" />
-                    <span className="text-[10px] text-slate-400 group-hover:text-cyan-300 font-mono transition-colors">ACTIVE</span>
-                  </span>
+                {/* Sharp Skill Chips (No Border Radius, matching reference image) */}
+                <div className="flex flex-wrap gap-2 sm:gap-2.5">
+                  {area.skills.map((skill) => (
+                    <div
+                      key={skill}
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-none bg-white dark:bg-[#0c1220] border border-slate-200/90 dark:border-slate-800 shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:border-cyan-500/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-default select-none group/chip"
+                    >
+                      <div className="w-5 h-5 shrink-0 flex items-center justify-center rounded-none">
+                        {getTechIcon(skill, 'w-4 h-4 sm:w-5 sm:h-5 object-contain')}
+                      </div>
+                      <span className="text-xs sm:text-sm font-medium font-sans text-slate-800 dark:text-slate-200 group-hover/chip:text-cyan-600 dark:group-hover/chip:text-cyan-300 transition-colors">
+                        {skill}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             );

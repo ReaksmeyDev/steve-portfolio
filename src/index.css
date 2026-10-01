@@ -211,8 +211,8 @@ body {
 .tech-bracket-card::after {
   content: '';
   position: absolute;
-  width: 11px;
-  height: 11px;
+  width: 14px;
+  height: 14px;
   pointer-events: none;
   z-index: 15;
   transition: border-color 0.25s ease;
@@ -221,17 +221,17 @@ body {
 .tech-bracket-card::before {
   top: -1px;
   left: -1px;
-  border-top: 2px solid rgba(34, 211, 238, 0.6);
-  border-left: 2px solid rgba(34, 211, 238, 0.6);
-  border-top-left-radius: 6px;
+  border-top: 2px solid rgba(34, 211, 238, 0.65);
+  border-left: 2px solid rgba(34, 211, 238, 0.65);
+  border-top-left-radius: 12px;
 }
 
 .tech-bracket-card::after {
   bottom: -1px;
   right: -1px;
-  border-bottom: 2px solid rgba(34, 211, 238, 0.6);
-  border-right: 2px solid rgba(34, 211, 238, 0.6);
-  border-bottom-right-radius: 6px;
+  border-bottom: 2px solid rgba(34, 211, 238, 0.65);
+  border-right: 2px solid rgba(34, 211, 238, 0.65);
+  border-bottom-right-radius: 12px;
 }
 
 .tech-bracket-card:hover::before,
@@ -244,6 +244,16 @@ body {
   background: #05070e;
   border: 1px solid rgba(34, 211, 238, 0.3);
   box-shadow: 0 0 16px rgba(34, 211, 238, 0.14);
+}
+
+/* ─── Topographic Elevation Contour Overlay (matching reference design) ─── */
+.topo-lines-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700' viewBox='0 0 1200 700' fill='none'%3E%3Cpath d='M-100 280 C 150 140, 320 380, 580 200 C 820 40, 940 320, 1300 180' stroke='rgba(34,211,238,0.06)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M-100 340 C 120 220, 300 440, 600 260 C 840 100, 920 380, 1300 240' stroke='rgba(34,211,238,0.045)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 210 C 180 80, 340 320, 550 140 C 760 -20, 960 260, 1300 120' stroke='rgba(34,211,238,0.04)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 410 C 140 300, 310 490, 620 330 C 860 170, 930 440, 1300 310' stroke='rgba(34,211,238,0.035)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 150 C 220 20, 360 260, 520 80 C 720 -80, 980 200, 1300 60' stroke='rgba(34,211,238,0.03)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 1200px 700px;
+}
+
+html.light .topo-lines-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700' viewBox='0 0 1200 700' fill='none'%3E%3Cpath d='M-100 280 C 150 140, 320 380, 580 200 C 820 40, 940 320, 1300 180' stroke='rgba(15,23,42,0.05)' stroke-width='1.2' fill='none'/%3E%3Cpath d='M-100 340 C 120 220, 300 440, 600 260 C 840 100, 920 380, 1300 240' stroke='rgba(15,23,42,0.04)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 210 C 180 80, 340 320, 550 140 C 760 -20, 960 260, 1300 120' stroke='rgba(15,23,42,0.035)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 410 C 140 300, 310 490, 620 330 C 860 170, 930 440, 1300 310' stroke='rgba(15,23,42,0.03)' stroke-width='1' fill='none'/%3E%3Cpath d='M-100 150 C 220 20, 360 260, 520 80 C 720 -80, 980 200, 1300 60' stroke='rgba(15,23,42,0.025)' stroke-width='1' fill='none'/%3E%3C/svg%3E") !important;
 }
 
 /* ─── Cyber Grid ─── */
@@ -801,6 +811,7 @@ html.light .hover\:text-slate-200:hover {
 
 html.light .hover\:bg-\[\#0f172a\]:hover,
 html.light .hover\:bg-\[\#0f172a\]\/95:hover,
+html.light .hover\:bg-\[\#0d1424\]:hover,
 html.light .hover\:bg-slate-900:hover,
 html.light .hover\:bg-slate-900\/80:hover {
   background-color: #f1f5f9 !important;
