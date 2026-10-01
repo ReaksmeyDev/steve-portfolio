@@ -1,35 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal as TerminalIcon, Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Terminal as TerminalIcon, Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const NAV_LINKS = [
   { name: 'About', href: '#about', id: 'about' },
   { name: 'Skills', href: '#skills', id: 'skills' },
-  { name: 'Experience', href: '#experience', id: 'experience' },
   { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'Experience', href: '#experience', id: 'experience' },
   { name: 'Services', href: '#services', id: 'services' },
   { name: 'Terminal', href: '#terminal', id: 'terminal' },
   { name: 'Contact', href: '#contact', id: 'contact' },
 ];
 
 export const Navbar: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState<boolean>(() => {
-    return typeof window !== 'undefined' && window.scrollY > 8;
+    return typeof window !== 'undefined' && window.scrollY > 12;
   });
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('');
+  const progressRef = useRef<HTMLDivElement>(null);
 
-  // 1. Efficient, rAF-throttled scroll listener for navbar appearance (zero layout thrashing)
+  // 1. Observe top sentinel for navbar background change (Zero JS scroll listener)
   useEffect(() => {
-    let ticking = false;
-    let prevScrolled = window.scrollY > 8;
+    const sentinel = document.getElementById('nav-sentinel');
+    if (!sentinel) return;
 
-    const handleScroll = () => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Hardware-accelerated scroll progress fallback (for browsers without CSS animation-timeline)
+  useEffect(() => {
+    const supportsScrollTimeline =
+      typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+    if (supportsScrollTimeline) return;
+
+    let ticking = false;
+    const handleScrollProgress = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 8;
-          if (isScrolled !== prevScrolled) {
-            prevScrolled = isScrolled;
-            setScrolled(isScrolled);
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+          if (progressRef.current) {
+            progressRef.current.style.transform = `scaleX(${progress})`;
           }
           ticking = false;
         });
@@ -37,173 +58,336 @@ export const Navbar: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScrollProgress, { passive: true });
+    handleScrollProgress();
+    return () => window.removeEventListener('scroll', handleScrollProgress);
   }, []);
 
-  // 2. High-performance IntersectionObserver for active section highlighting (zero forced reflows)
+  // 3. High-performance IntersectionObserver for active section highlighting
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
-      // Find the entry with the highest intersection ratio or topmost visible
       const visibleEntries = entries.filter((e) => e.isIntersecting);
       if (visibleEntries.length > 0) {
-        // Sort by position relative to top of viewport
         visibleEntries.sort(
           (a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top)
         );
         const targetId = visibleEntries[0].target.id;
-        setActiveSection((prev) => (prev !== targetId ? targetId : prev));
+        if (targetId === 'hero') {
+          setActiveSection('');
+        } else {
+          setActiveSection((prev) => (prev !== targetId ? targetId : prev));
+        }
       }
     };
 
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
-      rootMargin: '-15% 0px -60% 0px',
+      rootMargin: '-15% 0px -40% 0px',
       threshold: [0, 0.2, 0.5],
     });
 
-    NAV_LINKS.forEach(({ id }) => {
+    ['hero', ...NAV_LINKS.map((l) => l.id)].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    // Detect footer to reliably highlight Contact at the end of the page
+    const footer = document.querySelector('footer');
+    let footerObserver: IntersectionObserver | null = null;
+    if (footer) {
+      footerObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection('contact');
+          }
+        },
+        { threshold: 0.1 }
+      );
+      footerObserver.observe(footer);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (footerObserver) footerObserver.disconnect();
+    };
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // 3. Accessibility: close on Escape key and lock body scroll
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [mobileOpen]);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (href === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('');
+      return;
+    }
+    const targetId = href.replace('#', '');
+    setActiveSection(targetId);
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 py-3 transition-all duration-300 ${mobileOpen
+      {/* Zero-re-render Scroll Progress Bar */}
+      <div ref={progressRef} className="scroll-progress-line" aria-hidden="true" />
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 py-3.5 transition-all duration-300 ${
+          mobileOpen
             ? 'bg-[#05070e] border-b border-slate-900'
             : scrolled
-              ? 'bg-[#05070e]/95 backdrop-blur-xl border-b border-cyan-500/15 shadow-lg shadow-black/40'
-              : 'bg-[#05070e]/75 backdrop-blur-md border-b border-slate-800/40'
-          }`}
+            ? 'bg-[#05070e]/90 backdrop-blur-xl border-b border-slate-800/80 shadow-lg shadow-black/40'
+            : 'bg-[#05070e]/70 backdrop-blur-md border-b border-transparent'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
           <a
             href="#"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-2.5 group"
+            onClick={(e) => handleNavClick(e, '#')}
+            className="flex items-center gap-2.5 group focus-visible:ring-1 focus-visible:ring-cyan-400 rounded-lg p-1"
+            aria-label="Steve - Back to top"
           >
-            <div className="p-1.5 rounded-lg bg-cyan-950/60 border border-cyan-500/20 group-hover:border-cyan-400/50 transition-colors">
+            <div className="p-1.5 rounded-lg bg-cyan-950/60 border border-cyan-500/25 group-hover:border-cyan-400/60 transition-colors">
               <TerminalIcon className="w-4 h-4 text-cyan-400" />
             </div>
             <span className="font-mono font-semibold text-base tracking-wider text-white">
-              STEVE<span className="gradient-text-animated">.dev</span>
+              STEVE<span className="text-cyan-400 font-bold">.dev</span>
             </span>
           </a>
 
-          {/* Desktop Navigation (Clean Minimalist Typography) */}
-          <div className="hidden lg:flex items-center gap-8">
-            <div className="flex items-center gap-6 text-xs font-mono">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
+            <div className="flex items-center gap-5 text-xs font-mono">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`transition-colors duration-150 ${isActive
-                        ? 'text-cyan-300 font-semibold'
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`relative py-1 transition-colors duration-150 rounded ${
+                      isActive
+                        ? 'text-cyan-300 font-medium'
                         : 'text-slate-400 hover:text-slate-200'
-                      }`}
+                    }`}
                   >
                     {link.name}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-cyan-400 rounded-full" />
+                    )}
                   </a>
                 );
               })}
             </div>
 
-            <a
-              href="#contact"
-              className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors text-xs font-mono"
+            <div className="h-4 w-px bg-slate-800" aria-hidden="true" />
+
+            {/* Ultra-Modern Segmented Capsule Theme Switcher */}
+            <div
+              className="relative inline-flex items-center p-1 rounded-full bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 transition-all duration-200 shadow-inner"
+              role="group"
+              aria-label="Theme mode switcher"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-              </span>
-              <span>Open for Projects</span>
-            </a>
+              {/* Sliding Active Pill Background */}
+              <div
+                className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-sm pointer-events-none ${
+                  theme === 'dark'
+                    ? 'left-[calc(50%+2px)] bg-cyan-950/90 border border-cyan-500/40 shadow-[0_0_12px_rgba(34,211,238,0.3)]'
+                    : 'left-1 bg-white border border-slate-200/90 shadow-[0_1px_4px_rgba(0,0,0,0.08)]'
+                }`}
+              />
+
+              {/* Light Option Button */}
+              <button
+                type="button"
+                onClick={() => theme !== 'light' && toggleTheme()}
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
+                  theme === 'light'
+                    ? 'text-cyan-900 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+                aria-pressed={theme === 'light'}
+                title="Switch to Light mode"
+              >
+                <Sun className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'light' ? 'rotate-45 text-cyan-600' : 'text-slate-500'}`} />
+                <span className="text-[11px]">Light</span>
+              </button>
+
+              {/* Night Option Button */}
+              <button
+                type="button"
+                onClick={() => theme !== 'dark' && toggleTheme()}
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-colors duration-200 focus-visible:outline-none ${
+                  theme === 'dark'
+                    ? 'text-cyan-300 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+                aria-pressed={theme === 'dark'}
+                title="Switch to Night mode"
+              >
+                <Moon className={`w-3.5 h-3.5 transition-transform duration-300 ${theme === 'dark' ? '-rotate-12 text-cyan-400' : 'text-slate-500'}`} />
+                <span className="text-[11px]">Night</span>
+              </button>
+            </div>
+          </nav>
+
+          {/* Mobile Right Controls: Modern Capsule Theme Toggle + Menu Button */}
+          <div className="lg:hidden flex items-center gap-2">
+            <div
+              className="relative flex items-center p-0.5 rounded-full bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-colors shadow-inner"
+              role="group"
+              aria-label="Theme mode switcher"
+            >
+              <div
+                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] pointer-events-none ${
+                  theme === 'dark'
+                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-500/40 shadow-[0_0_10px_rgba(34,211,238,0.25)]'
+                    : 'left-0.5 bg-white border border-slate-200 shadow-sm'
+                }`}
+              />
+
+              <button
+                type="button"
+                onClick={() => theme !== 'light' && toggleTheme()}
+                className={`relative z-10 p-1.5 rounded-full transition-colors ${
+                  theme === 'light' ? 'text-cyan-700' : 'text-slate-400 hover:text-slate-200'
+                }`}
+                aria-label="Switch to Light mode"
+                title="Switch to Light mode"
+              >
+                <Sun className={`w-3.5 h-3.5 ${theme === 'light' ? 'rotate-45' : ''}`} />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => theme !== 'dark' && toggleTheme()}
+                className={`relative z-10 p-1.5 rounded-full transition-colors ${
+                  theme === 'dark' ? 'text-cyan-400' : 'text-slate-400 hover:text-slate-200'
+                }`}
+                aria-label="Switch to Night mode"
+                title="Switch to Night mode"
+              >
+                <Moon className={`w-3.5 h-3.5 ${theme === 'dark' ? '-rotate-12' : ''}`} />
+              </button>
+            </div>
+
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors focus-visible:ring-1 focus-visible:ring-cyan-400"
+              aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
+            >
+              {mobileOpen ? <X className="w-6 h-6 text-cyan-400" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          >
-            {mobileOpen ? <X className="w-6 h-6 text-cyan-400" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
-      </nav>
+      </header>
 
-      {/* Clean Minimal Liquid Mobile Menu */}
+      {/* Editorial Mobile Navigation Drawer */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-[#05070e] transition-all duration-300 flex flex-col justify-between pt-24 pb-10 px-8 ${mobileOpen
+        id="mobile-navigation"
+        className={`lg:hidden fixed inset-0 z-40 bg-[#05070e] transition-all duration-300 flex flex-col justify-between pt-24 pb-8 px-6 ${
+          mobileOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
-            : 'opacity-0 pointer-events-none -translate-y-3'
-          }`}
+            : 'opacity-0 pointer-events-none -translate-y-4'
+        }`}
       >
-        {/* Soft Liquid Ambient Glow in Background */}
-        <div className="absolute top-1/3 left-1/4 w-[260px] h-[260px] bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[240px] h-[240px] bg-violet-500/8 rounded-full blur-[80px] pointer-events-none" />
+        {/* Subtle Ambient Backing */}
+        <div className="absolute top-1/4 right-1/4 w-[240px] h-[240px] bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-        {/* Clean Typography Navigation Link List (Card-free, pure text) */}
-        <div className="relative z-10 flex flex-col space-y-6 my-auto">
+        <nav className="relative z-10 flex flex-col space-y-4 my-auto">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.id;
             return (
-              <button
+              <a
                 key={link.name}
-                onClick={() => handleNavClick(link.href)}
-                className={`text-left font-sans text-2xl font-semibold tracking-tight transition-all duration-200 flex items-center justify-between group ${isActive
-                    ? 'text-cyan-300'
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`text-left font-sans text-2xl font-bold tracking-tight transition-all duration-200 flex items-center justify-between py-2 group ${
+                  isActive
+                    ? 'text-cyan-300 pl-2 border-l-2 border-cyan-400'
                     : 'text-slate-400 hover:text-slate-100 hover:translate-x-1.5'
-                  }`}
+                }`}
               >
                 <span>{link.name}</span>
                 {isActive && (
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.9)]" />
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
                 )}
-              </button>
+              </a>
             );
           })}
-        </div>
+        </nav>
 
-        {/* Clean Minimal Bottom Bar */}
-        <div className="relative z-10 pt-6 border-t border-slate-900/80 flex items-center justify-between text-xs font-mono text-slate-400">
+        {/* Mobile Drawer Bottom Info */}
+        <div className="relative z-10 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between text-xs font-mono text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400">Available for freelance projects</span>
+            <span className="text-slate-400 text-xs">Vibe:</span>
+            <div
+              className="relative inline-flex items-center p-0.5 rounded-full bg-slate-900 border border-slate-800"
+              role="group"
+            >
+              <div
+                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-full transition-all duration-300 ease-out pointer-events-none ${
+                  theme === 'dark'
+                    ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-500/40'
+                    : 'left-0.5 bg-white border border-slate-200'
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => theme !== 'light' && toggleTheme()}
+                className={`relative z-10 px-2.5 py-1 rounded-full text-xs transition-colors flex items-center gap-1 ${
+                  theme === 'light' ? 'text-cyan-800 font-semibold' : 'text-slate-400'
+                }`}
+              >
+                <Sun className="w-3 h-3 text-cyan-600" />
+                <span>Light</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => theme !== 'dark' && toggleTheme()}
+                className={`relative z-10 px-2.5 py-1 rounded-full text-xs transition-colors flex items-center gap-1 ${
+                  theme === 'dark' ? 'text-cyan-300 font-semibold' : 'text-slate-400'
+                }`}
+              >
+                <Moon className="w-3 h-3 text-cyan-400" />
+                <span>Night</span>
+              </button>
+            </div>
           </div>
 
           <a
             href="#contact"
-            onClick={() => setMobileOpen(false)}
-            className="text-cyan-400 hover:underline"
+            onClick={(e) => handleNavClick(e, '#contact')}
+            className="text-cyan-400 hover:underline flex items-center gap-1 font-semibold"
           >
-            Say hello &rarr;
+            <span>Start a conversation</span>
+            <span>&rarr;</span>
           </a>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,6 +8,29 @@
   <title>Steve | Full-Stack & Mobile Developer</title>
   <meta name="description"
     content="Portfolio of Steve, Full-Stack Developer and Mobile Engineer specializing in Laravel, React, Flutter, and scalable web architectures." />
+  <meta name="theme-color" content="#05070e" />
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('steve-theme') || 'dark';
+        if (theme === 'light') {
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Steve | Full-Stack & Mobile Developer" />
+  <meta property="og:description" content="Portfolio of Steve, Full-Stack Developer and Mobile Engineer specializing in Laravel, React, Flutter, and scalable web architectures." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Steve | Full-Stack & Mobile Developer" />
+  <meta name="twitter:description" content="Building scalable web systems, clean REST APIs, and fluid cross-platform mobile apps with Laravel, React, and Flutter." />
+
   <!-- DNS Prefetch & Preconnect for External Assets -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

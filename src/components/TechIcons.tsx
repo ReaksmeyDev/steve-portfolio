@@ -67,7 +67,21 @@ export const Icons8Image: React.FC<{
   className = 'w-6 h-6 object-contain',
   priority = false,
 }) => {
+  const [hasError, setHasError] = React.useState(false);
   const url = resolveIcons8Url(name);
+
+  if (hasError) {
+    const label = name.slice(0, 2).toUpperCase();
+    return (
+      <span
+        className={`inline-flex items-center justify-center font-mono font-bold text-[10px] rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 select-none ${className}`}
+        title={name}
+      >
+        {label}
+      </span>
+    );
+  }
+
   return (
     <img
       src={url}
@@ -79,6 +93,7 @@ export const Icons8Image: React.FC<{
       fetchPriority={priority ? 'high' : 'auto'}
       crossOrigin="anonymous"
       referrerPolicy="no-referrer"
+      onError={() => setHasError(true)}
       className={className}
     />
   );
@@ -162,25 +177,11 @@ export const getTechIcon = (name: string, className = 'w-6 h-6', priority = fals
   return <Icons8Image name={name} className={className} priority={priority} />;
 };
 
-// Brand Accent Colors for Card Glow on Hover
-export const getTechBrandColor = (name: string): { borderHover: string; glow: string } => {
-  const n = name.toLowerCase();
-  if (n.includes('react')) return { borderHover: 'group-hover:border-[#61DAFB]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(97,218,251,0.2)]' };
-  if (n.includes('flutter')) return { borderHover: 'group-hover:border-[#02569B]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(2,86,155,0.25)]' };
-  if (n.includes('dart')) return { borderHover: 'group-hover:border-[#0175C2]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(1,117,194,0.25)]' };
-  if (n.includes('javascript') || n.includes('js')) return { borderHover: 'group-hover:border-[#F7DF1E]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(247,223,30,0.2)]' };
-  if (n.includes('html') || n.includes('css')) return { borderHover: 'group-hover:border-[#E34F26]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(227,79,38,0.2)]' };
-  if (n.includes('laravel')) return { borderHover: 'group-hover:border-[#FF2D20]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(255,45,32,0.25)]' };
-  if (n.includes('php')) return { borderHover: 'group-hover:border-[#777BB4]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(119,123,180,0.25)]' };
-  if (n.includes('node')) return { borderHover: 'group-hover:border-[#339933]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(51,153,51,0.25)]' };
-  if (n.includes('rest')) return { borderHover: 'group-hover:border-[#06B6D4]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(6,182,212,0.25)]' };
-  if (n.includes('mysql')) return { borderHover: 'group-hover:border-[#00758F]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(0,117,143,0.25)]' };
-  if (n.includes('sql server')) return { borderHover: 'group-hover:border-[#CC292B]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(204,41,43,0.25)]' };
-  if (n.includes('postgres')) return { borderHover: 'group-hover:border-[#336791]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(51,103,145,0.25)]' };
-  if (n.includes('linux')) return { borderHover: 'group-hover:border-[#FFA500]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(255,165,0,0.2)]' };
-  if (n.includes('git')) return { borderHover: 'group-hover:border-[#F05032]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(240,80,50,0.25)]' };
-  if (n.includes('nginx')) return { borderHover: 'group-hover:border-[#009639]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(0,150,57,0.25)]' };
-  if (n.includes('cloud')) return { borderHover: 'group-hover:border-[#38BDF8]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(56,189,248,0.25)]' };
-  if (n.includes('ai') || n.includes('ocr') || n.includes('document')) return { borderHover: 'group-hover:border-[#818CF8]/50', glow: 'group-hover:shadow-[0_0_20px_rgba(129,140,248,0.25)]' };
-  return { borderHover: 'group-hover:border-cyan-500/40', glow: 'group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]' };
+// Card Accent Colors for Hover (Pure Cyan Vibe)
+export const getTechBrandColor = (_name: string): { borderHover: string; glow: string } => {
+  return {
+    borderHover: 'group-hover:border-cyan-500/40',
+    glow: 'group-hover:shadow-[0_0_24px_rgba(34,211,238,0.2)]',
+  };
 };
+

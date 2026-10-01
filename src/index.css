@@ -2,11 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Base Reset & Smooth Scrolling ─── */
+/* ─── Base Reset & Native Composited Scrolling (Zero-Latency) ─── */
 html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: auto;
+  scroll-behavior: auto;
+  overflow-x: clip;
 }
 
 body {
@@ -16,8 +15,7 @@ body {
   background-color: #05070e;
   color: #e2e8f0;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,9 +30,40 @@ body {
     @apply bg-[#05070e] text-slate-200 antialiased selection:bg-cyan-500/30 selection:text-cyan-300;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+
+  :focus-visible {
+    outline: 2px solid rgba(34, 211, 238, 0.7);
+    outline-offset: 2px;
+  }
 }
 
-/* ─── Starfield Background (CSS-only, GPU-accelerated & Layer-Isolated) ─── */
+/* ─── Scroll Progress Bar (Compositor-Accelerated) ─── */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  z-index: 100;
+  background: linear-gradient(90deg, #0891b2, #06b6d4, #22d3ee, #67e8f9);
+  transform-origin: 0% 50%;
+  pointer-events: none;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+  @keyframes grow-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .scroll-progress-line {
+    animation: grow-progress auto linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ─── Starfield Background (CSS-only, GPU-accelerated & Viewport-Clipped) ─── */
 .starfield {
   position: fixed;
   inset: 0;
@@ -48,70 +77,57 @@ body {
 
 .starfield-layer {
   position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  will-change: transform;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  contain: strict;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   background-image:
     radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
     radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.3) 0%, transparent 100%),
     radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 70% 80%, rgba(34,211,238,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 80%, rgba(34,211,238,0.35) 0%, transparent 100%),
     radial-gradient(1px 1px at 85% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 15% 85%, rgba(167,139,250,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 15% 85%, rgba(34,211,238,0.3) 0%, transparent 100%),
     radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
     radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 60% 55%, rgba(34,211,238,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 55%, rgba(34,211,238,0.3) 0%, transparent 100%),
     radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
     radial-gradient(1.5px 1.5px at 5% 50%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 75% 25%, rgba(167,139,250,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 25%, rgba(34,211,238,0.25) 0%, transparent 100%),
     radial-gradient(1px 1px at 40% 90%, rgba(255,255,255,0.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 95% 70%, rgba(16,185,129,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 70%, rgba(34,211,238,0.25) 0%, transparent 100%),
     radial-gradient(1px 1px at 20% 5%, rgba(255,255,255,0.3) 0%, transparent 100%);
 }
 
 .starfield-layer-1 {
-  animation: drift-slow 120s linear infinite;
+  opacity: 0.8;
 }
 
 .starfield-layer-2 {
-  animation: drift-medium 80s linear infinite reverse;
-  opacity: 0.7;
-}
-
-.starfield-layer-3 {
-  animation: drift-fast 50s linear infinite;
   opacity: 0.5;
 }
 
-@keyframes drift-slow {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-5%, -3%, 0); }
+.starfield-layer-3 {
+  opacity: 0.3;
 }
 
-@keyframes drift-medium {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(3%, -5%, 0); }
-}
-
-@keyframes drift-fast {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-4%, 4%, 0); }
-}
-
-/* ─── Ambient Gradient Orbs (GPU Composited & Strictly Isolated) ─── */
+/* ─── Ambient Gradient Orbs (GPU Composited Radial Gradients, Zero Blur Passes) ─── */
 .ambient-orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(80px);
   pointer-events: none;
-  will-change: transform;
-  mix-blend-mode: screen;
   contain: strict;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, rgba(6, 182, 212, 0.03) 45%, transparent 70%);
+}
+
+@media (max-width: 768px) {
+  .ambient-orb {
+    opacity: 0.6;
+  }
 }
 
 /* ─── Cyber Grid ─── */
@@ -163,10 +179,10 @@ body {
   padding: 1px;
   background: conic-gradient(
     from 0deg,
-    rgba(34, 211, 238, 0.15),
-    rgba(167, 139, 250, 0.1),
-    rgba(244, 114, 182, 0.08),
-    rgba(34, 211, 238, 0.15)
+    rgba(34, 211, 238, 0.25),
+    rgba(6, 182, 212, 0.08),
+    rgba(56, 189, 248, 0.15),
+    rgba(34, 211, 238, 0.25)
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -189,24 +205,23 @@ body {
     0 0 20px rgba(34, 211, 238, 0.06);
 }
 
-/* ─── Animated Gradient Text (Non-clipping) ─── */
+/* ─── Animated Gradient Text (Non-clipping, Pure Cyan Vibe) ─── */
 .gradient-text-animated {
   background: linear-gradient(
     135deg,
     #22d3ee 0%,
-    #a78bfa 25%,
-    #f472b6 50%,
-    #22d3ee 75%,
-    #2dd4bf 100%
+    #67e8f9 35%,
+    #38bdf8 70%,
+    #22d3ee 100%
   );
-  background-size: 300% 300%;
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
   padding-bottom: 0.08em;
   vertical-align: baseline;
-  animation: gradient-shift 6s ease infinite;
+  animation: gradient-shift 5s ease infinite;
 }
 
 @keyframes gradient-shift {
@@ -418,9 +433,9 @@ body {
   background: linear-gradient(
     to bottom,
     rgba(34, 211, 238, 0.05),
-    rgba(34, 211, 238, 0.5),
-    rgba(167, 139, 250, 0.5),
-    rgba(34, 211, 238, 0.5),
+    rgba(34, 211, 238, 0.6),
+    rgba(6, 182, 212, 0.4),
+    rgba(34, 211, 238, 0.6),
     rgba(34, 211, 238, 0.05)
   );
   background-size: 100% 200%;
@@ -547,4 +562,333 @@ body {
   .wave-divider svg {
     animation: none !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   LIGHT MODE DESIGN SYSTEM (Minimal Editorial Light Vibe)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+html.light {
+  color-scheme: light;
+}
+
+html.light body,
+html.light #root,
+html.light #top {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+/* Backgrounds & Surfaces */
+html.light .bg-\[\#05070e\] {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-\[\#05070e\]\/90 {
+  background-color: rgba(248, 250, 252, 0.92) !important;
+}
+
+html.light .bg-\[\#05070e\]\/70 {
+  background-color: rgba(248, 250, 252, 0.8) !important;
+}
+
+/* Gradient Fixes: ensure hero fade does not introduce dark navy lines in day mode */
+html.light .to-\[\#05070e\] {
+  --tw-gradient-to: #f8fafc var(--tw-gradient-to-position) !important;
+}
+
+html.light .via-\[\#05070e\]\/70 {
+  --tw-gradient-stops: var(--tw-gradient-from), rgba(248, 250, 252, 0.75) var(--tw-gradient-via-position), var(--tw-gradient-to) !important;
+}
+
+html.light header {
+  background-color: rgba(248, 250, 252, 0.88) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+html.light footer,
+html.light .bg-\[\#03050a\] {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .bg-\[\#0b101c\]\/80,
+html.light .bg-\[\#0b101c\],
+html.light .bg-\[\#0b101c\]\/85,
+html.light .bg-\[\#0b101c\]\/70,
+html.light .bg-\[\#090d16\]\/90 {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 1px 3px 0 rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Project Visual Mock Window */
+html.light .bg-\[\#070b14\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: inset 0 2px 4px 0 rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .bg-slate-900,
+html.light .bg-slate-900\/90,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/60 {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+html.light .bg-slate-950,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/90 {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+/* Borders */
+html.light .border-slate-800,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/60,
+html.light .border-slate-800\/90,
+html.light .border-slate-900 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-slate-700,
+html.light .border-slate-700\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Typography */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-200,
+html.light .text-slate-300 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Hover Safety Rules for Light Mode (prevents text turning white on light backgrounds) */
+html.light .hover\:text-white:hover,
+html.light .hover\:text-slate-100:hover,
+html.light .hover\:text-slate-200:hover {
+  color: #0f172a !important;
+}
+
+html.light .hover\:bg-\[\#0f172a\]:hover,
+html.light .hover\:bg-\[\#0f172a\]\/95:hover,
+html.light .hover\:bg-slate-900:hover,
+html.light .hover\:bg-slate-900\/80:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .hover\:border-slate-700:hover {
+  border-color: #cbd5e1 !important;
+}
+
+/* Cyan Accents in Light Mode (Deep & Crisp for high contrast) */
+html.light .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+html.light .text-cyan-300 {
+  color: #0e7490 !important;
+}
+
+html.light .bg-cyan-950,
+html.light .bg-cyan-950\/30,
+html.light .bg-cyan-950\/40,
+html.light .bg-cyan-950\/50,
+html.light .bg-cyan-950\/60,
+html.light .bg-cyan-950\/80 {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+}
+
+html.light .border-cyan-500\/20,
+html.light .border-cyan-500\/25,
+html.light .border-cyan-500\/30,
+html.light .border-cyan-500\/40,
+html.light .border-cyan-500\/50 {
+  border-color: rgba(8, 145, 178, 0.32) !important;
+}
+
+/* Punchy High-Contrast Animated Gradient Text in Light Mode */
+html.light .gradient-text-animated {
+  background: linear-gradient(
+    135deg,
+    #0891b2 0%,
+    #0284c7 35%,
+    #0e7490 70%,
+    #0891b2 100%
+  ) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Form Inputs in Contact */
+html.light input,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input:focus,
+html.light textarea:focus {
+  border-color: #0891b2 !important;
+  box-shadow: 0 0 0 1px #0891b2 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Ambient layers & Starfield */
+html.light .starfield {
+  opacity: 0.12 !important;
+  filter: invert(1);
+}
+
+html.light .cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(8, 145, 178, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(8, 145, 178, 0.05) 1px, transparent 1px) !important;
+}
+
+html.light .noise-overlay::before {
+  opacity: 0.02 !important;
+}
+
+html.light .ambient-orb {
+  mix-blend-mode: multiply;
+  opacity: 0.35;
+}
+
+html.light .shadow-black\/40 {
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Floating Back to Top Button */
+html.light button[aria-label="Back to top"] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+  box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.12) !important;
+}
+
+html.light button[aria-label="Back to top"]:hover {
+  color: #0891b2 !important;
+  border-color: rgba(8, 145, 178, 0.5) !important;
+  background-color: #f8fafc !important;
+}
+
+/* Glass & Liquid panels */
+html.light .glass-panel,
+html.light .liquid-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 4px 24px -2px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Mobile Drawer */
+html.light #mobile-navigation {
+  background-color: #f8fafc !important;
+}
+
+/* Keep Developer Terminal Window Authentically Dark & Crisp */
+html.light .terminal-window {
+  background-color: #0b0f19 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light .terminal-window .text-white {
+  color: #ffffff !important;
+}
+
+html.light .terminal-window .text-slate-200,
+html.light .terminal-window .text-slate-300 {
+  color: #e2e8f0 !important;
+}
+
+html.light .terminal-window .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html.light .terminal-window .text-slate-500 {
+  color: #64748b !important;
+}
+
+html.light .terminal-window .text-cyan-400 {
+  color: #22d3ee !important;
+}
+
+html.light .terminal-window .text-cyan-300 {
+  color: #67e8f9 !important;
+}
+
+html.light .terminal-window input {
+  background-color: transparent !important;
+  color: #f8fafc !important;
+  border: none !important;
+}
+
+html.light .terminal-window .bg-slate-900\/80,
+html.light .terminal-window .bg-slate-900 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  color: #e2e8f0 !important;
+}
+
+html.light .terminal-window .border-slate-800,
+html.light .terminal-window .border-slate-800\/90 {
+  border-color: #1e293b !important;
+}
+
+/* Hero Code Editor Card in Light Mode */
+html.light .beam-border-card {
+  background-color: #0d1117 !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+  box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.15) !important;
+}
+
+html.light .beam-border-card .text-slate-200,
+html.light .beam-border-card .text-slate-300 {
+  color: #e2e8f0 !important;
+}
+
+html.light .beam-border-card .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html.light .beam-border-card .bg-\[\#161b22\] {
+  background-color: #161b22 !important;
+}
+
+html.light .beam-border-card .text-cyan-300 {
+  color: #67e8f9 !important;
+}
+
+/* Theme Capsule Segmented Switch in Light Mode */
+html.light [role="group"][aria-label="Theme mode switcher"] {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Modals in Light Mode */
+html.light [role="dialog"] > div {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.25) !important;
 }

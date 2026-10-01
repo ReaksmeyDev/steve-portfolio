@@ -1,55 +1,70 @@
 import React from 'react';
-import { Github, Linkedin, Send, Facebook } from 'lucide-react';
+import { Github, Linkedin, Send, Facebook, ArrowUp } from 'lucide-react';
 
 const socialLinks = [
-  { icon: Github, label: 'GitHub' },
-  { icon: Linkedin, label: 'LinkedIn' },
-  { icon: Send, label: 'Telegram' },
-  { icon: Facebook, label: 'Facebook' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com' },
+  { icon: Send, label: 'Telegram', href: 'https://t.me/stevejkj' },
+  { icon: Facebook, label: 'Facebook', href: 'https://facebook.com' },
 ];
 
 export const Footer: React.FC = React.memo(() => {
-  return (
-    <footer className="relative border-t border-slate-800/40 bg-[#03050a]/80 backdrop-blur-sm">
-      {/* Wave Divider */}
-      <div className="absolute -top-[1px] left-0 right-0 overflow-hidden leading-none">
-        <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="w-full h-6 sm:h-8 fill-[#05070e]">
-          <path d="M0 20C360 35 720 5 1080 20C1260 28 1380 12 1440 20V0H0V20Z" />
-        </svg>
-      </div>
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+  return (
+    <footer className="relative border-t border-slate-800/60 bg-[#03050a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col items-center gap-6 sm:gap-8 sm:flex-row sm:justify-between">
         {/* Brand */}
         <div className="text-center sm:text-left">
-          <span className="font-mono font-bold text-white tracking-wider text-base">
-            STEVE<span className="gradient-text-animated">.dev</span>
-          </span>
-          <p className="text-[10px] sm:text-xs text-slate-500 font-mono mt-1">Full-Stack Developer</p>
+          <a
+            href="#"
+            onClick={scrollToTop}
+            className="font-mono font-bold text-white tracking-wider text-base inline-block hover:opacity-90 transition-opacity"
+          >
+            STEVE<span className="text-cyan-400 font-bold">.dev</span>
+          </a>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-mono mt-0.5">
+            Full-Stack & Mobile Developer &bull; Phnom Penh
+          </p>
         </div>
 
-        {/* Social Icons */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {socialLinks.map(({ icon: Icon, label }) => (
+        {/* Social Icons & Back to Top */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {socialLinks.map(({ icon: Icon, label, href }) => (
             <a
               key={label}
+              href={href}
               target="_blank"
               rel="noreferrer"
-              className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl text-slate-400 bg-slate-900/50 border border-slate-800/50 hover:text-cyan-400 hover:border-cyan-500/30 hover:shadow-glow-cyan transition-all duration-300"
+              className="p-2 sm:p-2.5 rounded-xl text-slate-400 bg-slate-900 border border-slate-800 hover:text-cyan-400 hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-200"
               aria-label={label}
             >
-              <Icon className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+              <Icon className="w-4 h-4" />
             </a>
           ))}
+
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="p-2 sm:p-2.5 rounded-xl text-slate-400 bg-slate-900 border border-slate-800 hover:text-cyan-400 hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-200 ml-1"
+            title="Back to top"
+            aria-label="Scroll back to top"
+          >
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Copyright */}
-        <div className="text-[10px] sm:text-xs font-mono text-slate-600">
-          © 2026 STEVE. All rights reserved.
+        <div className="text-[11px] sm:text-xs font-mono text-slate-500">
+          &copy; {new Date().getFullYear()} Steve. Crafted with care &amp; performance.
         </div>
       </div>
 
-      {/* Bottom gradient line */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+      {/* Bottom gradient accent line */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/25 to-transparent" />
     </footer>
   );
 });

@@ -14,13 +14,13 @@ const HERO_PHRASES = [
 // Dynamically highlights key engineering terms inside the active typed text
 const renderHighlightedTypedText = (text: string): React.ReactNode => {
   const keywords: Array<{ word: string; className: string }> = [
-    { word: 'Laravel backends', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
-    { word: 'Laravel', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
-    { word: 'REST APIs', className: 'text-violet-300 font-semibold drop-shadow-[0_0_10px_rgba(167,139,250,0.35)]' },
-    { word: 'Flutter', className: 'text-sky-300 font-semibold drop-shadow-[0_0_10px_rgba(56,189,248,0.35)]' },
-    { word: 'clean architecture', className: 'text-emerald-300 font-semibold drop-shadow-[0_0_10px_rgba(52,211,153,0.35)]' },
+    { word: 'Laravel backends', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
+    { word: 'Laravel', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
+    { word: 'REST APIs', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
+    { word: 'Flutter', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
+    { word: 'clean architecture', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
     { word: 'cross-platform', className: 'text-cyan-300 font-semibold' },
-    { word: 'scalable web ecosystems', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]' },
+    { word: 'scalable web ecosystems', className: 'text-cyan-300 font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]' },
   ];
 
   let parts: React.ReactNode[] = [];
@@ -204,49 +204,44 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section ref={heroRef} className="relative flex items-center justify-center pt-16 sm:pt-24 pb-8 sm:pb-12 overflow-hidden">
+    <section id="hero" ref={heroRef} className="relative flex items-center justify-center pt-20 sm:pt-28 pb-10 sm:pb-16 overflow-hidden">
       {/* Background Grid Accent */}
-      <div className="absolute inset-0 cyber-grid opacity-75" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#05070e]/60 to-[#05070e] pointer-events-none" />
+      <div className="absolute inset-0 cyber-grid opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#05070e]/70 to-[#05070e] pointer-events-none" />
 
-      {/* Atmospheric Glow */}
-      <div className="absolute top-1/3 left-1/4 w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-cyan-500/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[200px] sm:w-[450px] h-[200px] sm:h-[450px] bg-violet-500/8 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none" />
+      {/* Atmospheric Glow (Cyan Vibe) */}
+      <div className="absolute top-1/4 left-1/4 w-[280px] sm:w-[480px] h-[280px] sm:h-[480px] bg-cyan-500/8 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[240px] sm:w-[420px] h-[240px] sm:h-[420px] bg-cyan-600/5 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         {/* Left Column: Hero Intro */}
         <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
-          {/* Status Indicator (Clean Minimalist) */}
-          <div className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm">
-            {/* <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-            </span> */}
-            <span className="text-slate-300 font-medium">Software Developer</span>
-            <span className="text-slate-600">/</span>
-            <span className="text-cyan-400">Open to Opportunities</span>
+          {/* Status Indicator (Editorial Minimalist) */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span>Software Developer &bull; Available for Projects</span>
           </div>
 
           {/* Heading */}
-          <div className="space-y-1.5 sm:space-y-2">
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+          <div className="space-y-2">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
               Hi, I'm <span className="gradient-text-animated">Steve</span>.
             </h1>
             <TypewriterHeadline isVisible={isVisible} />
           </div>
 
-          {/* Bio */}
+          {/* Bio Statement */}
           <p className="text-slate-400 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed">
-            Specializing in <span className="text-cyan-300 font-medium">Laravel</span>, <span className="text-cyan-300 font-medium">React</span>, and <span className="text-cyan-300 font-medium">Flutter</span>. I engineer high-performance systems with clean architectural patterns, robust databases, and polished user experiences.
+            Building reliable web systems, scalable REST APIs, and fluid cross-platform mobile apps with <strong className="text-cyan-300 font-medium">Laravel</strong>, <strong className="text-cyan-300 font-medium">React</strong>, and <strong className="text-cyan-300 font-medium">Flutter</strong>. Focused on clean architecture, resilient data pipelines, and fast user interfaces.
           </p>
 
-          {/* Quick Tech Icons (Clean Icons Only with Priority Eager Loading) */}
+          {/* Quick Tech Stack Icons */}
           <div className="flex items-center gap-3.5 pt-1">
             {HERO_TECH_STACK.map(({ name, icon: Icon }) => (
               <div
                 key={name}
                 title={name}
-                className="hover:scale-125 transition-transform duration-200 cursor-pointer flex items-center justify-center"
+                className="hover:scale-115 transition-transform duration-200 cursor-pointer flex items-center justify-center p-1 rounded-lg hover:bg-slate-900/80"
               >
                 <Icon className="w-6 h-6 object-contain" priority={true} />
               </div>
@@ -257,40 +252,40 @@ export const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
             <a
               href="#projects"
-              className="liquid-btn inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-400 text-slate-950 font-semibold text-sm sm:text-base shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-cyan-500/20 hover:shadow-cyan-400/30 hover:-translate-y-0.5 transition-all duration-200"
             >
-              <span>Explore Projects</span>
+              <span>View Selected Projects</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <a
               href="#contact"
-              className="liquid-btn inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-slate-200 font-medium text-sm sm:text-base hover:border-cyan-500/40 backdrop-blur-sm transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-slate-900 border border-slate-700/80 hover:border-cyan-500/40 text-slate-200 font-medium text-sm sm:text-base hover:text-white hover:-translate-y-0.5 transition-all duration-200"
             >
               <span>Get in Touch</span>
             </a>
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-4 border-t border-slate-800/80 font-mono text-left">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-slate-800/80 font-mono text-left">
             <div>
-              <div className="text-base sm:text-2xl font-bold text-white tracking-tight">2+</div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Years Exp</div>
+              <div className="text-lg sm:text-2xl font-bold text-white tracking-tight">2+</div>
+              <div className="text-[10px] sm:text-xs text-slate-400">Years Exp</div>
             </div>
             <div>
-              <div className="text-base sm:text-2xl font-bold text-cyan-400 tracking-tight">5+</div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Production Builds</div>
+              <div className="text-lg sm:text-2xl font-bold text-cyan-400 tracking-tight">5+</div>
+              <div className="text-[10px] sm:text-xs text-slate-400">Production Builds</div>
             </div>
             <div>
-              <div className="text-base sm:text-2xl font-bold text-emerald-400 tracking-tight">100%</div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Commitment</div>
+              <div className="text-lg sm:text-2xl font-bold text-cyan-300 tracking-tight">100%</div>
+              <div className="text-[10px] sm:text-xs text-slate-400">Commitment</div>
             </div>
           </div>
         </div>
 
         {/* Right Column: Interactive Syntax-Highlighted Editor */}
         <div className="lg:col-span-5 w-full max-w-full overflow-hidden">
-          <div className="beam-border-card rounded-2xl border border-cyan-500/25 hover:border-cyan-500/45 bg-[#0d1117] shadow-2xl overflow-hidden backdrop-blur-xl relative w-full transition-all duration-300">
+          <div className="beam-border-card rounded-2xl border border-cyan-500/25 hover:border-cyan-500/45 bg-[#0d1117] shadow-2xl overflow-hidden relative w-full transition-all duration-300">
             {/* Editor Window Header & Tabs */}
             <div className="bg-[#161b22] px-3 sm:px-4 py-2 border-b border-slate-800 flex items-center justify-between gap-2">
               {/* Window Controls */}
@@ -325,7 +320,7 @@ export const Hero: React.FC = () => {
                 title="Copy snippet"
                 aria-label="Copy snippet"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-cyan-400" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
 
@@ -352,8 +347,8 @@ export const Hero: React.FC = () => {
             {/* Editor Status Bar */}
             <div className="bg-[#161b22] px-3 sm:px-4 py-1.5 sm:py-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400">
               <div className="flex items-center gap-2 sm:gap-3">
-                <span className="flex items-center gap-1 text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="flex items-center gap-1 text-cyan-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   <span>main*</span>
                 </span>
                 <span className="hidden sm:inline text-slate-500">TypeScript 5.4</span>
