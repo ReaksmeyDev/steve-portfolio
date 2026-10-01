@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Github, ExternalLink, ArrowUpRight, FolderGit2, CheckCircle2, Layers, X, MessageSquare, Sparkles } from 'lucide-react';
+import { Github, ArrowUpRight, X, MessageSquare } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { getTechIcon } from './TechIcons';
 
@@ -112,160 +112,32 @@ export const Projects: React.FC = React.memo(() => {
       : PROJECTS_DATA.filter((p) => p.category === activeTab);
   }, [activeTab]);
 
-  const getCategoryColor = (_cat: string) => {
-    return 'text-cyan-300 border-cyan-500/30 bg-cyan-950/40';
-  };
+  return (
+    <section id="projects" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24 topo-lines-overlay">
+      {/* Ambient Liquid Gradient Blobs */}
+      <div className="liquid-blob w-[450px] h-[450px] bg-cyan-500/[0.045] top-[15%] right-[-5%] pointer-events-none" aria-hidden="true" />
+      <div className="liquid-blob w-[380px] h-[380px] bg-cyan-400/[0.035] bottom-[10%] left-[-5%] pointer-events-none" aria-hidden="true" />
 
-  // Render an editorial visual preview graphic for each project
-  const renderProjectVisual = (project: typeof PROJECTS_DATA[0], index: number) => {
-    const formattedIndex = String(index + 1).padStart(2, '0');
-
-    if (project.id === 'school-management') {
-      return (
-        <div className="relative w-full h-48 sm:h-56 bg-[#070b14] rounded-xl overflow-hidden border border-slate-800/90 p-4 font-mono text-[11px] flex flex-col justify-between group-hover:border-cyan-500/30 transition-colors">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 text-slate-500">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-600/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400/80" />
-            </div>
-            <span className="text-[10px] text-slate-400">portal.school-admin.local</span>
-            <span className="text-cyan-400/80 font-bold">{formattedIndex}</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header Section matching architectural blueprint design */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16">
+          <div>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white tracking-tight font-sans uppercase">
+              PROJECTS
+            </h2>
           </div>
-
-          <div className="grid grid-cols-3 gap-2 my-auto">
-            <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left">
-              <span className="text-[10px] text-slate-500 block">Enrolled</span>
-              <span className="text-sm sm:text-base font-bold text-white">1,240</span>
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left">
-              <span className="text-[10px] text-slate-500 block">Attendance</span>
-              <span className="text-sm sm:text-base font-bold text-cyan-300">98.4%</span>
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left">
-              <span className="text-[10px] text-slate-500 block">Courses</span>
-              <span className="text-sm sm:text-base font-bold text-cyan-400">48</span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-800/60">
-            <span className="text-slate-400">Auth: Role-Based RBAC</span>
-            <span className="text-cyan-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" /> API Connected
+          <div className="sm:text-right">
+            <span className="block text-xs sm:text-sm font-mono tracking-widest text-[#00839e] dark:text-cyan-400 uppercase font-semibold">
+              FEATURED WORK
+            </span>
+            <span className="block text-xs sm:text-sm font-mono tracking-widest text-slate-500 dark:text-slate-400 uppercase font-medium mt-0.5">
+              4 ARCHITECTURES
             </span>
           </div>
         </div>
-      );
-    }
 
-    if (project.id === 'rules-search') {
-      return (
-        <div className="relative w-full h-48 sm:h-56 bg-[#070b14] rounded-xl overflow-hidden border border-slate-800/90 p-4 font-mono text-[11px] flex flex-col justify-between group-hover:border-cyan-500/30 transition-colors">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 text-slate-500">
-            <div className="flex items-center gap-2">
-              <span className="text-cyan-300 font-semibold">Flutter Engine</span>
-            </div>
-            <span className="text-cyan-400/80 font-bold">{formattedIndex}</span>
-          </div>
-
-          <div className="space-y-2 my-auto">
-            <div className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-between text-xs">
-              <span>Q: "tax compliance article 14"</span>
-              <span className="text-cyan-400 text-[10px]">Indexed</span>
-            </div>
-            <div className="p-2.5 rounded-lg bg-cyan-950/20 border border-cyan-500/20 text-left space-y-1">
-              <span className="text-xs text-white font-semibold block">Regulatory Decree No. 42</span>
-              <p className="text-[10px] text-slate-400 line-clamp-1">Full offline cache enabled &bull; Multi-keyword match</p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-800/60">
-            <span>iOS & Android</span>
-            <span className="text-cyan-400">SQLite + REST Sync</span>
-          </div>
-        </div>
-      );
-    }
-
-    if (project.id === 'ocr-engine') {
-      return (
-        <div className="relative w-full h-48 sm:h-56 bg-[#070b14] rounded-xl overflow-hidden border border-slate-800/90 p-4 font-mono text-[11px] flex flex-col justify-between group-hover:border-cyan-500/30 transition-colors">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 text-slate-500">
-            <span className="text-cyan-300 font-semibold">Pipeline: Cloud Vision</span>
-            <span className="text-cyan-400/80 font-bold">{formattedIndex}</span>
-          </div>
-
-          <div className="space-y-1.5 my-auto text-left text-[11px]">
-            <div className="flex items-center justify-between text-slate-400 bg-slate-900/60 px-2.5 py-1.5 rounded-md border border-slate-800/80">
-              <span className="text-cyan-400">[INGEST]</span>
-              <span>contract_2026.pdf (12 pages)</span>
-            </div>
-            <div className="flex items-center justify-between text-slate-400 bg-slate-900/60 px-2.5 py-1.5 rounded-md border border-slate-800/80">
-              <span className="text-cyan-300">[OCR]</span>
-              <span>Parsed 4,820 tokens (0.42s)</span>
-            </div>
-            <div className="flex items-center justify-between text-slate-400 bg-slate-900/60 px-2.5 py-1.5 rounded-md border border-slate-800/80">
-              <span className="text-cyan-400">[INDEX]</span>
-              <span className="text-cyan-300 font-semibold">Stored in MySQL DB</span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-800/60">
-            <span>Worker Queue: Redis</span>
-            <span className="text-cyan-400">Async Batch Mode</span>
-          </div>
-        </div>
-      );
-    }
-
-    // documents-management-system or default
-    return (
-      <div className="relative w-full h-48 sm:h-56 bg-[#070b14] rounded-xl overflow-hidden border border-slate-800/90 p-4 font-mono text-[11px] flex flex-col justify-between group-hover:border-cyan-500/30 transition-colors">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 text-slate-500">
-          <span className="text-cyan-400 font-semibold">Document Archive</span>
-          <span className="text-cyan-400/80 font-bold">{formattedIndex}</span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 my-auto">
-          <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left space-y-1">
-            <span className="text-[10px] text-slate-500 block">Cataloging</span>
-            <span className="text-xs font-semibold text-white block">Auto Tagging</span>
-            <span className="text-[10px] text-cyan-400">Taxonomy Matrix</span>
-          </div>
-          <div className="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 text-left space-y-1">
-            <span className="text-[10px] text-slate-500 block">Query Speed</span>
-            <span className="text-xs font-semibold text-cyan-400 block">&lt; 18ms</span>
-            <span className="text-[10px] text-slate-400">Indexed Columns</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-800/60">
-          <span>Storage: Cloud / Local</span>
-          <span className="text-cyan-400">Full Text Search</span>
-        </div>
-      </div>
-    );
-  };
-
-  return (
-    <section id="projects" className="py-12 sm:py-20 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
-      {/* Ambient background (Cyan Vibe) */}
-      <div className="absolute bottom-0 right-[-5%] w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Header */}
-        <div className="text-left mb-8 sm:mb-12">
-          <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-2">// Featured Work</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Selected <span className="gradient-text-animated">Projects</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2.5 max-w-2xl leading-relaxed">
-            Real-world systems engineered with modern backend pipelines, responsive frontends, and cross-platform mobile apps.
-          </p>
-        </div>
-
-        {/* Tab Filters */}
-        <div className="flex flex-wrap gap-2 mb-8 font-mono text-xs">
+        {/* Tab Filters (Chamfered Architectural Tabs) */}
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-12 sm:mb-16 font-mono text-xs">
           {tabs.map((tab) => {
             const count = tabCounts[tab] || 0;
             const isSelected = activeTab === tab;
@@ -275,15 +147,18 @@ export const Projects: React.FC = React.memo(() => {
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-xl transition-all duration-200 border flex items-center gap-2 ${
+                className={`px-5 py-2.5 uppercase font-bold tracking-wider transition-all duration-200 flex items-center gap-2.5 ${
                   isSelected
-                    ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/50 shadow-[0_0_16px_rgba(34,211,238,0.2)] font-semibold scale-[1.01]'
-                    : 'bg-slate-900/70 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                    ? 'btn-chamfer-solid text-white shadow-sm'
+                    : 'border border-slate-300 dark:border-slate-800 bg-white/60 dark:bg-[#0b101c]/60 text-slate-600 dark:text-slate-400 hover:border-[#007489] dark:hover:border-cyan-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
+                style={isSelected ? { clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%)' } : {}}
               >
                 <span>{tab}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                  isSelected ? 'bg-cyan-400/20 text-cyan-300' : 'bg-slate-800 text-slate-500'
+                <span className={`text-[10px] px-1.5 py-0.5 font-bold ${
+                  isSelected
+                    ? 'bg-white/20 text-white'
+                    : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                 }`}>
                   {count}
                 </span>
@@ -292,86 +167,93 @@ export const Projects: React.FC = React.memo(() => {
           })}
         </div>
 
-        {/* Editorial Project Cards Grid */}
-        <div key={activeTab} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 tab-fade-in">
+        {/* Chamfered Card Grid (Exact Reference Layout Without Photo) */}
+        <div key={activeTab} className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 items-stretch tab-fade-in">
           {filteredProjects.map((project, index) => {
-            const badgeClass = getCategoryColor(project.category);
-
             return (
               <article
                 key={project.id}
-                className="rounded-2xl p-5 sm:p-7 bg-[#0b101c] border border-slate-800/80 hover:border-cyan-500/40 hover:bg-[#0f172a] transition-all duration-200 group flex flex-col justify-between shadow-lg hover:-translate-y-1 relative"
+                className="chamfer-card-wrapper group flex flex-col justify-between"
               >
-                <div>
-                  {/* Top Preview Graphical Mock */}
-                  <div className="mb-5">
-                    {renderProjectVisual(project, index)}
-                  </div>
+                <div className="chamfer-card-content p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                  <div>
+                    {/* Category · Year Header Line */}
+                    <div className="flex items-center justify-between text-xs font-mono font-bold tracking-[0.16em] text-[#00839e] dark:text-cyan-400 uppercase mb-3">
+                      <span>{project.category.toUpperCase()} &bull; 2026</span>
+                      {/* <span className="text-slate-400 dark:text-slate-500 font-semibold tracking-widest text-[11px]">
+                        #{String(index + 1).padStart(2, '0')}
+                      </span> */}
+                    </div>
 
-                  {/* Category & Title */}
-                  <div className="flex items-center justify-between gap-3 mb-2.5">
-                    <span className={`text-[10px] font-mono font-medium px-2 py-0.5 rounded-md border ${badgeClass}`}>
-                      {project.category}
-                    </span>
-                    <span className="font-mono text-xs text-slate-500">
-                      Project #{String(index + 1).padStart(2, '0')}
-                    </span>
-                  </div>
+                    {/* Massive Bold Display Title */}
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight font-sans mb-3.5 leading-tight group-hover:text-[#00839e] dark:group-hover:text-cyan-300 transition-colors">
+                      {project.title}
+                    </h3>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2.5 font-sans tracking-tight group-hover:text-cyan-300 transition-colors">
-                    {project.title}
-                  </h3>
+                    {/* Clean Descriptive Copy */}
+                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans mb-6">
+                      {project.description}
+                    </p>
 
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6 font-sans">
-                    {project.description}
-                  </p>
-                </div>
-
-                <div>
-                  {/* Technology Tags */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6">
-                    {project.technologies.map((tech) => (
-                      <div
-                        key={tech}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-900 text-slate-300 border border-slate-800"
-                      >
-                        {getTechIcon(tech, 'w-3.5 h-3.5')}
-                        <span>{tech}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Working Action Links */}
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-800/80 font-mono text-xs">
-                    <div className="flex items-center gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedProject(project)}
-                        className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 hover:underline transition-colors font-semibold"
-                        aria-label={`View architecture details for ${project.title}`}
-                      >
-                        <span>View Architecture</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
-
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-slate-300 hover:text-cyan-300 transition-colors"
-                          aria-label={`View source code for ${project.title}`}
+                    {/* Tech Stack Chips */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono bg-slate-100 dark:bg-slate-900/90 text-slate-700 dark:text-slate-300 border border-slate-300/80 dark:border-cyan-500/25"
                         >
-                          <Github className="w-4 h-4 text-slate-400" />
-                          <span>Code</span>
-                        </a>
-                      )}
+                          {getTechIcon(tech, 'w-3.5 h-3.5')}
+                          <span>{tech}</span>
+                        </span>
+                      ))}
                     </div>
+                  </div>
 
-                    <div className="flex items-center gap-1 text-slate-500 text-[11px]">
-                      <span className="w-2 h-2 rounded-full bg-cyan-400/80" />
-                      <span>Shipped</span>
-                    </div>
+                  {/* Chamfered Action Buttons Row (Exact Reference Style) */}
+                  <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-slate-200/80 dark:border-slate-800/80">
+                    {/* DETAILS ↗ Button (Solid teal with cut bottom-right corner) */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(project)}
+                      className="btn-chamfer-solid inline-flex items-center justify-center gap-1.5 px-6 py-2.5 sm:px-7 sm:py-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider shadow-sm"
+                      aria-label={`View details for ${project.title}`}
+                    >
+                      <span>DETAILS</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </button>
+
+                    {/* LIVE SITE ↗ Button (Outline teal with cut bottom-right corner) */}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-chamfer-outline inline-flex items-center justify-center"
+                        aria-label={`View live site for ${project.title}`}
+                      >
+                        <div className="btn-chamfer-outline-inner inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider">
+                          <span>LIVE SITE</span>
+                          <ArrowUpRight className="w-4 h-4" />
+                        </div>
+                      </a>
+                    )}
+
+                    {/* CODE ↗ Button (Outline teal with cut bottom-right corner) */}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-chamfer-outline inline-flex items-center justify-center"
+                        aria-label={`View source code for ${project.title}`}
+                      >
+                        <div className="btn-chamfer-outline-inner inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider">
+                          <Github className="w-3.5 h-3.5" />
+                          <span>CODE</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </div>
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
@@ -383,129 +265,137 @@ export const Projects: React.FC = React.memo(() => {
       {/* Interactive Architecture Case Study Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-[3px] animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-project-title"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0b101c] border border-slate-800 p-6 sm:p-8 shadow-2xl text-left space-y-6"
+            className="chamfer-card-wrapper relative w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-[0_25px_60px_rgba(0,0,0,0.7)] text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
-            <button
-              type="button"
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-colors focus-visible:ring-1 focus-visible:ring-cyan-400"
-              aria-label="Close project details"
-            >
-              <X className="w-5 h-5 text-cyan-400" />
-            </button>
+            <div className="chamfer-card-content p-6 sm:p-10 space-y-6">
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 bg-slate-900 text-slate-400 hover:text-white border border-slate-800 hover:border-cyan-400 transition-colors"
+                aria-label="Close project details"
+                style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)' }}
+              >
+                <X className="w-5 h-5 text-cyan-400" />
+              </button>
 
-            {/* Header Info */}
-            <div className="space-y-2 pr-10">
-              <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-md border text-cyan-300 border-cyan-500/30 bg-cyan-950/40">
-                  {selectedProject.category}
-                </span>
-                <span className="text-slate-500">&bull;</span>
-                <span className="text-cyan-400/90 font-semibold">Production Ready</span>
+              {/* Header Info */}
+              <div className="space-y-2 pr-10">
+                <div className="flex items-center gap-2 text-xs font-mono">
+                  <span className="font-bold tracking-[0.16em] text-[#00839e] dark:text-cyan-400 uppercase">
+                    {selectedProject.category.toUpperCase()} &bull; 2026
+                  </span>
+                  <span className="text-slate-400 dark:text-slate-600">//</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
+                    PRODUCTION READY
+                  </span>
+                </div>
+                <h3 id="modal-project-title" className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                  {selectedProject.title}
+                </h3>
+                <p className="text-sm sm:text-base text-cyan-700 dark:text-cyan-300 font-mono">
+                  {PROJECT_DETAILS[selectedProject.id]?.headline || selectedProject.description}
+                </p>
               </div>
-              <h3 id="modal-project-title" className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                {selectedProject.title}
-              </h3>
-              <p className="text-sm sm:text-base text-cyan-300 font-mono">
-                {PROJECT_DETAILS[selectedProject.id]?.headline || selectedProject.description}
-              </p>
-            </div>
 
-            {/* Graphical Preview Card */}
-            <div className="border border-slate-800 rounded-xl overflow-hidden">
-              {renderProjectVisual(selectedProject, PROJECTS_DATA.findIndex((p) => p.id === selectedProject.id))}
-            </div>
+              {/* Metrics Highlights Bar */}
+              {PROJECT_DETAILS[selectedProject.id]?.metrics && (
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 p-4 bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-cyan-500/30 font-mono text-center">
+                  {PROJECT_DETAILS[selectedProject.id].metrics.map((m) => (
+                    <div key={m.label}>
+                      <span className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs uppercase tracking-wider block font-semibold">{m.label}</span>
+                      <span className="text-lg sm:text-2xl font-black text-slate-900 dark:text-white block mt-1">{m.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
-            {/* Metrics Highlights Bar */}
-            {PROJECT_DETAILS[selectedProject.id]?.metrics && (
-              <div className="grid grid-cols-3 gap-2 sm:gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 font-mono text-center">
-                {PROJECT_DETAILS[selectedProject.id].metrics.map((m) => (
-                  <div key={m.label}>
-                    <span className="text-slate-500 text-[10px] uppercase tracking-wider block">{m.label}</span>
-                    <span className="text-base sm:text-lg font-bold text-white block mt-0.5">{m.value}</span>
+              {/* Problem & Solution Breakdown */}
+              <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300 font-sans leading-relaxed">
+                <div className="p-5 bg-slate-100/90 dark:bg-[#0d1527] border-l-4 border-slate-400 dark:border-slate-600 space-y-1.5">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold block">// THE CHALLENGE</span>
+                  <p>{PROJECT_DETAILS[selectedProject.id]?.problem}</p>
+                </div>
+                <div className="p-5 bg-cyan-50/70 dark:bg-cyan-950/40 border-l-4 border-[#007489] dark:border-cyan-500 space-y-1.5">
+                  <span className="font-mono text-xs text-[#007489] dark:text-cyan-400 uppercase tracking-widest font-bold block">// ENGINEERING ARCHITECTURE</span>
+                  <p>{PROJECT_DETAILS[selectedProject.id]?.solution}</p>
+                </div>
+              </div>
+
+              {/* Architecture Highlights */}
+              {PROJECT_DETAILS[selectedProject.id]?.architectureHighlights && (
+                <div className="space-y-3">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold block">
+                    // SYSTEM DELIVERABLES
+                  </span>
+                  <div className="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+                    {PROJECT_DETAILS[selectedProject.id].architectureHighlights.map((highlight, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <span className="w-5 h-5 bg-[#007489]/20 text-[#007489] dark:bg-cyan-950 dark:border dark:border-cyan-400 dark:text-cyan-300 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5">
+                          ✓
+                        </span>
+                        <span className="leading-relaxed font-sans">{highlight}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              )}
 
-            {/* Problem & Solution Breakdown */}
-            <div className="space-y-4 text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-              <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 space-y-1">
-                <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider block">// The Challenge</span>
-                <p>{PROJECT_DETAILS[selectedProject.id]?.problem}</p>
-              </div>
-              <div className="p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 space-y-1">
-                <span className="font-mono text-[11px] text-cyan-400 uppercase tracking-wider block">// Engineering Solution</span>
-                <p>{PROJECT_DETAILS[selectedProject.id]?.solution}</p>
-              </div>
-            </div>
-
-            {/* Architecture Highlights */}
-            {PROJECT_DETAILS[selectedProject.id]?.architectureHighlights && (
-              <div className="space-y-2.5">
-                <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block">// Architecture Highlights</span>
-                <div className="space-y-2 text-xs sm:text-sm text-slate-300">
-                  {PROJECT_DETAILS[selectedProject.id].architectureHighlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                      <span className="leading-relaxed">{highlight}</span>
+              {/* Tech Stack Chips */}
+              <div className="pt-2">
+                <span className="font-mono text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-bold block mb-3">
+                  // TECHNOLOGIES DEPLOYED
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => (
+                    <div
+                      key={tech}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-cyan-500/30"
+                    >
+                      {getTechIcon(tech, 'w-4 h-4')}
+                      <span>{tech}</span>
                     </div>
                   ))}
                 </div>
               </div>
-            )}
 
-            {/* Tech Stack Chips */}
-            <div className="pt-2">
-              <span className="font-mono text-xs text-slate-400 uppercase tracking-wider block mb-2.5">// Technologies Deployed</span>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.technologies.map((tech) => (
-                  <div
-                    key={tech}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-900 text-slate-300 border border-slate-800"
-                  >
-                    {getTechIcon(tech, 'w-4 h-4')}
-                    <span>{tech}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Modal Footer Actions */}
-            <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs font-mono">
-              <a
-                href="#contact"
-                onClick={() => {
-                  setSelectedProject(null);
-                  const el = document.getElementById('contact');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold transition-all shadow-md shadow-cyan-500/20"
-              >
-                <MessageSquare className="w-4 h-4 text-slate-950" />
-                <span>Inquire About Similar Architecture</span>
-              </a>
-
-              {selectedProject.githubUrl && (
+              {/* Modal Footer Actions */}
+              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-xs font-mono">
                 <a
-                  href={selectedProject.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 transition-colors"
+                  href="#contact"
+                  onClick={() => {
+                    setSelectedProject(null);
+                    const el = document.getElementById('contact');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="btn-chamfer-solid inline-flex items-center justify-center gap-2 px-6 py-3 font-bold uppercase tracking-wider shadow-sm"
                 >
-                  <Github className="w-4 h-4 text-slate-400" />
-                  <span>View Repository</span>
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Inquire About Similar Architecture</span>
                 </a>
-              )}
+
+                {selectedProject.githubUrl && (
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-chamfer-outline inline-flex items-center justify-center"
+                  >
+                    <div className="btn-chamfer-outline-inner inline-flex items-center gap-2 px-5 py-3 uppercase tracking-wider font-bold">
+                      <Github className="w-4 h-4" />
+                      <span>View Repository</span>
+                    </div>
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
