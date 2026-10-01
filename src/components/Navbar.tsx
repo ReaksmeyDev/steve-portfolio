@@ -289,6 +289,7 @@ export const Navbar: React.FC = () => {
               />
 
               <button
+                id="theme-btn-mobile-light"
                 type="button"
                 onClick={(e) => theme !== 'light' && toggleTheme(e)}
                 className={`relative z-10 p-1.5 rounded-none transition-colors ${
@@ -301,6 +302,7 @@ export const Navbar: React.FC = () => {
               </button>
 
               <button
+                id="theme-btn-mobile-night"
                 type="button"
                 onClick={(e) => theme !== 'dark' && toggleTheme(e)}
                 className={`relative z-10 p-1.5 rounded-none transition-colors ${
@@ -315,7 +317,7 @@ export const Navbar: React.FC = () => {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors focus-visible:ring-1 focus-visible:ring-cyan-400"
+              className="p-2 rounded-none text-slate-400 hover:text-white hover:bg-slate-900 transition-colors focus-visible:ring-1 focus-visible:ring-cyan-400"
               aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
@@ -336,7 +338,7 @@ export const Navbar: React.FC = () => {
         }`}
       >
         {/* Subtle Ambient Backing */}
-        <div className="absolute top-1/4 right-1/4 w-[240px] h-[240px] bg-cyan-500/5 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute top-1/4 right-1/4 w-[240px] h-[240px] bg-cyan-500/5 rounded-none blur-[80px] pointer-events-none" />
 
         <nav className="relative z-10 flex flex-col space-y-4 my-auto">
           {NAV_LINKS.map((link) => {
@@ -354,7 +356,7 @@ export const Navbar: React.FC = () => {
               >
                 <span>{link.name}</span>
                 {isActive && (
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+                  <span className="w-2 h-2 rounded-none bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
                 )}
               </a>
             );
@@ -366,20 +368,22 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="text-slate-400 text-xs">Vibe:</span>
             <div
-              className="relative inline-flex items-center p-0.5 rounded-full bg-slate-900 border border-slate-800"
+              id="theme-switcher-drawer"
+              className="relative inline-flex items-center p-0.5 rounded-none bg-slate-900 border border-slate-800"
               role="group"
             >
               <div
-                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-full transition-all duration-300 ease-out pointer-events-none ${
+                className={`absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] rounded-none transition-all duration-300 ease-out pointer-events-none ${
                   theme === 'dark'
                     ? 'left-[calc(50%+1px)] bg-cyan-950 border border-cyan-500/40'
                     : 'left-0.5 bg-white border border-slate-200'
                 }`}
               />
               <button
+                id="theme-btn-drawer-light"
                 type="button"
-                onClick={() => theme !== 'light' && toggleTheme()}
-                className={`relative z-10 px-2.5 py-1 rounded-full text-xs transition-colors flex items-center gap-1 ${
+                onClick={(e) => theme !== 'light' && toggleTheme(e)}
+                className={`relative z-10 px-2.5 py-1 rounded-none text-xs transition-colors flex items-center gap-1 ${
                   theme === 'light' ? 'text-cyan-800 font-semibold' : 'text-slate-400'
                 }`}
               >
@@ -387,9 +391,10 @@ export const Navbar: React.FC = () => {
                 <span>Light</span>
               </button>
               <button
+                id="theme-btn-drawer-night"
                 type="button"
-                onClick={() => theme !== 'dark' && toggleTheme()}
-                className={`relative z-10 px-2.5 py-1 rounded-full text-xs transition-colors flex items-center gap-1 ${
+                onClick={(e) => theme !== 'dark' && toggleTheme(e)}
+                className={`relative z-10 px-2.5 py-1 rounded-none text-xs transition-colors flex items-center gap-1 ${
                   theme === 'dark' ? 'text-cyan-300 font-semibold' : 'text-slate-400'
                 }`}
               >
