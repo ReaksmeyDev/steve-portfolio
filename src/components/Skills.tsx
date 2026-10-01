@@ -81,7 +81,7 @@ export const Skills: React.FC = React.memo(() => {
             return (
               <div
                 key={skill.name}
-                className={`rounded-2xl p-5 sm:p-6 bg-[#0b101c] border border-slate-800/80 ${brandStyle.borderHover} hover:bg-[#0f172a] transition-all duration-200 group relative shadow-sm hover:-translate-y-1 flex flex-col justify-between`}
+                className={`tech-bracket-card rounded-2xl p-5 sm:p-6 bg-[#0b101c] border border-slate-800/80 ${brandStyle.borderHover} hover:bg-[#0f172a] transition-all duration-200 group relative shadow-sm hover:-translate-y-1 flex flex-col justify-between`}
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-3">
@@ -105,8 +105,14 @@ export const Skills: React.FC = React.memo(() => {
                 </div>
 
                 <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span>Production Ready</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-cyan-400 font-bold">//</span>
+                    <span>Production Verified</span>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors shadow-[0_0_8px_rgba(34,211,238,0.7)]" />
+                    <span className="text-[10px] text-slate-400 group-hover:text-cyan-300 font-mono transition-colors">ACTIVE</span>
+                  </span>
                 </div>
               </div>
             );

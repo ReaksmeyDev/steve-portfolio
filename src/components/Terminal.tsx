@@ -348,7 +348,7 @@ export const Terminal: React.FC = React.memo(() => {
         <div
           onClick={() => inputRef.current?.focus()}
           title="Click to focus CLI"
-          className="terminal-window terminal-scanline rounded-2xl overflow-hidden font-mono text-[12px] sm:text-sm border border-slate-800/90 bg-[#0d1117] shadow-2xl cursor-text"
+          className="tech-bracket-card terminal-window terminal-scanline rounded-2xl overflow-hidden font-mono text-[12px] sm:text-sm border border-slate-800/90 bg-[#0d1117] shadow-2xl cursor-text"
         >
           {/* Title Bar */}
           <div className="bg-[#161b22] px-4 py-3 border-b border-slate-800/90 flex items-center justify-between relative z-10">

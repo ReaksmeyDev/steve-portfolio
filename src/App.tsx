@@ -11,10 +11,21 @@ import { Terminal } from './components/Terminal';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
-const SectionBridge: React.FC = React.memo(() => (
-  <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 pointer-events-none" aria-hidden="true">
-    <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent relative">
-      <div className="absolute left-1/2 -translate-x-1/2 -top-[2px] w-1.5 h-1.5 rounded-full bg-cyan-400/50 shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
+interface SectionBridgeProps {
+  label?: string;
+}
+
+const SectionBridge: React.FC<SectionBridgeProps> = React.memo(({ label }) => (
+  <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 pointer-events-none my-3 sm:my-5" aria-hidden="true">
+    <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/25 to-transparent relative flex items-center justify-center">
+      {label ? (
+        <div className="section-bridge-badge px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase text-slate-400 flex items-center gap-1.5 shadow-[0_0_12px_rgba(34,211,238,0.12)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span>{label}</span>
+        </div>
+      ) : (
+        <div className="section-bridge-node w-2 h-2 rounded-[2px] bg-[#05070e] border border-cyan-400/60 shadow-[0_0_8px_rgba(34,211,238,0.4)] rotate-45" />
+      )}
     </div>
   </div>
 ));
@@ -59,6 +70,13 @@ export const App: React.FC = () => {
       <div id="nav-sentinel" className="absolute top-[16px] left-0 w-px h-px pointer-events-none opacity-0" aria-hidden="true" />
       <div id="scroll-sentinel" className="absolute top-[450px] left-0 w-px h-px pointer-events-none opacity-0" aria-hidden="true" />
 
+      {/* Top Ambient Spotlight Cone (Linear / Vercel Key Light) */}
+      <div className="top-spotlight-cone" aria-hidden="true" />
+
+      {/* Precision Geometric Grid Square Background System */}
+      <div className="grid-square-background" aria-hidden="true" />
+      <div className="grid-square-major" aria-hidden="true" />
+
       {/* Starfield Background (CSS-only, GPU-accelerated) */}
       <div className="starfield" aria-hidden="true">
         <div className="starfield-layer starfield-layer-1" />
@@ -74,27 +92,28 @@ export const App: React.FC = () => {
       {/* Main Content Flow */}
       <div className="relative z-10">
         <Navbar />
+        <div className="cyber-horizon-beam" aria-hidden="true" />
         <main>
           <Hero />
-          <SectionBridge />
+          <SectionBridge label="01 // About" />
 
           <About />
-          <SectionBridge />
+          <SectionBridge label="02 // Skills" />
 
           <Skills />
-          <SectionBridge />
+          <SectionBridge label="03 // Projects" />
 
           <Projects />
-          <SectionBridge />
+          <SectionBridge label="04 // Experience" />
 
           <Experience />
-          <SectionBridge />
+          <SectionBridge label="05 // Services" />
 
           <Services />
-          <SectionBridge />
+          <SectionBridge label="06 // Terminal" />
 
           <Terminal />
-          <SectionBridge />
+          <SectionBridge label="07 // Contact" />
 
           <Contact />
         </main>
