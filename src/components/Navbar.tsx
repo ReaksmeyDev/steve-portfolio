@@ -63,27 +63,41 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScrollProgress);
   }, []);
 
-  // 3. High-performance IntersectionObserver for active section highlighting
+  // 3. High-performance IntersectionObserver for active section highlighting (Batched via RAF)
   useEffect(() => {
+    let ticking = false;
+    let pendingTarget: string | null = null;
+
     const observerCallback: IntersectionObserverCallback = (entries) => {
-      const visibleEntries = entries.filter((e) => e.isIntersecting);
-      if (visibleEntries.length > 0) {
-        visibleEntries.sort(
-          (a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top)
-        );
-        const targetId = visibleEntries[0].target.id;
-        if (targetId === 'hero') {
-          setActiveSection('');
-        } else {
-          setActiveSection((prev) => (prev !== targetId ? targetId : prev));
+      // Find the entry with the highest intersection ratio
+      let bestEntry: IntersectionObserverEntry | null = null;
+      for (const entry of entries) {
+        if (entry.isIntersecting && (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio)) {
+          bestEntry = entry;
+        }
+      }
+
+      if (bestEntry) {
+        const targetId = bestEntry.target.id === 'hero' ? '' : bestEntry.target.id;
+        if (targetId !== pendingTarget) {
+          pendingTarget = targetId;
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              if (pendingTarget !== null) {
+                setActiveSection((prev) => (prev !== pendingTarget ? pendingTarget : prev));
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
         }
       }
     };
 
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
-      rootMargin: '-15% 0px -40% 0px',
-      threshold: [0, 0.2, 0.5],
+      rootMargin: '-20% 0px -40% 0px',
+      threshold: 0.15,
     });
 
     ['hero', ...NAV_LINKS.map((l) => l.id)].forEach((id) => {

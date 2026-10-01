@@ -54,7 +54,7 @@ const BackToTopButton: React.FC = React.memo(() => {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-6 right-6 z-40 p-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/50 shadow-2xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-cyan-400"
+      className="fixed bottom-6 right-6 z-40 p-2.5 rounded-none bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/50 shadow-2xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-cyan-400"
       aria-label="Back to top"
       title="Back to top"
     >
@@ -77,17 +77,15 @@ export const App: React.FC = () => {
       <div className="grid-square-background" aria-hidden="true" />
       <div className="grid-square-major" aria-hidden="true" />
 
-      {/* Starfield Background (CSS-only, GPU-accelerated) */}
+      {/* Starfield Background (CSS-only, GPU-accelerated single layer) */}
       <div className="starfield" aria-hidden="true">
         <div className="starfield-layer starfield-layer-1" />
-        <div className="starfield-layer starfield-layer-2" />
-        <div className="starfield-layer starfield-layer-3" />
       </div>
 
-      {/* Ambient Gradient Orbs (Pure Cyan Vibe, GPU Isolated) */}
-      <div className="ambient-orb w-[400px] h-[400px] bg-cyan-500/[0.045] top-[10%] left-[-5%] animate-blob z-0" aria-hidden="true" />
-      <div className="ambient-orb w-[360px] h-[360px] bg-cyan-400/[0.035] top-[40%] right-[-5%] animate-blob-slow z-0" aria-hidden="true" />
-      <div className="ambient-orb w-[320px] h-[320px] bg-cyan-600/[0.04] bottom-[15%] left-[15%] animate-blob-reverse z-0" aria-hidden="true" />
+      {/* Ambient Gradient Orbs (Zero-recomposite static radial lighting) */}
+      <div className="ambient-orb w-[400px] h-[400px] bg-cyan-500/[0.04] top-[10%] left-[-5%] z-0" aria-hidden="true" />
+      <div className="ambient-orb w-[360px] h-[360px] bg-cyan-400/[0.03] top-[40%] right-[-5%] z-0" aria-hidden="true" />
+      <div className="ambient-orb w-[320px] h-[320px] bg-cyan-600/[0.035] bottom-[15%] left-[15%] z-0" aria-hidden="true" />
 
       {/* Main Content Flow */}
       <div className="relative z-10">

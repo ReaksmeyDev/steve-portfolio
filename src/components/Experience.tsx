@@ -36,9 +36,7 @@ export const Experience: React.FC = React.memo(() => {
           />
 
           <div className="space-y-12">
-            {EXPERIENCE_DATA.map((item, index) => {
-              // const formattedIndex = String(index + 1).padStart(2, '0');
-
+            {EXPERIENCE_DATA.map((item) => {
               return (
                 <div key={item.id} className="relative group">
                   {/* Milestone Node on the Spine (Zero Radius Square) */}
@@ -69,8 +67,6 @@ export const Experience: React.FC = React.memo(() => {
                       <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-none bg-cyan-950/40 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-semibold self-start sm:self-auto shadow-sm">
                         <Calendar className="w-3.5 h-3.5 text-cyan-400" />
                         <span>{item.period}</span>
-                        {/* <span className="w-1.5 h-1.5 rounded-none bg-emerald-400 animate-pulse ml-1" />
-                        <span className="text-[10px] text-emerald-400 uppercase font-bold tracking-wider">ACTIVE</span> */}
                       </div>
                     </div>
 
@@ -99,10 +95,6 @@ export const Experience: React.FC = React.memo(() => {
 
                     {/* Key Contributions & System Deliverables */}
                     <div className="pt-8 border-t border-slate-200/80 dark:border-slate-800/80">
-                      {/* <span className="text-xs font-mono font-bold tracking-wider text-cyan-600 dark:text-cyan-400 uppercase block mb-5">
-                        // KEY CONTRIBUTIONS & SYSTEM DELIVERABLES
-                      </span> */}
-
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-3.5">
                         {item.responsibilities.map((resp, idx) => (
                           <div
