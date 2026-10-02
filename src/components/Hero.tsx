@@ -195,8 +195,8 @@ export const Hero: React.FC = () => {
     const rawCode = activeTab === 'developer'
       ? `const steve = {\n  name: 'Steve',\n  title: 'Full-Stack & Mobile Developer',\n  location: 'Phnom Penh, Cambodia',\n  stack: ['React', 'Flutter', 'Laravel', 'Node.js']\n};`
       : activeTab === 'stack'
-      ? `export const primaryStack = {\n  mobile: ['Flutter', 'Dart'],\n  frontend: ['React.js', 'TypeScript'],\n  backend: ['Laravel', 'Node.js']\n};`
-      : `class SystemArchitecture {\n  principles = ['High Performance', 'Security by Design'];\n}`;
+        ? `export const primaryStack = {\n  mobile: ['Flutter', 'Dart'],\n  frontend: ['React.js', 'TypeScript'],\n  backend: ['Laravel', 'Node.js']\n};`
+        : `class SystemArchitecture {\n  principles = ['High Performance', 'Security by Design'];\n}`;
 
     navigator.clipboard.writeText(rawCode);
     setCopied(true);
@@ -217,9 +217,9 @@ export const Hero: React.FC = () => {
         {/* Left Column: Hero Intro */}
         <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
           {/* Status Indicator (Editorial Minimalist) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>Software Developer &bull; Available for Projects</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300">
+            {/* <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" /> */}
+            <span>Software Developer &bull; Available for Freelance Projects</span>
           </div>
 
           {/* Heading */}
@@ -301,11 +301,10 @@ export const Hero: React.FC = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] font-mono transition-all duration-150 flex items-center gap-1.5 shrink-0 ${
-                      activeTab === tab
+                    className={`px-2 sm:px-2.5 py-1 rounded-md text-[11px] font-mono transition-all duration-150 flex items-center gap-1.5 shrink-0 ${activeTab === tab
                         ? 'bg-slate-800/80 text-cyan-300 font-semibold'
                         : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-                    }`}
+                      }`}
                   >
                     <Code2 className="w-3 h-3" />
                     <span>{SNIPPETS[tab].filename}</span>
