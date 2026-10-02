@@ -308,16 +308,16 @@ export const Terminal: React.FC = React.memo(() => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-left mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Interactive CLI</span>
-          </div>
+          </div> */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Developer <span className="gradient-text-animated">Terminal</span>
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2">
+          {/* <p className="text-slate-400 text-sm sm:text-base mt-2">
             Click any quick action or type directly into the terminal to query live developer details. Press Tab to autocomplete, ↑/↓ for history.
-          </p>
+          </p> */}
         </div>
 
         {/* Quick Action Interactive Pills */}
