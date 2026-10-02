@@ -27,7 +27,7 @@ export const Footer: React.FC = React.memo(() => {
             STEVE<span className="text-cyan-400 font-bold">.dev</span>
           </a>
           <p className="text-[11px] sm:text-xs text-slate-500 font-mono mt-0.5">
-            Full-Stack & Mobile Developer &bull; Phnom Penh
+            Full-Stack & Mobile Developer &bull;
           </p>
         </div>
 
