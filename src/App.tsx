@@ -118,25 +118,25 @@ export const App: React.FC = () => {
         <div className="cyber-horizon-beam" aria-hidden="true" />
         <main>
           <Hero />
-          <SectionBridge label="01 // About" />
+          {/* <SectionBridge label="01 // About" /> */}
 
           <About />
-          <SectionBridge label="02 // Skills" />
+          {/* <SectionBridge label="02 // Skills" /> */}
 
           <Skills />
-          <SectionBridge label="03 // Projects" />
+          {/* <SectionBridge label="03 // Projects" /> */}
 
           <Projects />
-          <SectionBridge label="04 // Experience" />
+          {/* <SectionBridge label="04 // Experience" /> */}
 
           <Experience />
-          <SectionBridge label="05 // Services" />
+          {/* <SectionBridge label="05 // Services" /> */}
 
           <Services />
-          <SectionBridge label="06 // Terminal" />
+          {/* <SectionBridge label="06 // Terminal" /> */}
 
           <Terminal />
-          <SectionBridge label="07 // Contact" />
+          {/* <SectionBridge label="07 // Contact" /> */}
 
           <Contact />
         </main>

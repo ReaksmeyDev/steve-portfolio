@@ -12,6 +12,7 @@ export interface Project {
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
+  isPrivate?: boolean;
 }
 
 export interface ExperienceItem {

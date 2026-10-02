@@ -80,7 +80,7 @@ export const About: React.FC = React.memo(() => {
                   </div>
                   <div>
                     <span className="text-slate-500 block text-[10px] uppercase tracking-wider">Location</span>
-                    <span className="text-slate-200 font-sans text-sm font-medium">Phnom Penh, Cambodia (GMT+7)</span>
+                    <span className="text-slate-200 font-sans text-sm font-medium">Phnom Penh, Cambodia</span>
                   </div>
                 </div>
 

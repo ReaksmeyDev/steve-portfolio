@@ -27,7 +27,8 @@ export const PROJECTS_DATA: Project[] = [
     description: 'A comprehensive operational system designed for managing academic records, student enrollments, course schedules, attendance workflows, and administrative reporting.',
     technologies: ['Laravel', 'MySQL', 'React.js', 'Tailwind CSS'],
     githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com'
+    liveUrl: 'https://example.com',
+    isPrivate: true
   },
   {
     id: 'rules-search',
@@ -36,7 +37,8 @@ export const PROJECTS_DATA: Project[] = [
     description: 'A mobile application engineered to search, index, and browse regulatory, policy, and legal documents with multi-keyword query execution and offline capabilities.',
     technologies: ['Flutter', 'Dart', 'Laravel', 'MySQL', 'REST API'],
     githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com'
+    liveUrl: 'https://example.com',
+    isPrivate: true
   },
   {
     id: 'ocr-engine',
@@ -44,7 +46,8 @@ export const PROJECTS_DATA: Project[] = [
     category: 'Backend',
     description: 'A backend processing pipeline that ingests multi-page PDF documents, extracts text using cloud OCR, structures unstructured content, and pushes it to search indices.',
     technologies: ['Laravel', 'PHP', 'MySQL', 'Google Cloud Vision', 'Queue System'],
-    githubUrl: 'https://github.com'
+    githubUrl: 'https://github.com',
+    isPrivate: true
   },
   {
     id: 'documents-management-system',
@@ -53,7 +56,8 @@ export const PROJECTS_DATA: Project[] = [
     description: 'A comprehensive document management system designed for storing, organizing, and retrieving documents. It provides a centralized platform for managing documents with advanced search. ',
     technologies: ['Laravel', 'MySQL'],
     githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com'
+    liveUrl: 'https://example.com',
+    isPrivate: true
   }
 ];
 
