@@ -11,7 +11,7 @@ export const About: React.FC = React.memo(() => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-left mb-8 sm:mb-12">
-          <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-2">// Philosophy & Craft</span>
+          {/* <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-2">// Philosophy & Craft</span> */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Building software that <span className="gradient-text-animated">solves real problems</span>.
           </h2>
@@ -67,10 +67,10 @@ export const About: React.FC = React.memo(() => {
                   <h3 className="text-base font-bold text-white font-sans">Developer Profile</h3>
                   <p className="text-xs text-slate-400 font-mono">Steve &bull; Full-Stack & Mobile</p>
                 </div>
-                <div className="flex items-center gap-1.5 text-cyan-400 text-xs font-mono">
+                {/* <div className="flex items-center gap-1.5 text-cyan-400 text-xs font-mono">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   <span>Active</span>
-                </div>
+                </div> */}
               </div>
 
               <div className="space-y-4 text-xs font-mono">
