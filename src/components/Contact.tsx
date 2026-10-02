@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check, Loader2, ArrowUpRight } from 'lucide-react';
+import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check, Loader2, ArrowUpRight, AlertCircle, ExternalLink } from 'lucide-react';
 
 export const Contact: React.FC = React.memo(() => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<'email' | 'telegram' | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
@@ -15,16 +16,56 @@ export const Contact: React.FC = React.memo(() => {
     }, 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    setErrorMessage(null);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim();
+
+    if (!accessKey) {
       setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-    }, 600);
+      setErrorMessage(
+        'Web3Forms access key is not set. Please add VITE_WEB3FORMS_ACCESS_KEY in your .env file, or send directly via email below.'
+      );
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          subject: `Portfolio Inquiry from ${formData.name.trim()}`,
+          from_name: formData.name.trim(),
+          replyto: formData.email.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setErrorMessage(
+          data.message || 'Failed to send message. Please verify your access key or send directly via email.'
+        );
+      }
+    } catch {
+      setErrorMessage('Network error occurred while sending. Please check your connection or send directly via email.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -134,9 +175,9 @@ export const Contact: React.FC = React.memo(() => {
                     <CheckCircle2 className="w-12 sm:w-14 h-12 sm:h-14 text-cyan-400 relative z-10" />
                     <div className="absolute inset-0 w-12 sm:w-14 h-12 sm:h-14 bg-cyan-400/20 rounded-full animate-ping" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white font-sans">Message Sent Successfully!</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white font-sans">Message Delivered!</h3>
                   <p className="text-sm text-slate-400 max-w-sm mx-auto leading-relaxed">
-                    Thank you for reaching out. I have received your message and will get back to you shortly.
+                    Thank you for reaching out. Your message has been routed directly to <strong className="text-cyan-300">steve.code.dev@gmail.com</strong>. I will get back to you shortly!
                   </p>
                   <div className="pt-2">
                     <button
@@ -151,6 +192,40 @@ export const Contact: React.FC = React.memo(() => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 text-left font-mono text-xs">
+                  {/* Honeypot spam filter for automated bots */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    className="hidden"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
+                  {/* Error banner with email fallback */}
+                  {errorMessage && (
+                    <div className="p-4 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-200 space-y-2.5">
+                      <div className="flex items-start gap-2.5">
+                        <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                        <span className="text-xs leading-relaxed">{errorMessage}</span>
+                      </div>
+                      <div className="pt-1">
+                        <a
+                          href={`mailto:steve.code.dev@gmail.com?subject=${encodeURIComponent(
+                            `Portfolio Inquiry from ${formData.name || 'Visitor'}`
+                          )}&body=${encodeURIComponent(
+                            `Hi Steve,\n\n${formData.message}\n\n---\nFrom: ${formData.name}\nContact: ${formData.email}`
+                          )}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-900/50 hover:bg-rose-900/80 border border-rose-500/40 text-[11px] text-rose-100 hover:text-white transition-colors"
+                        >
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>Open in Email App Instead</span>
+                          <ExternalLink className="w-3 h-3 text-rose-300" />
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <label htmlFor="contact-name" className="block text-slate-400 mb-1.5 text-[11px] uppercase tracking-wider">
                       Name or Organization
@@ -204,7 +279,7 @@ export const Contact: React.FC = React.memo(() => {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
-                        <span>Sending Message...</span>
+                        <span>Sending to Gmail...</span>
                       </>
                     ) : (
                       <>
